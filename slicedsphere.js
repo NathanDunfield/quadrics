@@ -9,8 +9,8 @@ var container, scene, camera, renderer, controls;
 
 var parameters;
 var gui;
-var sphere;
-var edges;
+var xplane, yplane, zplane;
+
 
 init();
 animate();
@@ -18,10 +18,11 @@ animate();
 function init()
 {
     gui = new dat.GUI();
-    parameters = {radius:2.0};
-    gui.add(parameters, 'radius', 1, 3, 0.1).onChange(updateSphere);
-    
     scene = new THREE.Scene();
+    parameters = {x:1.0, y:2.0, z:1.0};
+    gui.add(parameters, 'x', -2.0, 2.0, 0.1).onChange(updatePlanes);
+    gui.add(parameters, 'y', -2.0, 2.0, 0.1).onChange(updatePlanes);
+    gui.add(parameters, 'z', -2.0, 2.0, 0.1).onChange(updatePlanes);
 
     // setup camera
     var SCREEN_WIDTH = 800, SCREEN_HEIGHT = 600;
@@ -58,6 +59,7 @@ function init()
     var ticks = [-2, 0, 2];
     scene.add(axes(3, ticks, 3, ticks, 3, ticks, 0.2, 0.4, 0.8));
     drawSphere();
+    drawPlanes();
 }
 
 function animate() 
@@ -72,26 +74,62 @@ function render()
     renderer.render( scene, camera );
 }
 
-function updateSphere()
-{
-    scene.remove(sphere);
-    scene.remove(edges);
-    drawSphere();
-}
 
 function drawSphere()
 {
-    
     // Sphere parameters: radius, segments along width, segments along height
-    var geometry = new THREE.SphereGeometry( parameters.radius, 32, 16 );
+    var geometry = new THREE.SphereGeometry(2, 16, 12);
     geometry.rotateX(Math.PI/2);
     // use a "lambert" material rather than "basic" for realistic lighting.
     var material = new THREE.MeshLambertMaterial({color: 0x8888ff});
     sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(0, 0, 0);
-    scene.add(sphere);
-    edges = new THREE.EdgesHelper(sphere, "black");
-    edges.material.linewidth=1.5;
+    // scene.add(sphere);
+    edges = new THREE.EdgesHelper(sphere, 0x888888);
+    edges.material.linewidth=2;
     scene.add(edges);
+}
+
+function updatePlanes()
+{
+    //scene.remove(xplane);
+    //scene.remove(yplane);
+    scene.remove(zplane);
+    drawPlanes();
+}
+
+function circleGeometry(radius, numsegs)
+{
+    var geometry = new THREE.Geometry();
+    var t, v, dt;
+    t = 0.0;
+    dt = 2*Math.PI/numsegs;
+    for(var k=0; k < numsegs; k++){
+	t = t + dt;
+	v = new THREE.Vector3(radius*Math.cos(t), radius*Math.sin(t), 0)
+	geometry.vertices.push(v);
+    }
+    return geometry;
+}
+
+function drawPlanes()
+{
+    z = parameters.z;
+    zplane = new THREE.Group();
+    var geometry = new THREE.PlaneGeometry(6, 6);
+    var material = new THREE.MeshLambertMaterial({color:0x999999, transparent:true, opacity:0.2});
+    var plane = new THREE.Mesh(geometry, material);
+    plane.position.z += z;
+    var edges = new THREE.EdgesHelper(plane, "black");
+    edges.material.linewidth = 2;
+    zplane.add(plane);
+    zplane.add(edges);
+
+    var geometry = circleGeometry(Math.sqrt(4 - z*z), 40);
+    var material = new THREE.LineBasicMaterial({color:"black", linewidth:4});
+    var circle = new THREE.Line(geometry, material);
+    circle.position.z += z;
+    zplane.add(circle)
+    scene.add(zplane);    
 }
 

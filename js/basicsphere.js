@@ -17,9 +17,10 @@ animate();
 
 function init()
 {
-    gui = new dat.GUI();
+    gui = new dat.GUI({autoPlace:false});
     parameters = {radius:2.0};
     gui.add(parameters, 'radius', 1, 3, 0.1).onChange(updateSphere);
+    document.getElementById('basicspherecontrols').appendChild(gui.domElement);
     
     scene = new THREE.Scene();
 
@@ -37,7 +38,6 @@ function init()
     renderer.setClearColor(0xffffff);
     
     container = document.getElementById( 'basicsphere' );
-    container.appendChild(gui.domElement);
     container.appendChild(renderer.domElement);
 
 

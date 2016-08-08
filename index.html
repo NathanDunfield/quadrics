@@ -14,6 +14,11 @@
 <script type="text/javascript" async
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
+<script src="js/lib/three.min.js"></script>
+<script src="js/lib/dat.gui.min.js"></script>
+<script src="js/lib/Detector.js"></script>
+<script src="js/lib/OrbitControls.js"></script>
+<script src="js/axes.js"></script>
 </head>
 <body>
 
@@ -83,35 +88,14 @@ shows you the various cross sections of the sphere. Click and
 drag the blue dots to adjust the chosen values for \(x\), \(y\), and \(z\).
 You can also rotate the pictures and zoom in or out.</p>
 
+
+
 <center>
 <table>
 <tr>
 <td align="center">
-<APPLET 
-  ARCHIVE="live.jar" 
-  CODE="Live.class" 
-  WIDTH="350" HEIGHT="350">
-<PARAM NAME="MAGNIFICATION" VALUE="1.3">
-<PARAM NAME="INDEPENDENT_VARIABLES" VALUE="{x -> 1}">
-<PARAM NAME="DEPENDENT_VARIABLES"
-  VALUE="{x -> If[ x < 0, 0, If[ x > 3, 3, x]], r -> x}">
-<PARAM NAME="INPUT_ARCHIVE" VALUE="exampleData.zip">
-<PARAM NAME="INPUT_FILE" VALUE="sphere.m">
-</APPLET></td>
-<td align="center"><APPLET 
-  ARCHIVE="live.jar" 
-  CODE="Live.class" 
-  WIDTH="350" HEIGHT="350">
-<PARAM NAME="MAGNIFICATION" VALUE="1.4">
-<PARAM NAME="INDEPENDENT_VARIABLES" VALUE="{x -> 0, y -> 0, z -> 0}">
-<PARAM NAME="DEPENDENT_VARIABLES"
-  VALUE="{x -> If[ x < -2, -2, If[ x > 2, 2, x]], a -> x,
-  	  y -> If[ y < -2, -2, If[ y > 2, 2, y]], b -> y,
-	  z -> If[ z < -2, -2, If[ z > 2, 2, z]], c -> z,
-	  rx -> Sqrt[4-x^2], ry -> Sqrt[4-y^2], rz -> Sqrt[4-z^2]}">
-<PARAM NAME="INPUT_ARCHIVE" VALUE="exampleData.zip">
-<PARAM NAME="INPUT_FILE" VALUE="sphereCS.m">
-</APPLET>
+<div id="basicsphere" style="z-index: 1; position: relative; left:0px; top:0px"></div>
+<div id="basicspherecontrols" style="z-index: 1; position: relative; left:0px; top:0px"></div>
 </td>
 </tr>
 <tr>
@@ -187,6 +171,9 @@ you can tell that it affects both graphs in the same way.  </p>
   Commons Attribution-NonCommercial-ShareAlike License.</a> </p>
 
 </div>
+
+
+<script src="js/basicsphere.js"></script>
 </body>
 </html>
   

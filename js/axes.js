@@ -25,8 +25,8 @@ function axes(xmax, xticks, ymax, yticks, zmax, zticks, tickLen, tickLabelSep, a
     ans.add(yaxis);
 
     var zaxis = oneAxis(zmax, "z", zticks, tickLen, tickLabelSep, axisLabelSep);
-    zaxis.rotateY(Math.PI/2);
-    zaxis.rotateX(5*Math.PI/4);
+    zaxis.rotateY(-Math.PI/2);
+    zaxis.rotateX(3*Math.PI/4);
     zaxis.position.x += -3;
     zaxis.position.y += -3;
     ans.add(zaxis);

@@ -10,19 +10,17 @@ var container, scene, camera, renderer, controls;
 var parameters;
 var gui;
 var xplane, yplane, zplane;
-
+var zslice;
 
 init();
 animate();
 
 function init()
 {
-    gui = new dat.GUI();
+    gui = new dat.GUI({autoPlace:false});
     scene = new THREE.Scene();
     parameters = {x:1.0, y:2.0, z:1.0};
-    gui.add(parameters, 'x', -2.0, 2.0, 0.1).onChange(updatePlanes);
-    gui.add(parameters, 'y', -2.0, 2.0, 0.1).onChange(updatePlanes);
-    gui.add(parameters, 'z', -2.0, 2.0, 0.1).onChange(updatePlanes);
+  
 
     // setup camera
     var SCREEN_WIDTH = 800, SCREEN_HEIGHT = 600;
@@ -58,8 +56,23 @@ function init()
 
     var ticks = [-2, 0, 2];
     scene.add(axes(3, ticks, 3, ticks, 3, ticks, 0.2, 0.4, 0.8));
+
+    xslice = new Slice("x", 1, 3, 3, "red");
+    yslice = new Slice("y", 1, 3, 3, "cyan");
+    zslice = new Slice("z", 1, 3, 3, "black");
+    
+    parameters = {"x":1.0, "y":1.0, "z":1.0};
+    var xcontroller = gui.add(parameters, "x", -3.0, 3.0, 0.1);
+    var ycontroller = gui.add(parameters, "y", -3.0, 3.0, 0.1);
+    var zcontroller = gui.add(parameters, "z", -3.0, 3.0, 0.1);
+    addCallbacks(xslice, xcontroller);
+    addCallbacks(yslice, ycontroller);
+    addCallbacks(zslice, zcontroller);
+
     drawSphere();
-    drawPlanes();
+    xslice.drawSlice();
+    yslice.drawSlice();
+    zslice.drawSlice();
 }
 
 function animate() 
@@ -90,21 +103,13 @@ function drawSphere()
     scene.add(edges);
 }
 
-function updatePlanes()
-{
-    //scene.remove(xplane);
-    //scene.remove(yplane);
-    scene.remove(zplane);
-    drawPlanes();
-}
-
 function circleGeometry(radius, numsegs)
 {
     var geometry = new THREE.Geometry();
     var t, v, dt;
     t = 0.0;
     dt = 2*Math.PI/numsegs;
-    for(var k=0; k < numsegs; k++){
+    for(var k=0; k <= numsegs; k++){
 	t = t + dt;
 	v = new THREE.Vector3(radius*Math.cos(t), radius*Math.sin(t), 0)
 	geometry.vertices.push(v);
@@ -112,24 +117,86 @@ function circleGeometry(radius, numsegs)
     return geometry;
 }
 
-function drawPlanes()
-{
-    z = parameters.z;
-    zplane = new THREE.Group();
-    var geometry = new THREE.PlaneGeometry(6, 6);
-    var material = new THREE.MeshLambertMaterial({color:0x999999, transparent:true, opacity:0.2});
-    var plane = new THREE.Mesh(geometry, material);
-    plane.position.z += z;
-    var edges = new THREE.EdgesHelper(plane, "black");
-    edges.material.linewidth = 2;
-    zplane.add(plane);
-    zplane.add(edges);
 
-    var geometry = circleGeometry(Math.sqrt(4 - z*z), 40);
-    var material = new THREE.LineBasicMaterial({color:"black", linewidth:4});
-    var circle = new THREE.Line(geometry, material);
-    circle.position.z += z;
-    zplane.add(circle)
-    scene.add(zplane);    
+/*
+A slice is the intersection of the quadric surface with a plane
+orthogonal to a coordinate axis.  For example, 
+
+    Slice("z", 1, 2, 3)
+
+is the intersection with the plane z = 1.  When the plane itself is
+drawn, it will have -2 <= x <= 2 and -3 <= y <= 3.  
+*/
+function Slice(axis, c,  a, b, color){
+    this.axis = axis;
+    this.c = c;
+    this.a = a;
+    this.b = b;
+    this.color = color;
+
+    this.placeGroup = function(group){
+	if(this.axis == "z"){
+	    group.position.z += this.c;
+	}
+	if(this.axis == "x"){
+	    group.rotateY(Math.PI/2);
+	    group.position.x += this.c;
+	}
+	if(this.axis == "y"){
+	    group.rotateX(-Math.PI/2);
+	    group.position.y += this.c;
+	}
+    }
+    
+    this.drawPlane = function()
+    {
+	this.plane = new THREE.Group();
+	var geometry = new THREE.PlaneGeometry(2*this.a, 2*this.b);
+	var material = new THREE.MeshLambertMaterial({color:this.color, transparent:true, opacity:0.2});
+	var plane = new THREE.Mesh(geometry, material);
+	this.placeGroup(plane);
+	var edges = new THREE.EdgesHelper(plane, this.color);
+	edges.material.linewidth = 2;
+	this.plane.add(plane);
+	this.plane.add(edges);
+	scene.add(this.plane);
+    };
+    
+    this.drawSlice = function()
+    {
+	var geometry = circleGeometry(Math.sqrt(4 - this.c*this.c), 40);
+	var material = new THREE.LineBasicMaterial({color:this.color, linewidth:4});
+	this.slice = new THREE.Line(geometry, material);
+	this.placeGroup(this.slice);
+	scene.add(this.slice);
+    };
+
+    this.updateActive = function()
+    {
+	scene.remove(this.plane);
+	scene.remove(this.slice);
+	this.drawPlane();
+	this.drawSlice();
+    };
+
+    this.updateFinished = function()
+    {
+	scene.remove(this.plane);
+	scene.remove(this.slice);
+	this.drawSlice();
+    };
 }
 
+function addCallbacks(slice, controller)
+{
+    controller.onChange(
+	function(v){
+	    slice.c = v;
+	    slice.updateActive();
+	});
+    controller.onFinishChange(
+	function(v){
+	    slice.c = v;
+	    slice.updateFinished();
+	});
+};

@@ -40,14 +40,50 @@ function init()
     // move mouse and: left   click to rotate, 
     //                 middle click to zoom, 
     //                 right  click to pan
-    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    controls = new THREE.TrackballControls( camera, renderer.domElement );
     //controls.enableZoom = false;
 
     // create a light
-    var light = new THREE.PointLight(0xffffff);
-    light.position.set(5,-5,20);
-    scene.add(light);
-    var ambientLight = new THREE.AmbientLight(0x888888);
+    //var light = new THREE.PointLight(0xffffff);
+    //light.position.set(5,-5,20);
+    //scene.add(light);
+
+    /*
+    var light0 = new THREE.PointLight(0xE87722);
+    light0.position.set(5,-5,20);
+    scene.add(light0);
+
+    var light1 = new THREE.PointLight(0x002058);
+    light1.position.set(-5, -5, 5);
+    scene.add(light1);
+
+    */
+
+
+    var light0 = new THREE.DirectionalLight("white", 0.2);
+    light0.position.set(15, -10, 14);
+    scene.add(light0);
+
+    var light1 = new THREE.PointLight(0x002058, 0.7);
+    light1.position.set(5, -15, 5);
+    scene.add(light1);
+
+    var light2 = new THREE.PointLight(0xE87722, 0.6);
+    light2.position.set(-3, 4, 15);
+    scene.add(light2);
+
+    /*
+
+    var light1 = new THREE.PointLight("green");
+    light1.position.set(15, -10,  20);
+    scene.add(light1);
+
+ 
+
+    */
+    
+    
+    var ambientLight = new THREE.AmbientLight(0xCCCCCC);
     scene.add(ambientLight);
 
     var ticks = [-2, 0, 2];
@@ -81,7 +117,7 @@ function drawSphere()
     var geometry = new THREE.SphereGeometry( parameters.radius, 32, 16 );
     geometry.rotateX(Math.PI/2);
     // use a "lambert" material rather than "basic" for realistic lighting.
-    var material = new THREE.MeshLambertMaterial({color: 0x8888ff});
+    var material = new THREE.MeshLambertMaterial({color:0xEEEEEE });
     sphere = new THREE.Mesh(geometry, material);
     sphere.position.set(0, 0, 0);
     scene.add(sphere);

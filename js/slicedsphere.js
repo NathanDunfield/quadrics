@@ -37,7 +37,7 @@ function init()
     // move mouse and: left   click to rotate, 
     //                 middle click to zoom, 
     //                 right  click to pan
-    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    controls = new THREE.TrackballControls( camera, renderer.domElement );
     //controls.enableZoom = false;
 
     // create a light

@@ -61,6 +61,7 @@ h1 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-weight: bold;
     font-size: 130%;
+    margin: 0;
 }
 
 /* h3 gets used as section headers */
@@ -79,7 +80,7 @@ h2 {
 
 div.threecontainer {
     position: relative;
-    border: solid black 1px;
+    border: solid #aaa 1px;
 }
 
 canvas.threejs {

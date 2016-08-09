@@ -1,7 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
@@ -22,30 +20,26 @@
 </head>
 <body>
 
-<!-- included from menu.html -->
-
-<div id="links">
-	<a href="index.html">Home</a>
-	<a href="ellparab.html">Elliptic<br />Paraboloid
-		<span><img src="static_images/ellparab.png" alt="Picture" border="0" /></span></a>
-	<a href="hypparab.html">Hyperbolic<br />Paraboloid
-		<span><img src="static_images/saddle.png" alt="Picture" border="0" /></span></a>
-	<a href="ellipsoid.html">Ellipsoid
-		<span><img src="static_images/ellipsoid.png" alt="Picture" border="0" /></span></a>
-	<a href="cone.html">Double<br />Cone
-		<span><img src="static_images/cone.png" alt="Picture" border="0" /></span></a>
-	<a href="hyper1.html">Hyperboloid<br />of One Sheet
-		<span><img src="static_images/hyp1sh.png" alt="Picture" border="0" /></span></a>
-	<a href="hyper2.html">Hyperboloid<br />of Two Sheets
-		<span><img src="static_images/hyp2sh.png" alt="Picture" border="0" /></span></a>
-</div>
-
-
-<div id="content">
 <h1>Interactive Gallery of Quadric Surfaces</h1>
-<table><tr>
 
-<td valign="top"> <p>Quadric surfaces are important objects in
+<nav>
+  <ul>
+    <li> <a href="index.html" class="active">Intro<br>&zwnj;</a>
+    <li> <a href="ellparab.html">Elliptic<br>Paraboloid</a>
+    <li> <a href="hypparab.html">Hyperbolic<br>Paraboloid</a>
+    <li> <a href="ellipsoid.html">Ellipsoid<br>&zwnj;</a>
+    <li> <a href="cone.html">Double<br>Cone</a>
+    <li> <a href="hyper1.html">Hyperboloid<br>of One Sheet</a>
+    <li> <a href="hyper2.html">Hyperboloid<br>of Two Sheets </a>
+  </ul>
+</nav>
+
+<section>
+
+ <img src="static_images/hyp1sh.gif" title="" alt="Hyperboloid"
+ style="float: right; min-width: 25%; margin: 1em;">
+  
+ <p>Quadric surfaces are important objects in
 Multivariable Calculus and Vector Analysis classes. We like them
 because they are natural 3D-extensions of the so-called <span
 style="font-style: italic;">conics</span> (ellipses, parabolas, and
@@ -65,54 +59,52 @@ as examples for the rest of your class.</p>
   \end{gather*}
   </p>
 
-<p>Rather than memorize the equations, you should learn how to <a href="cross.html">examine cross sections</a> to figure out what surface a given equation represents.</p>
-</td>
+<p>Rather than memorize the equations, you should learn how to <a
+href="cross.html">examine cross sections</a> to figure out what
+surface a given equation represents.</p>
 
-<td valign="top">
-<img src="static_images/hyp1sh.gif" title=""
- alt="Hyperboloid" align="left" />
-</td>
-
-</tr></table>
-
-<br />
-<br />
-<h3 align="center">Using This Gallery</h3>
+</section>
+  
+<section>
+<h3>Using This Gallery</h3>
+  
 <p>In this gallery you'll find interactive pictures of the quadric
-surfaces.  You can see what the cross sections look like, and also
-see how various coefficients can affect how they look. These
-pictures all include "sliders," like the following two examples.
-The picture on the left shows a sphere with an adjustable radius; click
-and drag the blue dot to change it. The picture on the right
-shows you the various cross sections of the sphere. Click and
-drag the blue dots to adjust the chosen values for \(x\), \(y\), and \(z\).
-You can also rotate the pictures and zoom in or out.</p>
+surfaces.  You can see what the cross sections look like, and also see
+how various coefficients can affect how they look. These pictures all
+include "sliders," like the following two examples.  The first picture
+shows a sphere with an adjustable radius; click and drag the blue
+sliders to change it.  You can rotate the sphere by grabbing and
+dragging, and also zoom the whole picture in and out.  The the second
+picture shows you the various cross sections of the sphere. Click and
+drag the blue sliders to adjust the chosen values for \(x\), \(y\),
+and \(z\).  You can also rotate the pictures and zoom in or out using
+the scroll wheel on your mouse or equivalent motion on your input
+divice.</p>
 
+<div style="overflow: hidden;">
+<div class="threecontainer"  style="width: 25em; height: 25em; float: left;">
+ <canvas class="threejs" id="basicsphere" style="width: 25em; height: 25em;"></canvas>
+<div class="threecontrol" id="basicspherecontrols" ></div>  
+<script src="js/basicsphere.js"></script>
+</div>
 
-
-<center>
-<table>
-<tr>
-<td align="center">
-<div id="basicsphere" style="z-index: 1; position: relative; left:0px; top:0px"></div>
-<div id="basicspherecontrols" style="z-index: 1; position: relative; left:0px; top:0px"></div>
-</td>
-</tr>
-<tr>
-<td colspan="2" align="center">
-<font size="-1"><b>Rotate: Click and Drag<br />
-Zoom: Shift + Click and Drag Up or Down<br />
-Restore Image: Home key<br />
-Click and Drag the Blue Dots to Adjust Values</b></font>
-</td></tr>
-</table>
-
-</center>
+<div class="threecontainer" style="width: 25em; height: 25em; float: left;">
+  <canvas class="threejs" id="slicedsphere" style="width: 25em; height: 25em;"></canvas>
+<div class="threecontrol" id="slicedspherecontrols"></div>
+<script src="js/slicedsphere.js"></script>
+</div>
+</div>
+  
 <p>Once you've gotten the hang of these two demos, you're ready to look at
 the gallery images. Use the menu at upper left portion of this page to
 choose which quadric surface you'd like to see.</p>
 
-<h3 align="center">A Note about Domains</h3>
+</section>
+
+
+<section>
+
+<h3>A Note about Domains</h3>
 
 <p>Sometimes a computer can graph a surface in more than one way.
 Look at the two pictures below; they both show graphs of the function
@@ -120,10 +112,15 @@ Look at the two pictures below; they both show graphs of the function
 it's what most of us would draw by hand.  The picture on the right can
 be useful, though, because the gridlines on the surface show you the
 cross sections \(x=c\) and \(y=c\) of the surface.</p>
+
 <center>
-<img src="static_images/parabcirc.png" border="0" alt="Paraboloid" />
-<img src="static_images/parabsq.png" border="0" alt="Paraboloid" />
+<img src="static_images/parabcirc.png" alt="Paraboloid"
+style="min-width: 20%; margin: 1em">
+
+<img src="static_images/parabsq.png" alt="Paraboloid"
+style="min-width: 20%; margin: 1em">
 </center>
+
 <p>
 In technical terms, the two pictures show graphs of the same function
 but with different domains.  On the left the domain is a <i>disk</i>,
@@ -151,16 +148,20 @@ the quadric surfaces.  On each page you'll be able to adjust the
 coefficients of the equation.  Do this with both domains, and see if
 you can tell that it affects both graphs in the same way.  </p>
 
-<h3 align="center">Technical and Legal Details</h3>
+</section>
+
+<section>
+
+<h3>Technical and Legal Details</h3>
 
 <p>This gallery was written by Jonathan Rogness and first appeared in
-  the <a href="http://www.maa.org/node/115856">2005 volume of Journal of
+  the <a href="http://www.maa.org/node/115856">2005 volume of the Journal of
   Online Mathematics</a>.</p>
 
 <p>In 2016, <a href="http://dunfield.info">Nathan Dunfield</a> redid
   the interactive 3D graphics from scratch using <a
-  href=http://threejs.org>three.js</a> instead of <a
-  href="http://wwwvis.informatik.uni-stuttgart.de/~kraus/LiveGraphics3D/index.html">LiveGraphics3D</a>
+href=http://threejs.org>three.js</a> instead of
+<a href="http://wwwvis.informatik.uni-stuttgart.de/~kraus/LiveGraphics3D/index.html">LiveGraphics3D</a>
   so they work on web browsers that lack Java.  Some updates from <a
   href="http://mathinsight.org/quadric_surfaces">MathInsight.org</a>
   were also incorporated into this version.  </p>
@@ -170,10 +171,10 @@ you can tell that it affects both graphs in the same way.  </p>
   href="http://creativecommons.org/licenses/by-nc-sa/1.0">Creative
   Commons Attribution-NonCommercial-ShareAlike License.</a> </p>
 
-</div>
+</section>
 
 
-<script src="js/basicsphere.js"></script>
+
 </body>
 </html>
   

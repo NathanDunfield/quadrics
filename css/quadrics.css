@@ -1,17 +1,23 @@
-/* Many thanks to css/edge for the ideas used here.  See
- * http://www.meyerweb.com/eric/css/edge/
- */
+/*  Main body  */
 
-body {position: relative;
-      background: white;
-      margin-left: 1.5em;
-      margin-right: 1.5em;
-      padding: 0;
-      font: Verdana, sans-serif;
-     }
+body {
+    position: relative;
+    background: white;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+    padding: 0;
+    font: Verdana, sans-serif;
+}
 
+/* Section */
 
-div.nav ul {
+section {
+    overflow: hidden;  /* Keeps floats inside section */
+}
+
+/* Navigation bar  */
+
+nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -19,12 +25,12 @@ div.nav ul {
     background-color: navy;
 }
 
-div.nav li {
+nav li {
     float: left;
     color: white;
 }
 
-div.nav li a {
+nav li a {
     display: block;
     color: white;
     text-align: center;
@@ -32,49 +38,41 @@ div.nav li a {
     text-decoration: none;
 }
 
-div.nav li a.active {
+nav li a.active {
     background-color: gray;
 }
 
-div.nav li a:hover {
+nav li a:hover {
     background-color: #000;
 }
 
-/* The main pane of the page */
-
-div.content a:link {color: navy;}
-div.content a:visited {color: navy;}
-div.content a:link:hover {color: #777;}
-div.content a:visited:hover {color: #777;}
-div.content em {font-family: serif; white-space: nowrap;}
-
 /* h1 gets used as the title, and that's it */
-h1 { padding: 1.5ex 0 1.5ex 0; text-align: center; 
-background: navy; color: #FFF; letter-spacing: 0em; text-transform: 
-capitalize; font: bold 25px sans-serif; height: 28px; vertical-align: 
-middle; white-space: nowrap;}
+h1 {
+    padding: 1.5ex 0 1.5ex 0;
+    text-align: center; 
+    background: navy;
+    color: #FFF;
+    letter-spacing: 0em;
+    text-transform: capitalize;
+    font: bold 25px sans-serif;
+    height: 28px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
 
 /* h3 gets used as section headers */
-h3 {padding: 1ex 0 1ex 1em; text-align: left; 
-background: navy; color: #FFF; letter-spacing: 0em; text-transform: 
-capitalize; font-weight: bold;  font-family: sans-serif; vertical-align: 
-middle; white-space: nowrap;}
-
-
-/* Here's our little "nice list" */
-div.nicelist { margin: 1em; }
-div.nicelist h4 { border-bottom: 1px solid #000; text-align:left }
-
-/* Gray Box comments */
-div.graybox { background: #eee; border: solid black 1px; 
-	      padding: 5px; margin: 0 1em 1em;}
-p.graybox   { background: #eee; border: solid black 1px; 
-	      padding: 5px; }
-
-/* A nice thin horizontal rule */
-hr.thin { margin-left: 0%; height: 1px; 
-	width: 100%; color: black; border: thin;
-	background-color: black; }
+h3 {
+    padding: 1ex 0 1ex 1em;
+    text-align: left; 
+    background: navy;
+    color: #FFF;
+    letter-spacing: 0em;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-family: sans-serif;
+    vertical-align: middle;
+    white-space: nowrap;
+}
 
 div.threecontainer {
     position: relative;

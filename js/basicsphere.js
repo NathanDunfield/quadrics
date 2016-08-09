@@ -1,11 +1,7 @@
-// Basic sphere, can change the radius and rotate.  
+/* Wrapped in an anonymous function call so all variables are local to this file. */
+(function () {
 
-// Key example: http://threejs.org/docs/scenes/geometry-browser.html
-
-// standard globals
-var container, scene, camera, renderer, controls;
-
-// custom globals
+var canvas, scene, camera, renderer, controls;
 
 var parameters;
 var gui;
@@ -17,6 +13,7 @@ animate();
 
 function init()
 {
+    canvas = document.getElementById( 'basicsphere' );
     gui = new dat.GUI({autoPlace:false});
     parameters = {radius:2.0};
     gui.add(parameters, 'radius', 1, 3, 0.1).onChange(updateSphere);
@@ -25,7 +22,8 @@ function init()
     scene = new THREE.Scene();
 
     // setup camera
-    var SCREEN_WIDTH = 800, SCREEN_HEIGHT = 600;
+    var SCREEN_WIDTH = canvas.clientWidth;
+    var SCREEN_HEIGHT = canvas.clientHeight;
     var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
     camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 
@@ -33,12 +31,9 @@ function init()
     camera.position.set(0, -10, 10);
     camera.lookAt(scene.position);
 
-    renderer = new THREE.WebGLRenderer( {antialias:true} );
+    renderer = new THREE.WebGLRenderer( {canvas:canvas, antialias:true} );
     renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     renderer.setClearColor(0xffffff);
-    
-    container = document.getElementById( 'basicsphere' );
-    container.appendChild(renderer.domElement);
 
 
 
@@ -95,3 +90,4 @@ function drawSphere()
     scene.add(edges);
 }
 
+}()); // calling anonymous function. 

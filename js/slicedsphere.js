@@ -1,11 +1,7 @@
-// Basic sphere, can change the radius and rotate.  
-
-// Key example: http://threejs.org/docs/scenes/geometry-browser.html
-
-// standard globals
-var container, scene, camera, renderer, controls;
-
-// custom globals
+/* Wrapped in an anonymous function call so all variables are local to this file. */
+(function () {
+    
+var canvas, scene, camera, renderer, controls;
 
 var parameters;
 var gui;
@@ -17,13 +13,16 @@ animate();
 
 function init()
 {
+    canvas = document.getElementById( 'slicedsphere' );
     gui = new dat.GUI({autoPlace:false});
-    scene = new THREE.Scene();
     parameters = {x:1.0, y:2.0, z:1.0};
-  
+    document.getElementById("slicedspherecontrols").appendChild(gui.domElement);
+
+    scene = new THREE.Scene();
 
     // setup camera
-    var SCREEN_WIDTH = 800, SCREEN_HEIGHT = 600;
+    var SCREEN_WIDTH = canvas.clientWidth;
+    var SCREEN_HEIGHT = canvas.clientHeight;
     var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
     camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 
@@ -31,16 +30,10 @@ function init()
     camera.position.set(0, -10, 10);
     camera.lookAt(scene.position);
 
-    renderer = new THREE.WebGLRenderer( {antialias:true} );
+    renderer = new THREE.WebGLRenderer( {canvas:canvas, antialias:true} );
     renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
     renderer.setClearColor(0xffffff);
     
-    container = document.getElementById( 'basicsphere' );
-    container.appendChild(gui.domElement);
-    container.appendChild(renderer.domElement);
-
-
-
     // move mouse and: left   click to rotate, 
     //                 middle click to zoom, 
     //                 right  click to pan
@@ -200,3 +193,5 @@ function addCallbacks(slice, controller)
 	    slice.updateFinished();
 	});
 };
+
+}()); // call anonymous function. 

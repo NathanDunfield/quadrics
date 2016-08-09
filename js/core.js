@@ -147,17 +147,33 @@ function QuadricSlice(scene, axis, c,  a, b, color){
     };
 }
 
-function addCallbacks(slice, controller)
-{
-    controller.onChange(
-	function(v){
-	    slice.c = v;
-	    slice.updateActive();
-	});
-    controller.onFinishChange(
-	function(v){
-	    slice.c = v;
-	    slice.updateFinished();
-	});
-};
 
+
+function quadricSlices(gui, scene, parameters, xbox, ybox, zbox){
+    function addCallbacks(slice, controller)
+    {
+	controller.onChange(
+	    function(v){
+		slice.c = v;
+		slice.updateActive();
+	    });
+	controller.onFinishChange(
+	    function(v){
+		slice.c = v;
+	    slice.updateFinished();
+	    });
+    };
+
+    var xslice = new QuadricSlice(scene, "x", parameters.x, ybox, zbox, 0xE87722);
+    var yslice = new QuadricSlice(scene, "y", parameters.y, xbox, zbox, 0x606EB2);
+    var zslice = new QuadricSlice(scene, "z", parameters.z, xbox, ybox, 0x002058);
+
+    var xcontroller = gui.add(parameters, "x", -xbox, xbox, 0.1);
+    var ycontroller = gui.add(parameters, "y", -ybox, ybox, 0.1);
+    var zcontroller = gui.add(parameters, "z", -zbox, zbox, 0.1);
+    addCallbacks(xslice, xcontroller);
+    addCallbacks(yslice, ycontroller);
+    addCallbacks(zslice, zcontroller);
+
+    return {x:xslice, y:yslice, z:zslice};
+}

@@ -13,27 +13,17 @@
     var ticks = [-2, 0, 2];
     scene.add(axes(3, ticks, 3, ticks, 3, ticks, 0.2, 0.4, 0.8));
 
-    var xslice = new QuadricSlice(scene, "x", 1, 3, 3, 0xE87722);
-    var yslice = new QuadricSlice(scene, "y", 1, 3, 3, 0x606EB2);
-    var zslice = new QuadricSlice(scene, "z", 1, 3, 3, 0x002058);
-    
     parameters = {"x":1.0, "y":1.0, "z":1.0};
-    var xcontroller = gui.add(parameters, "x", -3.0, 3.0, 0.1);
-    var ycontroller = gui.add(parameters, "y", -3.0, 3.0, 0.1);
-    var zcontroller = gui.add(parameters, "z", -3.0, 3.0, 0.1);
-    addCallbacks(xslice, xcontroller);
-    addCallbacks(yslice, ycontroller);
-    addCallbacks(zslice, zcontroller);
+    var slices = quadricSlices(gui, scene, parameters, 3, 3, 3);
 
-    xslice.drawSlice = drawSlice;
-    yslice.drawSlice = drawSlice;
-    zslice.drawSlice = drawSlice;
+    slices.x.drawSlice = drawSlice;
+    slices.y.drawSlice = drawSlice;
+    slices.z.drawSlice = drawSlice;
 
     drawSphere();
-    xslice.drawSlice();
-    yslice.drawSlice();
-    zslice.drawSlice();
-
+    slices.x.drawSlice();
+    slices.y.drawSlice();
+    slices.z.drawSlice();
     animate();
 
 

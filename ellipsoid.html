@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+<title>
+ IGQS: Ellipsoid
+</title>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src="js/lib/three.min.js"></script>
+<script src="js/lib/dat.gui.min.js"></script>
+<script src="js/lib/Detector.js"></script>
+<script src="js/lib/TrackballControls.js"></script>
+<script src="js/axes.js"></script>
+<script src="js/core.js"></script>
+
+<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
+<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+</head>
+
+<body>
+
+<h1>Ellipsoid</h1>
+
+<nav>
+  <ul>
+    <li> <a href="index.html">Intro<br>&zwnj;</a>
+    <li> <a href="ellparab.html">Elliptic<br>Paraboloid</a>
+    <li> <a href="hypparab.html">Hyperbolic<br>Paraboloid</a>
+    <li> <a href="ellipsoid.html" class="active">Ellipsoid<br>&zwnj;</a>
+    <li> <a href="cone.html">Double<br>Cone</a>
+    <li> <a href="hyper1.html">Hyperboloid<br>of One Sheet</a>
+    <li> <a href="hyper2.html">Hyperboloid<br>of Two Sheets </a>
+  </ul>
+</nav>
+
+<section>
+  <p>
+
+  <b>Equation:</b>
+  $$\frac{x^2}{A^2}+\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1$$
+
+
+  <p>Just as an ellipse is a generalization of a circle, an ellipsoid is
+  a generalization of a sphere.  In fact, our planet Earth is not a true
+  sphere; it's an ellipsoid, because it's a little wider than it is
+  tall.</p>
+  
+  <p>As you can verify to the left, all of the cross sections of an
+  ellipsoid are ellipses.  The picture shows an ellipsoid where \(A=3\),
+  \(B=2\), and \(C=1\).  Looking at the graph, this gives you a hint
+  about how the constants affect the surface.  An ellipsoid centered at
+  the origin stretches out \(A\) units in the positive and negative
+  \(x\) direction; \(B\) units in the positive and negative \(y\)
+  direction; and \(C\) units in the positive and negative \(z\)
+  direction.</p>
+  
+  <p>What this means is that an ellipsoid is probably the easiest
+  quadric surface to draw accurately.  (Or, if your drawing skills are
+  like mine, you at least know what it <i>should</i> look like, even if
+  the actual drawing is somewhat lacking!)</p>
+
+  <p>You can interactively adjust the values of \(A\), \(B\), and \(C\)
+  in the second picture.  Notice that you can get everything from a
+  sphere to a nearly flat pancake.  Here are some things which deserve a
+  little thought on your part:</p>
+  
+  <ol> <li>What needs to happen for an ellipsoid to be a sphere?</li>
+
+  <li>The sliders don't actually go all the way to 0.  Make the values
+  as small as you can and zoom in to verify this; you'll find you have a
+  very small sphere.  (Its radius is 0.1, as it happens.)  Why didn't I
+  make the sliders go all the way to 0?</li>
+
+  <li>If you want to see an interesting effect, maximize all of the
+  sliders and zoom in until you're inside the ellipsoid.  You can rotate
+  around and look at the interior of the surface.  (This works best with
+  the gridlines on.)</li>
+  </ol>
+
+</section>
+</body>
+</html>

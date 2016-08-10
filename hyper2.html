@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+<title>
+ IGQS: Hyperboloid of Two Sheets
+</title>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src="js/lib/three.min.js"></script>
+<script src="js/lib/dat.gui.min.js"></script>
+<script src="js/lib/Detector.js"></script>
+<script src="js/lib/TrackballControls.js"></script>
+<script src="js/axes.js"></script>
+<script src="js/core.js"></script>
+
+<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
+<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+</head>
+
+<body>
+
+<h1>Hyperboloid of Two Sheets</h1>
+
+<nav>
+  <ul>
+    <li> <a href="index.html">Intro<br>&zwnj;</a>
+    <li> <a href="ellparab.html">Elliptic<br>Paraboloid</a>
+    <li> <a href="hypparab.html">Hyperbolic<br>Paraboloid</a>
+    <li> <a href="ellipsoid.html">Ellipsoid<br>&zwnj;</a>
+    <li> <a href="cone.html">Double<br>Cone</a>
+    <li> <a href="hyper1.html">Hyperboloid<br>of One Sheet</a>
+    <li> <a href="hyper2.html" class="active">Hyperboloid<br>of Two Sheets </a>
+  </ul>
+</nav>
+
+<section>
+  <p>
+  <b>Equation:</b>
+  $$-\frac{x^2}{A^2}-\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1$$
+
+  The hyperboloid of two sheets looks an awful lot like two
+  (elliptic) paraboloids facing each other.  It's a complicated
+  surface, mainly because it comes in two pieces.  All of its vertical
+  cross sections exist -- and are hyperbolas -- but there's a problem
+  with the horizontal cross sections.</p>
+
+  <p>This is evident in the picture to the left, where you can see the 
+  cross sections of
+
+  $$-x^2 - y^2 + z^2 = 1$$
+
+  The horizontal cross sections are generally ellipses, except that
+  there <i>are</i> no horizontal cross sections when \(z\) is
+  between \(-1\) and \(1\).  To see why this happens, look
+  at the equation above.  Suppose \(z=0\).  Then the left hand
+  side is definitely negative, but the right hand side is definitely
+  positive.  There's no way to fix this, so the cross section simply
+  doesn't exist!</p>
+
+  <p>Here's a hint about telling the two kinds of hyperboloids apart:
+  look at the cross sections \(x=0\), \(y=0\), and
+  \(z=0\).  If they exist, then it's a hyperboloid of one sheet.
+  (Go back to that page and convince yourself that its cross sections
+  all exist.)  If you end up with something negative equal to
+  something positive, then you've got a two-sheeter.
+
+  <p>By now you probably expect that larger values of \(A\),
+  \(B\), and \(C\) make for a much steeper surface, right?
+  Wrong!  It's true that making \(C\) larger will have a dramatic
+  effect on the surface, but use the second picture to find out what
+  happens when you increase \(A\) and \(B\).  Surprised?
+
+  <ol>
+    <li>Go back to the equation and figure out why larger values of
+    \(A\) and \(B\) make the hyperboloid flatter, not
+    steeper.</li>
+
+    <li>Does there always need to be a gap between the two sheets, or
+    could they touch?</li> </ol>
+
+</section>  
+</body>
+</html>

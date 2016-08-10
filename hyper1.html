@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+<title>
+ IGQS: Hyperboloid of One Sheet
+</title>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src="js/lib/three.min.js"></script>
+<script src="js/lib/dat.gui.min.js"></script>
+<script src="js/lib/Detector.js"></script>
+<script src="js/lib/TrackballControls.js"></script>
+<script src="js/axes.js"></script>
+<script src="js/core.js"></script>
+
+<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
+<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+</head>
+
+<body>
+
+<h1>Hyperboloid of One Sheet</h1>
+
+<nav>
+  <ul>
+    <li> <a href="index.html">Intro<br>&zwnj;</a>
+    <li> <a href="ellparab.html">Elliptic<br>Paraboloid</a>
+    <li> <a href="hypparab.html">Hyperbolic<br>Paraboloid</a>
+    <li> <a href="ellipsoid.html">Ellipsoid<br>&zwnj;</a>
+    <li> <a href="cone.html">Double<br>Cone</a>
+    <li> <a href="hyper1.html"  class="active">Hyperboloid<br>of One Sheet</a>
+    <li> <a href="hyper2.html">Hyperboloid<br>of Two Sheets </a>
+  </ul>
+</nav>
+
+<section>
+  <p>
+  <b>Equation:</b>
+
+  $$\frac{x^2}{A^2}+\frac{y^2}{B^2} - \frac{z^2}{C^2} = 1$$
+
+  The hyperboloid of one sheet is possibly the most complicated of
+  all the quadric surfaces.  For one thing, its equation is very
+  similar to that of a hyperboloid of two sheets, which is confusing.
+  (See the section on the two-sheeted hyperboloid for some tips on
+  telling them apart.)  For another, its cross sections are quite
+  complex.</p>
+
+  <p>Having said all that, this is a shape familiar to any fan of the
+  Simpsons, or even anybody who has only seen the beginning of the show.
+  A hyperboloid of one sheet looks an awful lot like a cooling tower at
+  the Springfield Nuclear Power Plant.</p>
+
+  <p>On the left you can see the cross sections of a simple
+  one-sheeted hyperboloid with \(A=B=C=1\).  The horizontal cross
+  sections are ellipses -- circles, even, in this case -- while the
+  vertical cross sections are hyperbolas.  The reason I said they are
+  so complex is that these hyperbolas can open up and down <i>or</i>
+  sideways, depending on what values you choose for \(x\) and
+  \(y\).  Check the example and see for yourself.  Yikes!  If you
+  do these cross sections by hand, you have to check an awful lot of
+  special cases.</p>
+
+  <p>The constants \(A\), \(B\), and \(C\) once again
+  affect how much the hyperboloid stretches in the \(x-\),
+  \(y-\), and \(z\)-directions.  You can see this for
+  yourself in the second picture.  Notice how quickly the hyperboloid
+  grows, particularly in the \(z\)-direction.  When \(C=2\),
+  a relatively small number, the surface already stretches from -8 to
+  +8 on the \(z-\)axis.</p>
+
+  <p>One caveat: the picture only shows a small portion of the
+  hyperboloid, but it continues on forever.  So adjusting the value of
+  \(C\) doesn't really make the surface taller -- it's already
+  "infinitely" tall -- but it certainly does affect the shape and
+  slope of the surface.  If you know something about partial
+  derivatives, you could investigate how quickly \(z\) changes
+  with respect to \(x\) and \(y\) for different values of
+  \(C\).  You could also explore why adjusting \(C\) seems
+  to have a more dramatic effect than changing \(A\) and
+  \(B\).</p>
+
+  <p>Here are a few more points for you to consider.</p>
+
+  <ol> <li>Once again, the sliders don't go all the way to 0.  Why
+    not?  Make all of them as small as possible and zoom in to see the
+    resulting hyperboloid.</li>
+
+    <li>Look at the equation.  What should happen when \(x=A\) or
+    \(x=-A\)?  Check this in the first picture; recall that
+    \(A=1\) there.</li>
+
+    <li>Does there always have to be a "hole" through the hyperboloid,
+    or could the sides touch at the origin?  In other words, could the
+    cross section given by \(z=0\) ever be a point instead of an
+    ellipse?  Experiment with the second picture; be sure to look directly
+    from the top and zoom in before just assuming that the hole is
+    gone.</li>
+  </ol>
+
+</section>
+</div>                                                                    
+</body>
+</html>

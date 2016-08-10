@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+<title>
+ IGQS: Elliptic Paraboloid 
+</title>
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script src="js/lib/three.min.js"></script>
+<script src="js/lib/dat.gui.min.js"></script>
+<script src="js/lib/Detector.js"></script>
+<script src="js/lib/TrackballControls.js"></script>
+<script src="js/axes.js"></script>
+<script src="js/core.js"></script>
+
+<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
+<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+</head>
+
+<body>
+
+<h1>Elliptic Paraboloid</h1>
+
+<nav>
+  <ul>
+    <li> <a href="index.html">Intro<br>&zwnj;</a>
+    <li> <a href="ellparab.html"  class="active">Elliptic<br>Paraboloid</a>
+    <li> <a href="hypparab.html">Hyperbolic<br>Paraboloid</a>
+    <li> <a href="ellipsoid.html">Ellipsoid<br>&zwnj;</a>
+    <li> <a href="cone.html">Double<br>Cone</a>
+    <li> <a href="hyper1.html">Hyperboloid<br>of One Sheet</a>
+    <li> <a href="hyper2.html">Hyperboloid<br>of Two Sheets </a>
+  </ul>
+</nav>
+
+<section>
+  <p>
+
+  <b>Equation:</b>
+  $$z=Ax^2+By^2 \quad \mbox{where $A$ and $B$ have the same sign.}$$
+
+  This is probably the
+  simplest of all the quadric surfaces, and it's often the first one
+  shown in class. It has a distinctive "nose-cone" appearance.</p>
+
+  <p>This surface is called an elliptic paraboloid because the
+  vertical cross sections are all parabolas, while the horizontal
+  cross sections are ellipses.  Occasionally we get sloppy and just
+  refer to it simply as a paraboloid; that wouldn't be a problem,
+  except that it leads to confusion with the <a
+  href="hypparab.html">hyperbolic</a> paraboloid. </p>
+
+  <p>The cross sections on the left are for the simplest possible elliptic paraboloid:
+  $$
+  z = x^2 + y^2
+  $$
+
+
+  <p>One important feature of the vertical cross sections is that the
+  parabolas all open in the same direction.  That isn't true for <a
+  href="hypparab.html">hyperbolic</a> paraboloids! </p>
+
+  <p>Note that in this case, the horizontal cross sections are actually
+  <i>circles</i>, but this isn't always the case.  In fact, whenever
+  <em>A</em> and <em>B</em> are not equal, the paraboloid will be wider
+  in one direction than the other. </p>
+
+  <p>You can use the second picture to investigate how these
+  coefficients affect the shape of the surface.  It shows the
+  paraboloid \(z=Ax^2+By^2\) over the square domain </p>
+  $$
+  \begin{align}
+  -1 \leq x \leq 1  \\
+  -1 \leq y \leq 1 
+  \end{align}
+  $$
+  If you change the domain to a disk, you will see the portion of the
+  paraboloid for which \(0 \leq z \leq 8\).  When you change
+  <em>A</em> and <em>B</em>, the domain will change accordingly. </p>
+
+<p>Here are a few things to think about:</p>
+
+  <ul> <li>What happens if either <em>A</em> or <em>B</em> is 0?  What
+    if they both are?  Should any of these objects be called
+    "elliptic" paraboloids?</li>
+
+    <li>What would happen if the sliders included negative values for <em>A</em> and <em>B</em>?  (Click 
+	<a href="paraboloid.html"
+	onClick="javascript:window.open('paraboloid.html','paraboloid', 
+	'scrollbars=0,location=0, statusbar=1, menubar=1,resizeable=0, width=430,height=450');
+	return false;">
+	here</a> to experiment and see if you're right.)</li>
+      </ul>
+</section>
+</body>
+</html>
+

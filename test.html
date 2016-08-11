@@ -3,14 +3,14 @@
 <head>
 <meta charset=utf-8>
 <title>Test page</title>
-
 <script src="js/lib/three.min.js"></script>
 <script src="js/lib/dat.gui.min.js"></script>
 <script src="js/lib/TrackballControls.js"></script>
+<script src="js/lib/nouislider.min.js"></script>
 <script src="js/axes.js"></script>
 <script src="js/core.js"></script>
 <link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+<link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
 </head>
 <body>
 
@@ -24,17 +24,21 @@ Three.js test
   
 <div class="threecontainer"  style="width: 30em; height: 30em; float: left;">
   <canvas class="threejs" id="basicsphere" style="width: 30em; height: 30em;"></canvas>
-  <div class="threecontrol" id="basicspherecontrols" ></div>  
-  <script src="js/basicsphere.js"></script>
-</div>
+  <div class="threecontrol" id="basicspherecontrols" ></div>
+  </div>
+  </div>
 
+  <div id="radiusslider" style="width: 20em; margin: 1em; display: block;"></div>  
+  <script src="js/basicsphere.js"></script>
+
+<!--
 <div class="threecontainer" style="width: 30em; height: 30em; float: left;">
   <canvas class="threejs" id="slicedsphere" style="width: 30em; height: 30em;"></canvas>
    <div class="threecontrol" id="slicedspherecontrols"></div>
   <script src="js/slicedsphere.js"></script>
   </div>
  </div>
-
+-->
 
 
 

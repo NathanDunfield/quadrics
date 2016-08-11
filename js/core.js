@@ -1,13 +1,10 @@
 /*
-  Returns a basic 3D scene attached to a canvas with id "name", 
-  with an attached dat.gui.
+  Returns a basic 3D scene attached to a canvas with id "name". 
 */
 
 function setup3DScene(name){
-    var canvas, scene, camera, renderer, controls, gui;
+    var canvas, scene, camera, renderer, controls;
     canvas = document.getElementById(name);
-    gui = new dat.GUI({autoPlace:false});
-    document.getElementById(name + "controls").appendChild(gui.domElement);
     scene = new THREE.Scene();
 
     // setup camera
@@ -39,7 +36,7 @@ function setup3DScene(name){
 	renderer.render( scene, camera );
     }
     
-    return {scene:scene, gui:gui, animate:animate, camera:camera};
+    return {scene:scene, animate:animate, camera:camera};
 }
 
 function fancyLighting(scene){

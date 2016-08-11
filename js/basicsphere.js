@@ -5,6 +5,7 @@ var gui, scene;
 var parameters;
 var sphere;
 var edges;
+var slider;     
 
 init();
 
@@ -14,15 +15,23 @@ function init()
     gui = values.gui;
     scene = values.scene;
     var animate = values.animate;
-    
-    parameters = {radius:2.0};
-    gui.add(parameters, 'radius', 1, 3, 0.1).onChange(updateSphere);
+
+    slider = document.getElementById("radiusslider");
+    noUiSlider.create(slider, {
+	start: 2.0,
+	range: {"min": 0.5, "max": 3.0},
+	orientation: "horizontal",
+    });
+
+    slider.noUiSlider.on("update", updateSphere)
+    // parameters = {radius:2.0};
+    // gui.add(parameters, 'radius', 1, 3, 0.1).onChange(updateSphere);
 
     fancyLighting(scene);
 
     var ticks = [-2, 0, 2];
     scene.add(axes(3, ticks, 3, ticks, 3, ticks, 0.2, 0.4, 0.8));
-    drawSphere();
+    slider.noUiSlider.set(2.0);
     animate();
 }
 
@@ -36,9 +45,10 @@ function updateSphere()
 
 function drawSphere()
 {
-    
+    var radius = slider.noUiSlider.get();
+    console.log(radius);
     // Sphere parameters: radius, segments along width, segments along height
-    var geometry = new THREE.SphereGeometry( parameters.radius, 32, 16 );
+    var geometry = new THREE.SphereGeometry(radius, 32, 16 );
     geometry.rotateX(Math.PI/2);
     // use a "lambert" material rather than "basic" for realistic lighting.
     var material = new THREE.MeshLambertMaterial({color:0xEEEEEE });

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Box test</title>
+</head>
+
+<style>
+.boxed { 
+border: solid black 1px;
+background: #EEE;
+}
+.nmd {
+color: purple;
+background: #DDD;
+}
+
+.inbo {
+width: 10rem;
+display: inline-block;
+text-align: center;
+padding: 1rem;
+}
+</style>
+<body>
+
+<div class="boxed">
+<p class="nmd">Some text</p>
+</div>
+
+<p class="nmd boxed" style="border-width: 4px; border-radius: 5px">Some text</p>
+<ul class="nmd">
+  <li>a
+  <li>b
+</ul>
+
+<!-- Can't directly set the width or height of an inline element -->
+<span style="height: 2em; width: 10em;" class="boxed">This is a
+test</span>
+
+<!-- Typical "display: block" --> 
+<div class="boxed">This is a test</div>
+
+
+<div style="height: 1em; width: 1em" class="boxed">a</div>
+<div style="height: 1em; width: 1em" class="boxed">b</div>
+
+<div style="font-size: 50%" class="boxed">This is very small <span
+  class="boxed inbo">test.</span></div>
+
+<p>
+How are you, I am fine.  Yes that is the case
+<span class="boxed inbo">This is a test</span>.  Got it.  
+</p>
+</body>
+</html>

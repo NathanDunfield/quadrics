@@ -20,7 +20,9 @@ function init()
     noUiSlider.create(slider, {
 	start: 2.0,
 	range: {"min": 0.5, "max": 3.0},
+	tooltips: true,
 	orientation: "horizontal",
+	connect: "lower",
     });
 
     slider.noUiSlider.on("update", updateSphere)

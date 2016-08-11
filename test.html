@@ -18,17 +18,18 @@
 Three.js test
 </header>
 
+<style>.noUi-background {background: red}</style>
+<style>.noUi-handle {background: red}</style>
 
-
-<div style="width: 100%; border: 1px solid gray;">
-  
-<div class="threecontainer"  style="width: 30em; height: 30em; float: left;">
+<div class="threecontainer"  style="width: 30em; height: 30em;">
   <canvas class="threejs" id="basicsphere" style="width: 30em; height: 30em;"></canvas>
-  <div class="threecontrol" id="basicspherecontrols" ></div>
-  </div>
-  </div>
+</div>
 
-  <div id="radiusslider" style="width: 20em; margin: 1em; display: block;"></div>  
+<div>
+ <div style="height: 18px; display:inline-block; 
+ vertical-align: middle; border: 1px solid #ddd;">Radius:</div> <div id="radiusslider" style="width: 20em; margin: 0.5em;
+   display:inline-block"></div>
+</div>
   <script src="js/basicsphere.js"></script>
 
 <!--

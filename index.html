@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
-<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
-<title>
-   Interactive Gallery of Quadric Surfaces
-</title>
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	Interactive Gallery of Quadric Surfaces
+    </title>
 
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/Detector.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
 </head>
 <body>
 
-<h1>Interactive Gallery of Quadric Surfaces</h1>
+    <h1>Interactive Gallery of Quadric Surfaces</h1>
 
-<nav>
-  <ul>
-    <li> <a href="index.html" class="active">Intro<br>&zwnj;</a>
-    <li> <a href="ellparab.html">Elliptic<br>Paraboloid</a>
-    <li> <a href="hypparab.html">Hyperbolic<br>Paraboloid</a>
-    <li> <a href="ellipsoid.html">Ellipsoid<br>&zwnj;</a>
-    <li> <a href="cone.html">Double<br>Cone</a>
-    <li> <a href="hyper1.html">Hyperboloid<br>of One Sheet</a>
-    <li> <a href="hyper2.html">Hyperboloid<br>of Two Sheets </a>
-  </ul>
-</nav>
+    <nav>
+	<ul>
+	    <li> <a href="index.html" class="active">Intro<br>&zwnj;</a> </li>
+	    <li> <a href="ellparab.html">Elliptic<br>Paraboloid</a></li>
+	    <li> <a href="hypparab.html">Hyperbolic<br>Paraboloid</a></li>
+	    <li> <a href="ellipsoid.html">Ellipsoid<br>&zwnj;</a></li>
+	    <li> <a href="cone.html">Double<br>Cone</a></li>
+	    <li> <a href="hyper1.html">Hyperboloid<br>of One Sheet</a></li>
+	    <li> <a href="hyper2.html">Hyperboloid<br>of Two Sheets </a></li>
+	</ul>
+    </nav>
 
-<section>
+    <section>
 
- <img src="static_images/hyp1sh.gif" title="" alt="Hyperboloid"
- style="float: right; min-width: 25%; margin: 1em;">
+	<img src="static_images/hyp1sh.gif" title="" alt="Hyperboloid"
+	     style="float: right; min-width: 25%; margin: 1em;">
   
- <p>Quadric surfaces are important objects in
-Multivariable Calculus and Vector Analysis classes. We like them
-because they are natural 3D-extensions of the so-called <span
+	<p>Quadric surfaces are important objects in
+	    Multivariable Calculus and Vector Analysis classes. We like them
+	    because they are natural 3D-extensions of the so-called
+	    <span
 style="font-style: italic;">conics</span> (ellipses, parabolas, and
-hyperbolas), and they provide examples of fairly nice surfaces to use
-as examples for the rest of your class.</p>
+	    hyperbolas), and they provide examples of fairly nice surfaces to use
+	    as examples for the rest of your class.</p>
 
 <p>The basic quadric surfaces are described by the following
   equations, where \(A\), \(B\), and \(C\) are
@@ -71,36 +69,54 @@ surface a given equation represents.</p>
 <section>
 <h2>Using This Gallery</h2>
   
-<p>In this gallery you'll find interactive pictures of the quadric
-surfaces.  You can see what the cross sections look like, and also see
-how various coefficients can affect how they look. These pictures all
-include "sliders," like the following two examples.  The first picture
-shows a sphere with an adjustable radius; click and drag the blue
-sliders to change it.  You can rotate the sphere by grabbing and
-dragging, and also zoom the whole picture in and out.  The the second
-picture shows you the various cross sections of the sphere. Click and
-drag the blue sliders to adjust the chosen values for \(x\), \(y\),
-and \(z\).  You can also rotate the pictures and zoom in or out using
-the scroll wheel on your mouse or equivalent motion on your input
-divice.</p>
+<p>In this gallery you'll find interactive pictures of the quadric surfaces.  You can see what the cross sections look like, and also see how various coefficients can affect how they look. These pictures all include "sliders," like the following two examples.  The first picture shows a sphere with an adjustable radius; click and drag the blue sliders to change it.  You can rotate the sphere by grabbing and dragging, and also zoom the whole picture in and out. You can also rotate the pictures in 3D and zoom in or out using the scroll wheel on your mouse or equivalent touch motion.</p>
 
-<div style="overflow: hidden;">
-<div class="threecontainer"  style="width: 25em; height: 25em; float: left;">
- <canvas class="threejs" id="basicsphere" style="width: 25em; height: 25em;"></canvas>
-<div class="threecontrol" id="basicspherecontrols" ></div>  
-<script src="js/basicsphere.js"></script>
+<div class="threecontainer">
+    <canvas class="threejs" id="basicsphere"></canvas>
+    <div class="threecontrols">
+	<div class="slidergroup">
+	    <div class="sliderlabel" id="radiussliderlabel">
+		radius = 2.3
+	    </div>
+	    <div id="radiusslider" class="threeslider" style="width: 23em;">
+	    </div>
+	</div>
+    </div>
 </div>
 
-<div class="threecontainer" style="width: 25em; height: 25em; float: left;">
-  <canvas class="threejs" id="slicedsphere" style="width: 25em; height: 25em;"></canvas>
-<div class="threecontrol" id="slicedspherecontrols"></div>
-<script src="js/slicedsphere.js"></script>
+
+<p>
+The the second picture shows you the various cross sections of the sphere. Click and drag the blue sliders to adjust the chosen values for \(x\), \(y\), and \(z\).  Once you've gotten the hang of these two demos, you're ready to look at the gallery images. Use the menu at upper left portion of this page to choose which quadric surface you'd like to see.
+</p>
+
+<div class="threecontainer">
+    <canvas class="threejs" id="slicedsphere"></canvas>
+    <div class="threecontrols">
+	<div class="slidergroup">
+	    <div class="sliderlabel" id="slicedspherexlabel">
+		x = 1.0
+	    </div>
+	    <div id="slicedspherexslider" class="threeslider" style="width: 25em;">
+	    </div>
+	</div>
+	
+	<div class="slidergroup">
+	    <div class="sliderlabel" id="slicedsphereylabel">
+		y = 1.0
+	    </div>
+	    <div id="slicedsphereyslider" class="threeslider" style="width: 25em;">
+	    </div>
+	</div>
+	
+	<div class="slidergroup">
+	    <div class="sliderlabel" id="slicedspherezlabel">
+		z = 1.0
+	    </div>
+	    <div id="slicedspherezslider" class="threeslider" style="width: 25em;">
+	    </div>
+	</div>
+    </div>
 </div>
-</div>
-  
-<p>Once you've gotten the hang of these two demos, you're ready to look at
-the gallery images. Use the menu at upper left portion of this page to
-choose which quadric surface you'd like to see.</p>
 
 </section>
 
@@ -177,7 +193,8 @@ href=http://threejs.org>three.js</a> instead of
 </section>
 
 
-
+<script src="js/basicsphere.js"></script>
+<script src="js/slicedsphere.js"></script>
 </body>
 </html>
   

@@ -90,13 +90,23 @@ function circleGeometry(radius, numsegs)
   drawn, it will have -2 <= x <= 2 and -3 <= y <= 3.  
 */
 
-function QuadricSlice(scene, axis, c,  a, b, color){
+function QuadricSlice(name, scene, axis, c, cmax, a, b, drawSlice){
     this.axis = axis;
     this.c = c;
     this.a = a;
     this.b = b;
-    this.color = color;
+    this.color = {x:0xE87722, y:0x606EB2, z:0x002058}[axis];
     this.scene = scene;
+    this.name = name;
+    this.cmax = cmax;
+    this.drawSlice = drawSlice;
+    this.sliderElement = document.getElementById(this.name + this.axis + "slider");
+    this.sliderLabel = document.getElementById(this.name + this.axis + "label");
+    noUiSlider.create(this.sliderElement, {
+	start: this.c, 
+	range: {"min":-this.cmax, "max":this.cmax},
+	orientation: "horizontal",
+    });
     
     this.placeGroup = function(group){
 	if(this.axis == "z"){
@@ -127,11 +137,18 @@ function QuadricSlice(scene, axis, c,  a, b, color){
 	this.plane.add(edges);
 	this.scene.add(this.plane);
     };
+
+    this.updateValue = function()
+    {
+	this.c = Number(this.sliderElement.noUiSlider.get());
+	this.sliderLabel.innerHTML = this.axis + " = " + this.c.toFixed(1);
+    }
     
     this.updateActive = function()
     {
 	this.scene.remove(this.plane);
 	this.scene.remove(this.slice);
+	this.updateValue();
 	this.drawPlane();
 	this.drawSlice();
     };
@@ -140,37 +157,32 @@ function QuadricSlice(scene, axis, c,  a, b, color){
     {
 	this.scene.remove(this.plane);
 	this.scene.remove(this.slice);
+	this.updateValue();
 	this.drawSlice();
     };
+
+    this.sliderElement.noUiSlider.on("update", this.updateActive.bind(this));
+    this.sliderElement.noUiSlider.on("start", this.updateActive.bind(this));
+    this.sliderElement.noUiSlider.on("end", this.updateFinished.bind(this));
+    this.sliderElement.noUiSlider.set(this.c);
+    this.scene.remove(this.plane);
 }
 
 
 
-function quadricSlices(gui, scene, parameters, xbox, ybox, zbox){
-    function addCallbacks(slice, controller)
-    {
-	controller.onChange(
-	    function(v){
-		slice.c = v;
-		slice.updateActive();
-	    });
-	controller.onFinishChange(
-	    function(v){
-		slice.c = v;
-	    slice.updateFinished();
-	    });
-    };
+function quadricSlices(name, scene, x, xbox, y, ybox, z, zbox){
+    function addCallbacks(name, slice){
+	this.sliderElement.noUiSlider.on("start", this.updateActive);
+	this.sliderElement.noUiSlider.on("update", this.updateActive);
+	this.sliderElement.noUiSlider.on("end", this.updateFinished);
+    }
 
-    var xslice = new QuadricSlice(scene, "x", parameters.x, ybox, zbox, 0xE87722);
-    var yslice = new QuadricSlice(scene, "y", parameters.y, xbox, zbox, 0x606EB2);
-    var zslice = new QuadricSlice(scene, "z", parameters.z, xbox, ybox, 0x002058);
 
-    var xcontroller = gui.add(parameters, "x", -xbox, xbox, 0.1);
-    var ycontroller = gui.add(parameters, "y", -ybox, ybox, 0.1);
-    var zcontroller = gui.add(parameters, "z", -zbox, zbox, 0.1);
-    addCallbacks(xslice, xcontroller);
-    addCallbacks(yslice, ycontroller);
-    addCallbacks(zslice, zcontroller);
-
+    var xslice = new QuadricSlice(name, scene, "x", x, xbox, ybox, zbox, 0xE87722);
+    var yslice = new QuadricSlice(name, scene, "y", y, ybox, xbox, zbox, 0x606EB2);
+    var zslice = new QuadricSlice(name, scene, "z", z, zbox, xbox, ybox, 0x002058);
+    //xslice.connectToSlider();
+    //yslice.connectToSlider();
+    //zslice.connectToSlider();
     return {x:xslice, y:yslice, z:zslice};
 }

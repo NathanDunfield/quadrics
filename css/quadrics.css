@@ -82,19 +82,28 @@ h2 {
 /* Styling the 3D manipulation boxes */
 
 div.threecontainer {
-     border: solid #aBC 1px;
-     display: inline-block;
+    border: solid #EEE 1px;
+    margin: auto;
+    width: 32em;
+    background: #FAFAFA;
+    border-radius: 0.5em;
 }
 
 canvas.threejs {
-    border: solid #EEE 1px;
+    /* border: solid #EEE 1px; */
     width: 30em;
     height: 30em;
     margin: 1em;
+    border-radius: 0.5em;
 }
 
 div.threecontrols {
-    border: dashed black 1px;
+    margin-bottom: 0.8em;
+    /* border: solid #EEE 1px; */
+}
+
+div.slidergroup {
+    /* border: solid #EEE 1px; */
 }
 
  div.sliderlabel {
@@ -103,6 +112,7 @@ div.threecontrols {
      height: 18px;
      font-size: 16px;
      padding: 2px;
+     min-width: 50px;
  }
 
  div.threeslider {
@@ -112,7 +122,7 @@ div.threecontrols {
  }
 
 .noUi-handle{
-    background: #DDD;
+    background: #CCC;
 }
 
 .noUi-background{

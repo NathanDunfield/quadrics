@@ -1,10 +1,9 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
     
-    var gui, scene, camera, animate, parameters;
+    var scene, camera, animate, parameters;
 
     values = setup3DScene("slicedsphere");
-    gui = values.gui;
     scene = values.scene;
     camera = values.camera;
     animate = values.animate;
@@ -13,17 +12,11 @@
     var ticks = [-2, 0, 2];
     scene.add(axes(3, ticks, 3, ticks, 3, ticks, 0.2, 0.4, 0.8));
 
-    parameters = {"x":1.0, "y":1.0, "z":1.0};
-    var slices = quadricSlices(gui, scene, parameters, 3, 3, 3);
-
-    slices.x.drawSlice = drawSlice;
-    slices.y.drawSlice = drawSlice;
-    slices.z.drawSlice = drawSlice;
+    var xslice = new QuadricSlice("slicedsphere", scene, "x", 1, 3, 3, 3, drawSlice);
+    var yslice = new QuadricSlice("slicedsphere", scene, "y", 1.4, 3, 3, 3, drawSlice);
+    var zslice = new QuadricSlice("slicedsphere", scene, "z", -1.2, 3, 3, 3, drawSlice);
 
     drawSphere();
-    slices.x.drawSlice();
-    slices.y.drawSlice();
-    slices.z.drawSlice();
     animate();
 
 

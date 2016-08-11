@@ -1,55 +1,119 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
 <head>
-<title>Box test</title>
+    <title>Box test</title>
+    <script src="js/lib/nouislider.min.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
 </head>
 
 <style>
-.boxed { 
-border: solid black 1px;
-background: #EEE;
-}
-.nmd {
-color: purple;
-background: #DDD;
-}
+ .boxed { 
+     border: solid black 1px;
+     background: #EEE;
+ }
+ .nmd {
+     color: purple;
+     background: #DDD;
+ }
+ 
+ .inbo {
+     width: 10rem;
+     display: inline-block;
+     text-align: center;
+     padding: 1rem;
+ }
 
-.inbo {
-width: 10rem;
-display: inline-block;
-text-align: center;
-padding: 1rem;
-}
+ div.threecontainer {
+     border: solid #aBC 1px;
+     display: inline-block;
+ }
+
+ canvas.threejs {
+     border: solid red 1px;
+     background: #FAA;
+     width: 30em;
+     height: 30em;
+     margin: 1em;
+ }
+
+ div.threecontrols {
+ }
+
+ div.slidergroup{
+     background: #AAF;
+     margin: 0.5em;
+ }
+ 
+ div.sliderlabel {
+     margin: 8px;
+     display: inline-block;
+     height: 18px;
+     font-size: 14px;
+     padding: 2px;
+     background: #EEE;
+     border: solid green 1px;
+ }
+
+ div.threeslider {
+     margin: 8px;
+     display: inline-block;
+     vertical-align: middle;
+ }
+ 
 </style>
 <body>
+	
+    <div class="boxed">
+	<p class="nmd">Some text</p>
+    </div>
+    
+    <p class="nmd boxed" style="border-width: 4px; border-radius: 5px">Some text</p>
+    <ul class="nmd">
+	<li>a </li>
+	<li>b </li>
+    </ul>
 
-<div class="boxed">
-<p class="nmd">Some text</p>
-</div>
+    <!-- Can't directly set the width or height of an inline element -->
+    <span style="height: 2em; width: 10em;" class="boxed">This is a
+	test</span>
+    
+    <!-- Typical "display: block" --> 
+    <div class="boxed">This is a test</div>
+    
 
-<p class="nmd boxed" style="border-width: 4px; border-radius: 5px">Some text</p>
-<ul class="nmd">
-  <li>a
-  <li>b
-</ul>
+    <div style="height: 1em; width: 1em" class="boxed">a</div>
+    <div style="height: 16px; width: 16px" class="boxed">b</div>
+	
+    <div style="font-size: 50%" class="boxed">This is very small
+	<span class="boxed inbo">test.</span></div>
+    
+    <p>
+	How are you, I am fine.  Yes that is the case
+	<span class="boxed inbo">This is a test</span>.  Got it.  
+    </p>
 
-<!-- Can't directly set the width or height of an inline element -->
-<span style="height: 2em; width: 10em;" class="boxed">This is a
-test</span>
+    <div class="threecontainer">
+	<canvas class="threejs"></canvas>
+	<div class="threecontrols">
+	    <div class="slidergroup">
+		<div class="sliderlabel" id="sliderlabel0">
+		    radius = 2.3
+		</div>
+		<div id="slider0" class="threeslider" style="width: 23em;">
+		</div>
+	    </div>
+	</div>
+    </div>
 
-<!-- Typical "display: block" --> 
-<div class="boxed">This is a test</div>
+    <script>
+     var slider = document.getElementById("slider0");
+     noUiSlider.create(slider, {
+        start: 2.0,
+        range: {"min": 0.5, "max": 3.0},
+        orientation: "horizontal",
+        connect: "lower",
+    });
+    </script>
 
-
-<div style="height: 1em; width: 1em" class="boxed">a</div>
-<div style="height: 16px; width: 16px" class="boxed">b</div>
-
-<div style="font-size: 50%" class="boxed">This is very small <span
-  class="boxed inbo">test.</span></div>
-
-<p>
-How are you, I am fine.  Yes that is the case
-<span class="boxed inbo">This is a test</span>.  Got it.  
-</p>
 </body>
 </html>

@@ -1,47 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset=utf-8>
-<title>Test page</title>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/lib/nouislider.min.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <meta charset=utf-8>
+    <title>Test page</title>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
 </head>
 <body>
+    <header>
+	Three.js test
+    </header>
 
-<header>
-Three.js test
-</header>
-
-<style>.noUi-background {background: red}</style>
-<style>.noUi-handle {background: red}</style>
-
-<div class="threecontainer"  style="width: 30em; height: 30em;">
-  <canvas class="threejs" id="basicsphere" style="width: 30em; height: 30em;"></canvas>
-</div>
-
-<div>
- <div style="height: 18px; display:inline-block; 
- vertical-align: middle; border: 1px solid #ddd;">Radius:</div> <div id="radiusslider" style="width: 20em; margin: 0.5em;
-   display:inline-block"></div>
-</div>
-  <script src="js/basicsphere.js"></script>
-
-<!--
-<div class="threecontainer" style="width: 30em; height: 30em; float: left;">
-  <canvas class="threejs" id="slicedsphere" style="width: 30em; height: 30em;"></canvas>
-   <div class="threecontrol" id="slicedspherecontrols"></div>
-  <script src="js/slicedsphere.js"></script>
-  </div>
- </div>
--->
+    <div class="threecontainer">
+	<canvas class="threejs" id="basicsphere"></canvas>
+	<div class="threecontrols">
+	    <div class="slidergroup">
+		<div class="sliderlabel" id="radiussliderlabel">
+		    radius = 2.3
+		</div>
+		<div id="radiusslider" class="threeslider" style="width: 23em;">
+		</div>
+	    </div>
+	</div>
+    </div>
 
 
 
+
+    <script src="js/basicsphere.js"></script>
 </body>
 </html>

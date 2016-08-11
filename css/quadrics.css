@@ -78,17 +78,47 @@ h2 {
     vertical-align: middle;
 }
 
+
+/* Styling the 3D manipulation boxes */
+
 div.threecontainer {
-    position: relative;
-    border: solid #aaa 1px;
+     border: solid #aBC 1px;
+     display: inline-block;
 }
 
 canvas.threejs {
+    border: solid #EEE 1px;
+    width: 30em;
+    height: 30em;
+    margin: 1em;
 }
 
-div.threecontrol {
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 1;
+div.threecontrols {
+    border: dashed black 1px;
+}
+
+ div.sliderlabel {
+     margin: 8px;
+     display: inline-block;
+     height: 18px;
+     font-size: 16px;
+     padding: 2px;
+ }
+
+ div.threeslider {
+     margin: 8px;
+     display: inline-block;
+     vertical-align: middle;
+ }
+
+.noUi-handle{
+    background: #DDD;
+}
+
+.noUi-background{
+    background: #EEE
+}
+
+.noUi-connect{
+    background: #606EB2
 }

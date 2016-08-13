@@ -1,5 +1,29 @@
 /*
+
+   Helper functions for using "noUiSliders"
+
+ */
+
+function setupSlider(slidername, labelText, sliderOpts){
+    var slider = document.getElementById(slidername);
+    slider.labelElement = document.getElementById(slidername + "label");
+    slider.labelText = labelText;
+    noUiSlider.create(slider, sliderOpts);
+    return slider;
+}
+
+function getSliderValue(slider){
+    // Gets the current slider value, updating the label in the process.
+    var ans = Number(slider.noUiSlider.get());
+    var valueText = ans.toFixed(1).replace("-", "&minus;");
+    slider.labelElement.innerHTML = slider.labelText + valueText;
+    return ans;
+}
+
+/*
+
   Returns a basic 3D scene attached to a canvas with id "name". 
+
 */
 
 function setup3DScene(name){
@@ -39,6 +63,12 @@ function setup3DScene(name){
     return {scene:scene, animate:animate, camera:camera};
 }
 
+/*
+
+Some lighting options.
+
+*/
+
 function fancyLighting(scene){
     /* Vaguely Mathematica-style multicolored lighting. */
     var light0 = new THREE.DirectionalLight("white", 0.15);
@@ -69,6 +99,14 @@ function basicLighting(scene){
     var ambientLight = new THREE.AmbientLight(0x888888);
     scene.add(ambientLight);
 }
+
+
+
+/*
+
+   Useful geometries
+
+ */
 
 function circleGeometry(radius, numsegs)
     {
@@ -104,13 +142,13 @@ function QuadricSlice(name, scene, axis, c, cmax, a, b, drawSlice){
     this.name = name;
     this.cmax = cmax;
     this.drawSlice = drawSlice;
-    this.sliderElement = document.getElementById(this.name + this.axis + "slider");
-    this.sliderLabel = document.getElementById(this.name + this.axis + "label");
-    noUiSlider.create(this.sliderElement, {
-	start: this.c, 
-	range: {"min":-this.cmax, "max":this.cmax},
-	orientation: "horizontal",
-    });
+    this.sliderElement = setupSlider(this.name + this.axis + "slider", this.axis + " = ",
+				     {
+					 start: this.c, 
+					 range: {"min":-this.cmax, "max":this.cmax},
+					 orientation: "horizontal",
+				     });
+  
     
     this.placeGroup = function(group){
 	if(this.axis == "z"){
@@ -142,12 +180,10 @@ function QuadricSlice(name, scene, axis, c, cmax, a, b, drawSlice){
 	this.scene.add(this.plane);
     };
 
-    this.updateValue = function()
-    {
-	this.c = Number(this.sliderElement.noUiSlider.get());
-	this.sliderLabel.innerHTML = this.axis + " = " + this.c.toFixed(1);
+    this.updateValue = function(){
+	this.c = getSliderValue(this.sliderElement);
     }
-    
+
     this.updateActive = function()
     {
 	this.scene.remove(this.plane);
@@ -185,8 +221,157 @@ function quadricSlices(name, scene, x, xbox, y, ybox, z, zbox){
     var xslice = new QuadricSlice(name, scene, "x", x, xbox, ybox, zbox, 0xE87722);
     var yslice = new QuadricSlice(name, scene, "y", y, ybox, xbox, zbox, 0x606EB2);
     var zslice = new QuadricSlice(name, scene, "z", z, zbox, xbox, ybox, 0x002058);
-    //xslice.connectToSlider();
-    //yslice.connectToSlider();
-    //zslice.connectToSlider();
     return {x:xslice, y:yslice, z:zslice};
+}
+
+/*
+
+   Plotting a function f(x,y) over a domain in the plane, here either
+   the square [-1, 1] x [-1, 1] or the unit disc.  
+   
+ */
+
+function drawPlotOverSquare(f, opts)
+{
+    phi = function(s, t){
+	return [s, t];
+    }
+    ans = new THREE.Group();
+    if (typeof opts === 'undefined') {opts = {};}
+    opts.samples = opts.samples || 40;
+    opts.sGridlines = opts.gridlines || 6;
+    opts.tGridlines = opts.gridlines || 6;
+    opts.gridpushoff = opts.gridpushoff || 0.01;
+    if (typeof opts.showgrid === 'undefined') {opts.showgrid = true;}
+    
+    ans.add(plotOverDomain(f, phi, -1, 1, -1, 1, opts));
+
+    if (opts.showgrid){
+	ans.add(plotOverDomainGrid(f, phi, -1, 1, -1, 1, opts));
+    }
+    return ans;
+}
+
+
+function drawPlotOverDisk(f, opts)
+{
+    phi = function(r, t){
+	return [r*Math.cos(t), r*Math.sin(t)];
+    }
+    ans = new THREE.Group();
+    if (typeof opts === 'undefined') {opts = {};}
+    opts.samples = opts.samples || 100;
+    opts.sGridlines = opts.gridlines || 6;
+    opts.tGridlines = opts.gridlines || 12;
+    opts.gridpushoff = opts.gridpushoff || 0.005;
+    if (typeof opts.showgrid === 'undefined') {opts.showgrid = true;}
+    
+    ans.add(plotOverDomain(f, phi, 0, 1, 0, 2*Math.PI, opts));
+
+    if (opts.showgrid){
+	ans.add(plotOverDomainGrid(f, phi, 0, 1, 0, 2*Math.PI, opts));
+    }
+    return ans;
+}
+
+
+function plotOverDomain(f, phi, s0, s1, t0, t1, opts){
+    /*
+       The function phi is a parameterization from [s0, s1] x [t0, t1]
+       to the region in the plane that we care about.
+     */
+    
+    var geometry = new THREE.Geometry();
+    var n = opts.samples;
+    var p, x, y, s, t, ds, dt;
+
+    ds = (s1 - s0)/n;
+    dt = (t1 - t0)/n;
+    // Evaluate the function at the sample points to find the vertices.	
+    for(var i = 0; i <= n; i++){
+	for(var j = 0; j <= n; j++){
+	    s = s0 + i*ds;
+	    t = t0 + j*dt;
+	    p = phi(s, t);
+	    x = p[0];
+	    y = p[1];
+	    geometry.vertices.push(new THREE.Vector3(x, y, f(x, y)));
+	}
+    }
+    
+    // Now add in the triangles.
+    for(var i = 0; i < n; i++){
+	for(var j = 0; j < n; j++){
+	    k = (n + 1)*j + i;
+	    geometry.faces.push(new THREE.Face3(k, k+1, k + n + 2));
+	    geometry.faces.push(new THREE.Face3(k, k + n + 2, k + n + 1));
+	}
+    }
+    
+    geometry.computeFaceNormals();
+    geometry.computeVertexNormals();
+    var material = new THREE.MeshLambertMaterial({color: 0xEEEEEE, side: THREE.DoubleSide});
+    return new THREE.Mesh(geometry, material);
+}
+
+
+function plotOverDomainGrid(f, phi, s0, s1, t0, t1, opts){
+    /* 
+       The trick to drawing gridlines so they don't flicker is to push them
+       just off the surface itself.  So that things look good, we have one
+       copy of the gridline above and the other below. 
+     */
+    
+    var ans = new THREE.Group();
+    var topgeom, bottomgeom, material;
+    var n = opts.samples;
+    var eps = opts.gridpushoff;
+    var x, y, z, s, t, ds, dt, m; 
+    material = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
+
+    // First, we draw the gridlines where s is constant.
+
+    m = opts.sGridlines;
+    ds = (s1 - s0)/m;
+    dt = (t1 - t0)/n;
+    for(i = 0; i <=m; i++){
+	topgeom = new THREE.Geometry();
+	bottomgeom = new THREE.Geometry();
+	s = s0 + i*ds;
+	for(j = 0; j <= n; j++){
+	    t = t0 + j*dt;
+	    p = phi(s, t);
+	    x = p[0];
+	    y = p[1];
+	    z = f(x,y);
+	    topgeom.vertices.push(new THREE.Vector3(x, y, z + eps));
+	    bottomgeom.vertices.push(new THREE.Vector3(x, y, z - eps));
+	}
+	ans.add(new THREE.Line(topgeom, material));
+	ans.add(new THREE.Line(bottomgeom, material));
+    }
+
+    // Now those where t is constant.
+
+    m = opts.tGridlines;
+    ds = (s1 - s0)/n;
+    dt = (t1 - t0)/m;
+    for(i = 0; i <=m; i++){
+	topgeom = new THREE.Geometry();
+	bottomgeom = new THREE.Geometry();
+	t = t0 + i*dt;
+	for(j = 0; j <= n; j++){
+	    s = s0 + j*ds;
+	    p = phi(s, t);
+	    x = p[0];
+	    y = p[1];
+	    z = f(x,y);
+	    topgeom.vertices.push(new THREE.Vector3(x, y, z + eps));
+	    bottomgeom.vertices.push(new THREE.Vector3(x, y, z - eps));
+	}
+	ans.add(new THREE.Line(topgeom, material));
+	ans.add(new THREE.Line(bottomgeom, material));
+    }
+    
+    return ans;
 }

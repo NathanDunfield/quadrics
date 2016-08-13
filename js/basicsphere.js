@@ -4,7 +4,6 @@
     var sphere;
     var edges;
     var slider;
-    var sliderLabel;
     
     init();
 
@@ -14,23 +13,20 @@
 	scene = values.scene;
 	var animate = values.animate;
 
-	slider = document.getElementById("radiusslider");
-	sliderLabel = document.getElementById("radiussliderlabel");
-	noUiSlider.create(slider, {
+	slider = setupSlider("radiusslider", "radius = ", {
 	    start: 2.0,
 	    range: {"min": 0.5, "max": 3.0},
 	    orientation: "horizontal",
 	    connect: "lower",
 	});
 
-	slider.noUiSlider.on("update", updateSphere)
-	// parameters = {radius:2.0};
-	// gui.add(parameters, 'radius', 1, 3, 0.1).onChange(updateSphere);
+	slider.noUiSlider.on("update", updateSphere);
 
 	fancyLighting(scene);
 
 	var ticks = [-2, 0, 2];
-	scene.add(axes(3, ticks, 3, ticks, 3, ticks, 0.2, 0.4, 0.8));
+	scene.add(axes(3, ticks, 3, ticks, 3, ticks,
+		       {tickLen: 0.2, tickLabelSep: 0.4, axisLabelSep: 0.8, fontsize: 24, linewidth: 1}));
 	slider.noUiSlider.set(2.0);
 	animate();
     }
@@ -45,9 +41,7 @@
     
     function drawSphere()
     {
-	var radius = Number(slider.noUiSlider.get());
-	// Set the label
-	sliderLabel.innerHTML = "radius = " + radius.toFixed(1);
+	var radius = getSliderValue(slider);
 	// Sphere parameters: radius, segments along width, segments along height
 	var geometry = new THREE.SphereGeometry(radius, 32, 16 );
 	geometry.rotateX(Math.PI/2);

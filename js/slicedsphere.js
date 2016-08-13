@@ -10,7 +10,8 @@
     // basicLighting(scene);
 
     var ticks = [-2, 0, 2];
-    scene.add(axes(3, ticks, 3, ticks, 3, ticks, 0.2, 0.4, 0.8));
+    scene.add(axes(3, ticks, 3, ticks, 3, ticks,
+		   {tickLen: 0.2, tickLabelSep: 0.4, axisLabelSep: 0.8, fontsize: 24, linewidth: 1}));
 
     var xslice = new QuadricSlice("slicedsphere", scene, "x", 1, 3, 3, 3, drawSlice);
     var yslice = new QuadricSlice("slicedsphere", scene, "y", 1.4, 3, 3, 3, drawSlice);

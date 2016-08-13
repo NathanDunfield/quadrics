@@ -1,88 +1,84 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
-    var gui, scene;
-    var parameters;
-    var plotsurface;
-    var edges;
-    var slider;
-    var sliderLabel;
+    var scene;
+    var camera;
+    var plot;
+    var Aslider;
+    var Bslider;
+    var showGridCheckbox;
+    var domainMenu;
     
     init();
 
-    function f(x,y){
-	return 1*x*x - 1*y*y;
+    function createPlotFunction(A, B){
+	return function(x, y){return A*x*x + B*y*y;}
     }
     
     function init()
     {
+	// Setup scene and lighting
 	var values = setup3DScene("basicplot");
 	scene = values.scene;
-
-
 	fancyLighting(scene);
+	camera = values.camera;
+	camera.position.set(6.7, -7.9, 5.4);
+	camera.up = new THREE.Vector3(0,0,1);
+	camera.lookAt(new THREE.Vector3(0,0,0));
 
+	// Axes
 	var ticks = [-1, 0, 1];
 	var zticks = [-3, -2, -1, 0, 1, 2, 3];
-	scene.add(axes(1.5, ticks, 1.5, ticks, 3.5,  zticks, 0.1, 0.3, 0.6));
-	drawPlotSurface();
+	scene.add(axes(1.5, ticks, 1.5, ticks, 3.5,  zticks));
+
+	// Setup UI, first the simple stuff.
+
+	showGridCheckbox = document.getElementById("showgridlines");
+	showGridCheckbox.checked = true;
+	showGridCheckbox.onchange = updatePlot;
+
+	domainMenu = document.getElementById("domaintype");
+	domainMenu.onchange = updatePlot;
+	
+	// Now setup and connect the sliders.
+
+	Aslider = setupSlider("Aslider", "A = ",  {
+	    start: 1.0,
+	    range: {"min": 0.0, "max": 3.0},
+	    orientation: "horizontal",
+	    connect: "lower",
+	});
+
+	Bslider = setupSlider("Bslider", "B = ", {
+	    start: -1.0,
+	    range: {"min": -3.0, "max": 0.0},
+	    orientation: "horizontal",
+	    connect: "upper",
+	});
+
+	Aslider.noUiSlider.on("update", updatePlot);
+	Bslider.noUiSlider.on("update", updatePlot);
 	values.animate();
     }
 
-
     function updatePlot()
     {
-	scene.remove(plotsurface);
-	drawPlotSurface();
+	scene.remove(plot);
+	var A = getSliderValue(Aslider);
+	var B =  getSliderValue(Bslider);
+	var f = createPlotFunction(A, B);
+	var opts = {showgrid: showGridCheckbox.checked};
+
+	if (domainMenu.value == "square"){
+	    plot = drawPlotOverSquare(f, opts);
+	}
+	else{
+	    plot = drawPlotOverDisk(f, opts);
+	}
+	    
+	scene.add(plot);
+	// console.log(camera.position);
+	// console.log(camera.up);
+	
     }
     
-    function drawPlotSurface()
-    {
-	var geometry = new THREE.Geometry();
-	
-	var n = 20;
-	var x, y;
-	for(var i = 0; i <= n; i++){
-	    for(var j = 0; j <= n; j++){
-		x = -1 + i*(2.0/n);
-		y = -1 + j*(2.0/n);
-		geometry.vertices.push(new THREE.Vector3(x, y, f(x, y)));
-	    }
-	}
-	for(var i = 0; i < n; i++){
-	    for(var j = 0; j < n; j++){
-		k = (n + 1)*j + i;
-		geometry.faces.push(new THREE.Face3(k, k+1, k + n + 2));
-		geometry.faces.push(new THREE.Face3(k, k + n + 2, k + n + 1));
-	    }
-	}
-
-	geometry.computeFaceNormals();
-	geometry.computeVertexNormals();
-	var material = new THREE.MeshLambertMaterial({color: 0xEEEEEE, side: THREE.DoubleSide});
-	plotsurface = new THREE.Mesh(geometry, material);
-	scene.add(plotsurface);
-	
-	var m = 6;
-	material = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
-	for(i = 0; i <=m; i++){
-	    geometry = new THREE.Geometry();
-	    for(j = 0; j <= n; j++){
-		x = -1 + i*(2.0/m);
-		y = -1 + j*(2.0/n);
-		geometry.vertices.push(new THREE.Vector3(x, y, f(x,y) + 0.01));
-	    }
-	    scene.add(new THREE.Line(geometry, material));
-	}
-
-	for(i = 0; i <=m; i++){
-	    geometry = new THREE.Geometry();
-	    for(j = 0; j <= n; j++){
-		y = -1 + i*(2.0/m);
-		x = -1 + j*(2.0/n);
-		geometry.vertices.push(new THREE.Vector3(x, y, f(x,y) + 0.01));
-	    }
-	    scene.add(new THREE.Line(geometry, material));
-	}
-    }
-
 }()); // calling anonymous function. 

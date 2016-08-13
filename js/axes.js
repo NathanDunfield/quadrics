@@ -1,30 +1,38 @@
-function axes(xmax, xticks, ymax, yticks, zmax, zticks, tickLen, tickLabelSep, axisLabelSep)
+function axes(xmax, xticks, ymax, yticks, zmax, zticks, opts)
 {
     /*
-      Draw 3-d axes on three sides of a rectangular box centered about
-      the origin, namely:
+       Draw 3-d axes on three sides of a rectangular box centered about
+       the origin, namely:
 
            [-xmax, xmax] x [-ymax, ymax] x [-zmax, zmax]
 
-      with the given ticks.
-    */
+       with the given ticks.
+     */
+    
+
+    if (typeof opts === 'undefined') {opts = {};}
+    opts.tickLen = opts.tickLen || 0.12;
+    opts.tickLabelSep = opts.tickLabelSep || 0.25;
+    opts.axisLabelSep = opts.axisLabelSep || 0.7;
+    opts.linewidth = opts.linewidth || 0.5;
+    opts.fontsize = opts.fontsize || 20;
     
     var ans = new THREE.Group();
 
-    var xaxis = oneAxis(xmax, "x", xticks, tickLen, tickLabelSep, axisLabelSep);
+    var xaxis = oneAxis(xmax, "x", xticks, opts);
     xaxis.rotateX(5*Math.PI/4);
     xaxis.position.y += -ymax;
     xaxis.position.z += -zmax;
     ans.add(xaxis);
 
-    var yaxis = oneAxis(ymax, "y", yticks, tickLen, tickLabelSep, axisLabelSep);
+    var yaxis = oneAxis(ymax, "y", yticks, opts);
     yaxis.rotateZ(Math.PI/2);
     yaxis.rotateX(Math.PI/4);
     yaxis.position.x += -xmax;
     yaxis.position.z += zmax;
     ans.add(yaxis);
 
-    var zaxis = oneAxis(zmax, "z", zticks, tickLen, tickLabelSep, axisLabelSep);
+    var zaxis = oneAxis(zmax, "z", zticks, opts);
     zaxis.rotateY(-Math.PI/2);
     zaxis.rotateX(3*Math.PI/4);
     zaxis.position.x += -xmax;
@@ -34,11 +42,11 @@ function axes(xmax, xticks, ymax, yticks, zmax, zticks, tickLen, tickLabelSep, a
     return ans;
 }
 
-function oneAxis(axisMax, axisName, ticks, tickLen, tickLableSep, axisLabelSep)
+function oneAxis(axisMax, axisName, ticks, opts)
 {
     // Build this along the x-axis, caller can then move into place. 
     var ans = new THREE.Group();
-    var material = new THREE.LineBasicMaterial({color: 'black', linewidth: 3});
+    var material = new THREE.LineBasicMaterial({color: 'black', linewidth: opts.linewidth});
     var axisGeometry = new THREE.Geometry();
     var a = new THREE.Vector3(-axisMax, 0, 0);
     var b = new THREE.Vector3(axisMax, 0, 0);
@@ -50,19 +58,19 @@ function oneAxis(axisMax, axisName, ticks, tickLen, tickLableSep, axisLabelSep)
     for (var i = 0; i < ticks.length; i++){
 	var tickGeometry = new THREE.Geometry();
 	var u = new THREE.Vector3(ticks[i], 0, 0);
-	var v = new THREE.Vector3(ticks[i], -tickLen, 0);
+	var v = new THREE.Vector3(ticks[i], -opts.tickLen, 0);
 	tickGeometry.vertices.push(u);
 	tickGeometry.vertices.push(v);
 	var tick = new THREE.Line(tickGeometry, material);
 	ans.add(tick);
 
-	var label = makeTextSprite(ticks[i], {fontsize:18});
-	label.position.set(ticks[i], tickLableSep, 0);
+	var label = makeTextSprite(ticks[i], {fontsize:0.75*opts.fontsize});
+	label.position.set(ticks[i], opts.tickLabelSep, 0);
 	ans.add(label);
     }
 
-    var name = makeTextSprite(axisName, {fontsize:24, fontstyle:"italic"});
-    name.position.set(0, axisLabelSep, 0);
+    var name = makeTextSprite(axisName, {fontsize:opts.fontsize, fontstyle:"italic"});
+    name.position.set(0, opts.axisLabelSep, 0);
     ans.add(name);
     return ans;
 }

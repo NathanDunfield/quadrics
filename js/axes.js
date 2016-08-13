@@ -13,22 +13,22 @@ function axes(xmax, xticks, ymax, yticks, zmax, zticks, tickLen, tickLabelSep, a
 
     var xaxis = oneAxis(xmax, "x", xticks, tickLen, tickLabelSep, axisLabelSep);
     xaxis.rotateX(5*Math.PI/4);
-    xaxis.position.y += -3;
-    xaxis.position.z += -3;
+    xaxis.position.y += -ymax;
+    xaxis.position.z += -zmax;
     ans.add(xaxis);
 
     var yaxis = oneAxis(ymax, "y", yticks, tickLen, tickLabelSep, axisLabelSep);
     yaxis.rotateZ(Math.PI/2);
     yaxis.rotateX(Math.PI/4);
-    yaxis.position.x += -3;
-    yaxis.position.z += 3;
+    yaxis.position.x += -xmax;
+    yaxis.position.z += zmax;
     ans.add(yaxis);
 
     var zaxis = oneAxis(zmax, "z", zticks, tickLen, tickLabelSep, axisLabelSep);
     zaxis.rotateY(-Math.PI/2);
     zaxis.rotateX(3*Math.PI/4);
-    zaxis.position.x += -3;
-    zaxis.position.y += -3;
+    zaxis.position.x += -xmax;
+    zaxis.position.y += -ymax;
     ans.add(zaxis);
 
     return ans;

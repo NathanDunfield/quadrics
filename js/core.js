@@ -41,19 +41,23 @@ function setup3DScene(name){
 
 function fancyLighting(scene){
     /* Vaguely Mathematica-style multicolored lighting. */
-    var light0 = new THREE.DirectionalLight("white", 0.2);
-    light0.position.set(15, -10, 14);
+    var light0 = new THREE.DirectionalLight("white", 0.15);
+    light0.position.set(0, -5, 10);
     scene.add(light0);
-
-    var light1 = new THREE.PointLight(0x002058, 0.7);
-    light1.position.set(5, -15, 5);
+    
+    var light1 = new THREE.DirectionalLight("red", 0.8);
+    light1.position.set(10, -7, 10);
     scene.add(light1);
 
-    var light2 = new THREE.PointLight(0xE87722, 0.6);
-    light2.position.set(-3, 4, 15);
+    var light2 = new THREE.DirectionalLight("green", 1.0);
+    light2.position.set(-5, -10, 10);
     scene.add(light2);
+    
+    var light3 = new THREE.DirectionalLight("blue", 1.0);
+    light3.position.set(-10, 5, 10);
+    scene.add(light3);
 
-    var ambientLight = new THREE.AmbientLight(0xCCCCCC);
+    var ambientLight = new THREE.AmbientLight("white", 0.5);
     scene.add(ambientLight);
 }
     

@@ -1,7 +1,6 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
-    var gui, scene;
-    var parameters;
+    var scene;
     var sphere;
     var edges;
     var slider;
@@ -56,10 +55,12 @@
 	var material = new THREE.MeshLambertMaterial({color:0xEEEEEE });
 	sphere = new THREE.Mesh(geometry, material);
 	sphere.position.set(0, 0, 0);
-	scene.add(sphere);
-	edges = new THREE.EdgesHelper(sphere, "black");
+	sphere.scale.multiplyScalar(0.995);
+	var othersphere = new THREE.Mesh(geometry, material);
+	edges = new THREE.EdgesHelper(othersphere, "black");
 	edges.material.linewidth=1.5;
 	scene.add(edges);
+	scene.add(sphere);
 }
 
 }()); // calling anonymous function. 

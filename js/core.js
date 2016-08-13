@@ -4,9 +4,9 @@
 
  */
 
-function setupSlider(slidername, labelText, sliderOpts){
-    var slider = document.getElementById(slidername);
-    slider.labelElement = document.getElementById(slidername + "label");
+function setupSlider(slidergroup, labelText, sliderOpts){
+    var slider = slidergroup.getElementsByClassName("threeslider")[0];
+    slider.labelElement = slidergroup.getElementsByClassName("sliderlabel")[0];
     slider.labelText = labelText;
     noUiSlider.create(slider, sliderOpts);
     return slider;
@@ -26,9 +26,9 @@ function getSliderValue(slider){
 
 */
 
-function setup3DScene(name){
+function setup3DScene(container){
     var canvas, scene, camera, renderer, controls;
-    canvas = document.getElementById(name);
+    canvas = container.getElementsByClassName("threejs")[0];
     scene = new THREE.Scene();
 
     // setup camera
@@ -132,7 +132,7 @@ function circleGeometry(radius, numsegs)
   drawn, it will have -2 <= x <= 2 and -3 <= y <= 3.  
 */
 
-function QuadricSlice(name, scene, axis, c, cmax, a, b, drawSlice){
+function QuadricSlice(container, scene, axis, c, cmax, a, b, drawSlice){
     this.axis = axis;
     this.c = c;
     this.a = a;
@@ -142,7 +142,9 @@ function QuadricSlice(name, scene, axis, c, cmax, a, b, drawSlice){
     this.name = name;
     this.cmax = cmax;
     this.drawSlice = drawSlice;
-    this.sliderElement = setupSlider(this.name + this.axis + "slider", this.axis + " = ",
+    var sliderGroupElements = container.getElementsByClassName("slidergroup");
+    var ourSliderGroup = sliderGroupElements[{x:0, y:1, z:2}[this.axis]];
+    this.sliderElement = setupSlider(ourSliderGroup, this.axis + " = ",
 				     {
 					 start: this.c, 
 					 range: {"min":-this.cmax, "max":this.cmax},
@@ -210,7 +212,7 @@ function QuadricSlice(name, scene, axis, c, cmax, a, b, drawSlice){
 
 
 
-function quadricSlices(name, scene, x, xbox, y, ybox, z, zbox){
+function quadricSlices(container, scene, x, xbox, y, ybox, z, zbox){
     function addCallbacks(name, slice){
 	this.sliderElement.noUiSlider.on("start", this.updateActive);
 	this.sliderElement.noUiSlider.on("update", this.updateActive);
@@ -218,9 +220,9 @@ function quadricSlices(name, scene, x, xbox, y, ybox, z, zbox){
     }
 
 
-    var xslice = new QuadricSlice(name, scene, "x", x, xbox, ybox, zbox, 0xE87722);
-    var yslice = new QuadricSlice(name, scene, "y", y, ybox, xbox, zbox, 0x606EB2);
-    var zslice = new QuadricSlice(name, scene, "z", z, zbox, xbox, ybox, 0x002058);
+    var xslice = new QuadricSlice(container, scene, "x", x, xbox, ybox, zbox, 0xE87722);
+    var yslice = new QuadricSlice(container, scene, "y", y, ybox, xbox, zbox, 0x606EB2);
+    var zslice = new QuadricSlice(container, scene, "z", z, zbox, xbox, ybox, 0x002058);
     return {x:xslice, y:yslice, z:zslice};
 }
 

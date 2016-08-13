@@ -1,19 +1,22 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
+    var container;
     var scene;
     var sphere;
     var edges;
     var slider;
-    
+
     init();
 
     function init()
     {
-	var values = setup3DScene("basicsphere");
+	container = document.getElementById("basicsphere");
+	var values = setup3DScene(container);
 	scene = values.scene;
 	var animate = values.animate;
 
-	slider = setupSlider("radiusslider", "radius = ", {
+	var sliders = container.getElementsByClassName("slidergroup");
+	slider = setupSlider(sliders[0], "radius = ", {
 	    start: 2.0,
 	    range: {"min": 0.5, "max": 3.0},
 	    orientation: "horizontal",

@@ -1,7 +1,6 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
     var scene;
-    var container;
     var camera;
     var plot;
     var Aslider;
@@ -18,8 +17,7 @@
     function init()
     {
 	// Setup scene and lighting
-	container = document.getElementById("basicplot");
-	var values = setup3DScene(container);
+	var values = setup3DScene("hypparabplot");
 	scene = values.scene;
 	fancyLighting(scene);
 	camera = values.camera;
@@ -34,24 +32,23 @@
 
 	// Setup UI, first the simple stuff.
 
-	showGridCheckbox = container.getElementsByTagName("input")[0];
+	showGridCheckbox = document.getElementById("showgridlines");
 	showGridCheckbox.checked = true;
 	showGridCheckbox.onchange = updatePlot;
 
-	domainMenu = container.getElementsByTagName("select")[0];
+	domainMenu = document.getElementById("domaintype");
 	domainMenu.onchange = updatePlot;
 	
 	// Now setup and connect the sliders.
 
-	var sliders = container.getElementsByClassName("slidergroup");
-	Aslider = setupSlider(sliders[0], "A = ",  {
+	Aslider = setupSlider("Aslider", "A = ",  {
 	    start: 1.0,
 	    range: {"min": 0.0, "max": 3.0},
 	    orientation: "horizontal",
 	    connect: "lower",
 	});
 
-	Bslider = setupSlider(sliders[1], "B = ", {
+	Bslider = setupSlider("Bslider", "B = ", {
 	    start: -1.0,
 	    range: {"min": -3.0, "max": 0.0},
 	    orientation: "horizontal",

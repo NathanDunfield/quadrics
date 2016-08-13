@@ -72,14 +72,14 @@ surface a given equation represents.</p>
   
 <p>In this gallery you'll find interactive pictures of the quadric surfaces.  You can see what the cross sections look like, and also see how various coefficients can affect how they look. These pictures all include "sliders," like the following two examples.  The first picture shows a sphere with an adjustable radius; click and drag the blue sliders to change it.  You can rotate the sphere by grabbing and dragging, and also zoom the whole picture in and out. You can also rotate the pictures in 3D and zoom in or out using the scroll wheel on your mouse or equivalent touch motion.</p>
 
-<div class="threecontainer">
-    <canvas class="threejs" id="basicsphere"></canvas>
+<div class="threecontainer" id="basicsphere">
+    <canvas class="threejs"></canvas>
     <div class="threecontrols">
 	<div class="slidergroup">
-	    <div class="sliderlabel" id="radiussliderlabel">
+	    <div class="sliderlabel">
 		radius = 2.3
 	    </div>
-	    <div id="radiusslider" class="threeslider" style="width: 23em;">
+	    <div class="threeslider" style="width: 23em;">
 	    </div>
 	</div>
     </div>
@@ -90,30 +90,30 @@ surface a given equation represents.</p>
 The the second picture shows you the various cross sections of the sphere. Click and drag the blue sliders to adjust the chosen values for \(x\), \(y\), and \(z\).  Once you've gotten the hang of these two demos, you're ready to look at the gallery images. Use the menu at upper left portion of this page to choose which quadric surface you'd like to see.
 </p>
 
-<div class="threecontainer">
-    <canvas class="threejs" id="slicedsphere"></canvas>
+<div class="threecontainer" id="slicedsphere">
+    <canvas class="threejs" ></canvas>
     <div class="threecontrols">
 	<div class="slidergroup">
-	    <div class="sliderlabel" id="slicedspherexsliderlabel">
+	    <div class="sliderlabel">
 		x = 1.0
 	    </div>
-	    <div id="slicedspherexslider" class="threeslider" style="width: 25em;">
+	    <div class="threeslider" style="width: 25em;">
 	    </div>
 	</div>
 	
 	<div class="slidergroup">
-	    <div class="sliderlabel" id="slicedsphereysliderlabel">
+	    <div class="sliderlabel">
 		y = 1.0
 	    </div>
-	    <div id="slicedsphereyslider" class="threeslider" style="width: 25em;">
+	    <div class="threeslider" style="width: 25em;">
 	    </div>
 	</div>
 	
 	<div class="slidergroup">
-	    <div class="sliderlabel" id="slicedspherezsliderlabel">
+	    <div class="sliderlabel">
 		z = 1.0
 	    </div>
-	    <div id="slicedspherezslider" class="threeslider" style="width: 25em;">
+	    <div class="threeslider" style="width: 25em;">
 	    </div>
 	</div>
     </div>

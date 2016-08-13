@@ -16,26 +16,26 @@
 	Three.js test
     </header>
 
-    <div class="threecontainer">
-	<canvas class="threejs" id="basicplot" style="height: 40em"></canvas>
+    <div class="threecontainer" id="basicplot">
+	<canvas class="threejs" style="height: 40em"></canvas>
 	<div class="threecontrols">
 
 	    <!-- A slider -->
 	    <div class="slidergroup">
-		<div class="sliderlabel" id="Asliderlabel">
+		<div class="sliderlabel">
 		    A = 1.0
 		</div>
-		<div class="threeslider" id="Aslider" style="width: 25em;">
+		<div class="threeslider" style="width: 25em;">
 		</div>
 	    </div>
 
 
 	    <!-- B slider -->
 	    <div class="slidergroup">
-		<div class="sliderlabel" id="Bsliderlabel">
+		<div class="sliderlabel">
 		    B = 1.0
 		</div>
-		<div class="threeslider" id="Bslider" style="width: 25em;">
+		<div class="threeslider" style="width: 25em;">
 		</div>
 	    </div>
 
@@ -43,11 +43,11 @@
 
 	    <div class="slidergroup">
 		<div class="sliderlabel">
-		    Gridlines: <input type="checkbox" id="showgridlines">
+		    Gridlines: <input type="checkbox">
 		</div>
 		<div class="sliderlabel">
 		    Domain:
-		    <select id="domaintype">
+		    <select>
 			<option value="square">Square</option>
 			<option value="disk">Disk</option>
 		    </select>

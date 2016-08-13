@@ -1,21 +1,21 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
     
-    var scene, camera, animate, parameters;
+    var scene, camera, animate, parameters, container;
 
-    values = setup3DScene("slicedsphere");
+    container = document.getElementById("slicedsphere");
+    values = setup3DScene(container);
     scene = values.scene;
     camera = values.camera;
     animate = values.animate;
-    // basicLighting(scene);
 
     var ticks = [-2, 0, 2];
     scene.add(axes(3, ticks, 3, ticks, 3, ticks,
 		   {tickLen: 0.2, tickLabelSep: 0.4, axisLabelSep: 0.8, fontsize: 24, linewidth: 1}));
 
-    var xslice = new QuadricSlice("slicedsphere", scene, "x", 1, 3, 3, 3, drawSlice);
-    var yslice = new QuadricSlice("slicedsphere", scene, "y", 1.4, 3, 3, 3, drawSlice);
-    var zslice = new QuadricSlice("slicedsphere", scene, "z", -1.2, 3, 3, 3, drawSlice);
+    var xslice = new QuadricSlice(container, scene, "x", 1, 3, 3, 3, drawSlice);
+    var yslice = new QuadricSlice(container, scene, "y", 1.4, 3, 3, 3, drawSlice);
+    var zslice = new QuadricSlice(container, scene, "z", -1.2, 3, 3, 3, drawSlice);
 
     drawSphere();
     animate();

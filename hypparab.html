@@ -38,18 +38,17 @@
 </nav>
 
 <section>
-  <p><b>Equation:</b>
+    <p><b>Equation:</b>
+      $$z=Ax^2+By^2 \quad \mbox{where $A$ and $B$ have opposite signs.}$$
+
+     With just the flip of a sign, say
+
+      $$ x^2 + y^2 \quad \mbox{to} \quad  x^2  - y^2$$
+      
+      we can change from an elliptic paraboloid to a much more complex
+      surface.  Because it's such a neat surface, with a fairly simple
+      equation, we use it over and over in examples.</p>
   
-  $$z=Ax^2+By^2 \quad \mbox{where $A$ and $B$ have opposite signs.}$$
-
-  With just the flip of a sign, say
-
-  $$ x^2 + y^2 \quad \mbox{to} \quad  x^2  - y^2$$
-
-  we can change from an elliptic paraboloid to a much more complex
-  surface.  Because it's such a neat surface, with a fairly simple
-  equation, we use it over and over in examples.</p>
-
   <p>Hyperbolic paraboloids are often referred to as "saddles," for
   fairly obvious reasons.  Their official name stems from the fact that
   their vertical cross sections are parabolas, while the horizontal
@@ -63,16 +62,63 @@
   cross sections can open in either the \(x\)- or \(y\)-
   direction, depending on the chosen value for \(z\).  All of these
   are important features of any hyperbolic paraboloid. </p>
+</section>
 
+
+<section>
+  
   <p>The second picture lets you explore what happens when you adjust the
   coefficients of the equation
 
   $$z=Ax^2+By^2$$
 
   (Here we're assuming \(A\) is positive and \(B\) is
-  negative; in other words this "looks" like \(z= x^2 - y^2.\)) Here
-  are a few things for you to think about:</p>
+      negative; in other words this "looks" like \(z= x^2 - y^2.\))</p>
 
+
+    <div class="threecontainer">
+	<canvas class="threejs" id="hypparabplot" style="height: 40em"></canvas>
+	<div class="threecontrols">
+
+	    <!-- A slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel" id="Asliderlabel">
+		    A = 1.0
+		</div>
+		<div class="threeslider" id="Aslider" style="width: 25em;">
+		</div>
+	    </div>
+
+
+	    <!-- B slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel" id="Bsliderlabel">
+		    B = 1.0
+		</div>
+		<div class="threeslider" id="Bslider" style="width: 25em;">
+		</div>
+	    </div>
+
+	    <!-- Other plot controls -->
+
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    Gridlines: <input type="checkbox" id="showgridlines">
+		</div>
+		<div class="sliderlabel">
+		    Domain:
+		    <select id="domaintype">
+			<option value="square">Square</option>
+			<option value="disk">Disk</option>
+		    </select>
+		</div>
+	    </div>
+	</div>
+    </div>
+
+
+  <p>Here are a few things for you to think about:</p>
+    
   <ol>
     <li>What does the horizontal cross section given by \(z=0\)
     look like?  Check on the first picture, and also look at the
@@ -86,8 +132,10 @@
   <p>Be careful; if you hear somebody refer simply to a
   "paraboloid," they generally mean an <i>elliptic</i> paraboloid, or
   even a surface where \(A=0\) or \(B=0\).  If you're in
-  doubt which surface somebody means, ask. </p>
+      doubt which surface somebody means, ask. </p>
 
-</section>
+  </section>
+
+  <script src="js/hypparabplot.js"></script>
 </body>
 </html>

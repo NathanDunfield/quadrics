@@ -2,8 +2,7 @@
 (function () {
     
     var scene, camera, animate, parameters, surface, container, values;
-    var showGridCheckbox;
-    var surfaceMenu;
+    var basicGUI;
     var vshift = -3.5;
 
     container = document.getElementById("slicedellparab");
@@ -11,9 +10,7 @@
     scene = values.scene;
     camera = values.camera;
     animate = values.animate;
-    var s = 0.85;
-    camera.position.set(s*9.4, -s*14.1, s*4.8);
-    camera.up = new THREE.Vector3(0,0,1);
+    setCamera();
     fancyLighting(scene);
 
     // Axes
@@ -27,13 +24,7 @@
 
     // Setup UI, first the simple stuff.
 
-    showGridCheckbox = container.getElementsByTagName("input")[0];
-    showGridCheckbox.checked = true;
-    showGridCheckbox.onchange = drawParaboloid;
-    
-    surfaceMenu = container.getElementsByTagName("select")[0];
-    surfaceMenu.value = "transparent";
-    surfaceMenu.onchange = drawParaboloid;
+    basicGUI = setupBasicGUI(container, drawParaboloid, setCamera);
     
     // Now setup and connect the sliders to the slices.
     
@@ -48,6 +39,13 @@
 				  vshift, drawHorizontalSlice);
     drawParaboloid();
     animate();
+
+
+    function setCamera(){
+	var s = 0.85;
+	camera.position.set(s*9.4, -s*14.1, s*4.8);
+	camera.up = new THREE.Vector3(0,0,1);
+    }
 
     function perturbSlice(slice){
 	var ans = new THREE.Group();
@@ -96,7 +94,7 @@
 
 	scene.remove(surface);
 
-	switch(surfaceMenu.value){
+	switch(basicGUI.menu.value){
 	    case "invisible":
 		showsurface = false;
 		break
@@ -110,7 +108,7 @@
 		break;
 	}
 	surface = drawPlotOverSquare(f, {
-	    showgrid: showGridCheckbox.checked, 
+	    showgrid: basicGUI.checkbox.checked, 
 	    showsurface: showsurface, opacity: opacity,
 	    squareSize: 2});
 	surface.position.z += vshift;

@@ -20,6 +20,26 @@ function getSliderValue(slider){
     return ans;
 }
 
+/* 
+
+   Setting up the basic controls at the bottom of a plot.  
+   
+ */
+
+function setupBasicGUI(container, onchange, onclick){
+    var checkbox = container.getElementsByTagName("input")[0];
+    checkbox.checked = true;
+    checkbox.onchange = onchange;
+
+    var menu = container.getElementsByTagName("select")[0];
+    menu.onchange = onchange;
+
+    var button =  container.getElementsByTagName("button")[0];
+    button.onclick = onclick;
+    return {checkbox:checkbox, menu:menu, button:button};
+}
+
+
 /*
 
   Returns a basic 3D scene attached to a canvas with id "name". 

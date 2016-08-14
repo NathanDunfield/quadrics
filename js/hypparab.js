@@ -6,8 +6,7 @@
     var plot;
     var Aslider;
     var Bslider;
-    var showGridCheckbox;
-    var domainMenu;
+    var basicGUI;
     
     init();
 
@@ -21,11 +20,9 @@
 	container = document.getElementById("hypparab");
 	var values = setup3DScene(container);
 	scene = values.scene;
-	fancyLighting(scene);
 	camera = values.camera;
-	camera.position.set(6.7, -7.9, 5.4);
-	camera.up = new THREE.Vector3(0,0,1);
-	camera.lookAt(new THREE.Vector3(0,0,0));
+	fancyLighting(scene);
+	setCamera();
 
 	// Axes
 	var ticks = [-1, 0, 1];
@@ -34,12 +31,7 @@
 
 	// Setup UI, first the simple stuff.
 
-	showGridCheckbox = container.getElementsByTagName("input")[0];
-	showGridCheckbox.checked = true;
-	showGridCheckbox.onchange = updatePlot;
-
-	domainMenu = container.getElementsByTagName("select")[0];
-	domainMenu.onchange = updatePlot;
+	basicGUI = setupBasicGUI(container, updatePlot, setCamera);
 	
 	// Now setup and connect the sliders.
 
@@ -63,15 +55,22 @@
 	values.animate();
     }
 
+    function setCamera(){
+	camera.position.set(6.7, -7.9, 5.4);
+	camera.up = new THREE.Vector3(0,0,1);
+	camera.lookAt(new THREE.Vector3(0,0,0));
+    }
+    
+
     function updatePlot()
     {
 	scene.remove(plot);
 	var A = getSliderValue(Aslider);
 	var B =  getSliderValue(Bslider);
 	var f = createPlotFunction(A, B);
-	var opts = {showgrid: showGridCheckbox.checked};
+	var opts = {showgrid: basicGUI.checkbox.checked};
 
-	if (domainMenu.value == "square"){
+	if (basicGUI.menu.value == "square"){
 	    plot = drawPlotOverSquare(f, opts);
 	}
 	else{

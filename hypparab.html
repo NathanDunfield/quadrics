@@ -57,7 +57,7 @@
 
 
     <div class="threecontainer" id="slicedhypparab">
-      <canvas class="threejs"></canvas>
+      <canvas class="threejs" height="40em"></canvas>
       <div class="threecontrols">
 	  <div class="slidergroup">
 	      <div class="sliderlabel">
@@ -91,9 +91,12 @@
 		  Surface:
 		  <select>
 		      <option value="invisible">Invisible</option>
-		      <option value="transparent">Transparent</option>
+		      <option value="transparent" selected="selected">Transparent</option>
 		      <option value="solid">Solid</option>
 		  </select>
+	      </div>
+	      <div class="sliderlabel">
+		  <button>Reset view</button>
 	      </div>
 	  </div>
       </div>
@@ -152,10 +155,13 @@
 		<div class="sliderlabel">
 		    Domain:
 		    <select>
-			<option value="square">Square</option>
+			<option value="square" selected="selected">Square</option>
 			<option value="disk">Disk</option>
 		    </select>
 		</div>
+		<div class="sliderlabel">
+		  <button>Reset view</button>
+	      </div>
 	    </div>
 	</div>
     </div>

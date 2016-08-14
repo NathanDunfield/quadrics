@@ -18,19 +18,20 @@
     function init()
     {
 	// Setup scene and lighting
-	container = document.getElementById("basicplot");
+	container = document.getElementById("ellparab");
 	var values = setup3DScene(container);
 	scene = values.scene;
 	fancyLighting(scene);
 	camera = values.camera;
-	camera.position.set(6.7, -7.9, 5.4);
+	camera.position.set(6.7, -7.9, 3.4);
 	camera.up = new THREE.Vector3(0,0,1);
-	camera.lookAt(new THREE.Vector3(0,0,0));
 
 	// Axes
 	var ticks = [-1, 0, 1];
-	var zticks = [-3, -2, -1, 0, 1, 2, 3];
-	scene.add(axes(1.5, ticks, 1.5, ticks, 3.5,  zticks));
+	var zticks = [0, 1, 2, 3, 4, 5, 6];
+	var ax = axes(1.5, ticks, 1.5, ticks, 0, 6.5, zticks);
+	ax.position.z += -3;
+	scene.add(ax);
 
 	// Setup UI, first the simple stuff.
 
@@ -52,10 +53,10 @@
 	});
 
 	Bslider = setupSlider(sliders[1], "B = ", {
-	    start: -1.0,
-	    range: {"min": -3.0, "max": 0.0},
+	    start: 1.0,
+	    range: {"min": 0.0, "max": 3.0},
 	    orientation: "horizontal",
-	    connect: "upper",
+	    connect: "lower",
 	});
 
 	Aslider.noUiSlider.on("update", updatePlot);
@@ -77,7 +78,8 @@
 	else{
 	    plot = drawPlotOverDisk(f, opts);
 	}
-	    
+
+	plot.position.z += -3;
 	scene.add(plot);
 	// console.log(camera.position);
 	// console.log(camera.up);

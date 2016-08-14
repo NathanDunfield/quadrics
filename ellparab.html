@@ -2,24 +2,23 @@
 <html lang="en">
 
 <head>
-<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
-<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
-<title>
- IGQS: Elliptic Paraboloid 
-</title>
-
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/Detector.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	IGQS: Elliptic Paraboloid 
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" >
+</head>
 </head>
 
 <body>
@@ -49,25 +48,73 @@
   shown in class. It has a distinctive "nose-cone" appearance.</p>
 
   <p>This surface is called an elliptic paraboloid because the
-  vertical cross sections are all parabolas, while the horizontal
-  cross sections are ellipses.  Occasionally we get sloppy and just
-  refer to it simply as a paraboloid; that wouldn't be a problem,
-  except that it leads to confusion with the <a
-  href="hypparab.html">hyperbolic</a> paraboloid. </p>
+      vertical cross sections are all parabolas, while the horizontal
+      cross sections are ellipses.  Occasionally we get sloppy and just
+      refer to it simply as a paraboloid; that wouldn't be a problem,
+      except that it leads to confusion with the
+      <a href="hypparab.html">hyperbolic</a> paraboloid. </p>
 
-  <p>The cross sections on the left are for the simplest possible elliptic paraboloid:
-  $$
-  z = x^2 + y^2
-  $$
-  One important feature of the vertical cross sections is that the
-  parabolas all open in the same direction.  That isn't true for <a
-  href="hypparab.html">hyperbolic</a> paraboloids! </p>
+  <p>The cross sections shown below are for the simplest possible elliptic paraboloid:
+      $$
+      z = x^2 + y^2
+      $$
+      One important feature of the vertical cross sections is that the
+      parabolas all open in the same direction.  That isn't true for
+      <a href="hypparab.html">hyperbolic</a> paraboloids! </p>
 
+  <div class="threecontainer" id="slicedellparab">
+      <canvas class="threejs" style="height: 40em"></canvas>
+      <div class="threecontrols">
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  x = 1.0
+	      </div>
+	      <div class="threeslider" style="width: 25em;">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  y = 1.0
+	      </div>
+	      <div class="threeslider" style="width: 25em;">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  z = 1.0
+	      </div>
+	      <div class="threeslider" style="width: 25em;">
+	      </div>
+	  </div>
+
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  Gridlines: <input type="checkbox">
+	      </div>
+	      <div class="sliderlabel">
+		  Surface:
+		  <select>
+		      <option value="invisible">Invisible</option>
+		      <option value="transparent">Transparent</option>
+		      <option value="solid">Solid</option>
+		  </select>
+	      </div>
+	  </div>
+      </div>
+  </div>
+  
   <p>Note that in this case, the horizontal cross sections are
-  actually <i>circles</i>, but this isn't always the case.  In fact,
-  whenever \(A\) and \(B\) are not equal, the paraboloid
-  will be wider in one direction than the other. </p>
+      actually <i>circles</i>, but this isn't always the case.  In fact,
+      whenever \(A\) and \(B\) are not equal, the paraboloid
+      will be wider in one direction than the other. </p>
 
+</section>
+
+<section>
+
+  
   <p>You can use the second picture to investigate how these
   coefficients affect the shape of the surface.  It shows the
   paraboloid \(z=Ax^2+By^2\) over the square domain 
@@ -79,7 +126,48 @@
   $$
   If you change the domain to a disk, you will see the portion of the
   paraboloid for which \(0 \leq z \leq 8\).  When you change
-  \(A\) and \(B\), the domain will change accordingly. </p>
+      \(A\) and \(B\), the domain will change accordingly. </p>
+
+
+  <div class="threecontainer" id="ellparab">
+      <canvas class="threejs" style="height: 40em"></canvas>
+	<div class="threecontrols">
+	    <!-- A slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    A = 1.0
+		</div>
+		<div class="threeslider" style="width: 25em;">
+		</div>
+	    </div>
+
+
+	    <!-- B slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    B = 1.0
+		</div>
+		<div class="threeslider" style="width: 25em;">
+		</div>
+	    </div>
+
+	    <!-- Other plot controls -->
+
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    Gridlines: <input type="checkbox">
+		</div>
+		<div class="sliderlabel">
+		    Domain:
+		    <select>
+			<option value="square">Square</option>
+			<option value="disk">Disk</option>
+		    </select>
+		</div>
+	    </div>
+	</div>
+    </div>
+  
 
 <p>Here are a few things to think about:</p>
 
@@ -95,6 +183,9 @@
     here</a> to experiment and see if you're right.)</li>
   </ol>
 </section>
+
+<script src="js/slicedellparab.js"></script>
+<script src="js/ellparab.js"></script>
 </body>
 </html>
 

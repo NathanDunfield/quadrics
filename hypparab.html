@@ -2,24 +2,23 @@
 <html lang="en">
 
 <head>
-<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
-<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
-<title>
- IGQS: Hyperbolic Paraboloid 
-</title>
-
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/Detector.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	IGQS: Hyperbolic Paraboloid 
+    </title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" >
 </head>
 
 <body>
@@ -54,7 +53,52 @@
   their vertical cross sections are parabolas, while the horizontal
   cross sections are hyperbolas.  But even the vertical cross sections
   are more complicated than with an elliptic paraboloid.  Look at the
-  picture on the left, which shows the surface \(z= x^2 - y^2 \).</p>
+      picture below, which shows the surface \(z= x^2 - y^2 \).</p>
+
+
+    <div class="threecontainer" id="slicedhypparab">
+      <canvas class="threejs"></canvas>
+      <div class="threecontrols">
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  x = 1.0
+	      </div>
+	      <div class="threeslider" style="width: 25em;">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  y = 1.0
+	      </div>
+	      <div class="threeslider" style="width: 25em;">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  z = 1.0
+	      </div>
+	      <div class="threeslider" style="width: 25em;">
+	      </div>
+	  </div>
+
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  Gridlines: <input type="checkbox">
+	      </div>
+	      <div class="sliderlabel">
+		  Surface:
+		  <select>
+		      <option value="invisible">Invisible</option>
+		      <option value="transparent">Transparent</option>
+		      <option value="solid">Solid</option>
+		  </select>
+	      </div>
+	  </div>
+      </div>
+  </div>
+  
 
   <p>Notice that the parabolas open in different directions; the green
   parabolas open <i>downward</i>, while the purple ones open
@@ -76,26 +120,26 @@
       negative; in other words this "looks" like \(z= x^2 - y^2.\))</p>
 
 
-    <div class="threecontainer">
-	<canvas class="threejs" id="hypparabplot" style="height: 40em"></canvas>
+    <div class="threecontainer" id="hypparab">
+	<canvas class="threejs" style="height: 40em"></canvas>
 	<div class="threecontrols">
 
 	    <!-- A slider -->
 	    <div class="slidergroup">
-		<div class="sliderlabel" id="Asliderlabel">
+		<div class="sliderlabel">
 		    A = 1.0
 		</div>
-		<div class="threeslider" id="Aslider" style="width: 25em;">
+		<div class="threeslider" style="width: 25em;">
 		</div>
 	    </div>
 
 
 	    <!-- B slider -->
 	    <div class="slidergroup">
-		<div class="sliderlabel" id="Bsliderlabel">
+		<div class="sliderlabel">
 		    B = 1.0
 		</div>
-		<div class="threeslider" id="Bslider" style="width: 25em;">
+		<div class="threeslider" style="width: 25em;">
 		</div>
 	    </div>
 
@@ -103,11 +147,11 @@
 
 	    <div class="slidergroup">
 		<div class="sliderlabel">
-		    Gridlines: <input type="checkbox" id="showgridlines">
+		    Gridlines: <input type="checkbox">
 		</div>
 		<div class="sliderlabel">
 		    Domain:
-		    <select id="domaintype">
+		    <select>
 			<option value="square">Square</option>
 			<option value="disk">Disk</option>
 		    </select>
@@ -136,6 +180,7 @@
 
   </section>
 
-  <script src="js/hypparabplot.js"></script>
+  <script src="js/slicedhypparab.js"></script>
+  <script src="js/hypparab.js"></script>
 </body>
 </html>

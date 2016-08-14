@@ -10,12 +10,15 @@
     animate = values.animate;
 
     var ticks = [-2, 0, 2];
-    scene.add(axes(3, ticks, 3, ticks, 3, ticks,
+    scene.add(axes(3, ticks, 3, ticks, -3, 3, ticks,
 		   {tickLen: 0.2, tickLabelSep: 0.4, axisLabelSep: 0.8, fontsize: 24, linewidth: 1}));
 
-    var xslice = new QuadricSlice(container, scene, "x", 1, 3, 3, 3, drawSlice);
-    var yslice = new QuadricSlice(container, scene, "y", 1.4, 3, 3, 3, drawSlice);
-    var zslice = new QuadricSlice(container, scene, "z", -1.2, 3, 3, 3, drawSlice);
+    var xslice = new QuadricSlice(container, scene, "x", 1,
+				 -3, 3, -3, 3, -3, 3, 0, drawSlice);
+    var yslice = new QuadricSlice(container, scene, "y", 1.4,
+				  -3, 3, -3, 3, -3, 3, 0, drawSlice);
+    var zslice = new QuadricSlice(container, scene, "z", -1.2,
+				  -3, 3, -3, 3, -3, 3, 0, drawSlice);
 
     drawSphere();
     animate();

@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
-<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
-<title>
- IGQS: Hyperboloid of Two Sheets
-</title>
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	IGQS: Hyperboloid of Two Sheets
+    </title>
 
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/Detector.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" >
 </head>
 
 <body>
@@ -68,7 +66,57 @@
   (Go back to that page and convince yourself that its cross sections
   all exist.)  If you end up with something negative equal to
   something positive, then you've got a two-sheeter.
+</section>
 
+<section>
+    <div class="threecontainer" id="hyper2">
+      <canvas class="threejs" style="height: 40em"></canvas>
+	<div class="threecontrols">
+	    <!-- A slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    A = 1.0
+		</div>
+		<div class="threeslider" style="width: 25em;">
+		</div>
+	    </div>
+
+
+	    <!-- B slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    B = 1.0
+		</div>
+		<div class="threeslider" style="width: 25em;">
+		</div>
+	    </div>
+
+	    <!-- C slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    C = 1.0
+		</div>
+		<div class="threeslider" style="width: 25em;">
+		</div>
+	    </div>
+	    
+	    <!-- Other plot controls -->
+
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    Gridlines: <input type="checkbox">
+		</div>
+		<div class="sliderlabel">
+		    Domain:
+		    <select>
+			<option value="square">Square</option>
+			<option value="disk">Disk</option>
+		    </select>
+		</div>
+	    </div>
+	</div>
+    </div>
+    
   <p>By now you probably expect that larger values of \(A\),
   \(B\), and \(C\) make for a much steeper surface, right?
   Wrong!  It's true that making \(C\) larger will have a dramatic
@@ -83,6 +131,7 @@
     <li>Does there always need to be a gap between the two sheets, or
     could they touch?</li> </ol>
 
-</section>  
+</section>
+<script src="js/hyper2.js"></script>
 </body>
 </html>

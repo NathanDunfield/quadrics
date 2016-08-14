@@ -126,28 +126,35 @@ function circleGeometry(radius, numsegs)
   A slice is the intersection of the quadric surface with a plane
   orthogonal to a coordinate axis.  For example, 
 
-      QuadricSlice("z", 1, 2, 3)
+      QuadricSlice(
 
   is the intersection with the plane z = 1.  When the plane itself is
   drawn, it will have -2 <= x <= 2 and -3 <= y <= 3.  
 */
 
-function QuadricSlice(container, scene, axis, c, cmax, a, b, drawSlice){
+function QuadricSlice(container, scene, axis, c,
+		      cmin, cmax, amin, amax, bmin, bmax,
+		      vshift, 
+		      drawSlice){
+    this.scene = scene;
     this.axis = axis;
     this.c = c;
-    this.a = a;
-    this.b = b;
-    this.color = {x:0xE87722, y:0x606EB2, z:0x002058}[axis];
-    this.scene = scene;
-    this.name = name;
+    this.cmin = cmin;
     this.cmax = cmax;
+    this.amin = amin;
+    this.amax = amax;
+    this.bmin = bmin;
+    this.bmax = bmax;
+    this.vshift = vshift;
+    this.color = {x:0xE87722, y:0x606EB2, z:0x002058}[axis];
     this.drawSlice = drawSlice;
+
     var sliderGroupElements = container.getElementsByClassName("slidergroup");
     var ourSliderGroup = sliderGroupElements[{x:0, y:1, z:2}[this.axis]];
     this.sliderElement = setupSlider(ourSliderGroup, this.axis + " = ",
 				     {
 					 start: this.c, 
-					 range: {"min":-this.cmax, "max":this.cmax},
+					 range: {"min":this.cmin, "max":this.cmax},
 					 orientation: "horizontal",
 				     });
   
@@ -157,23 +164,39 @@ function QuadricSlice(container, scene, axis, c, cmax, a, b, drawSlice){
 	    group.position.z += this.c;
 	}
 	if(this.axis == "x"){
-	    group.rotateY(Math.PI/2);
+	    group.rotateY(-Math.PI/2);
+	    group.rotateZ(-Math.PI/2)
 	    group.position.x += this.c;
 	}
 	if(this.axis == "y"){
-	    group.rotateX(-Math.PI/2);
+	    group.rotateX(Math.PI/2);
 	    group.position.y += this.c;
 	}
+	group.position.z += this.vshift;
     }
     
     this.drawPlane = function()
     {
 	this.plane = new THREE.Group();
-	var geometry = new THREE.PlaneGeometry(2*this.a, 2*this.b);
+	x0 = this.amin;
+	x1 = this.amax;
+	y0 = this.bmin;
+	y1 = this.bmax;
+	var geometry = new THREE.Geometry();
+	geometry.vertices.push(new THREE.Vector3(x0, y0, 0));
+	geometry.vertices.push(new THREE.Vector3(x1, y0, 0));
+	geometry.vertices.push(new THREE.Vector3(x1, y1, 0));
+	geometry.vertices.push(new THREE.Vector3(x0, y1, 0));
+	geometry.faces.push(new THREE.Face3(0, 1, 2));
+	geometry.faces.push(new THREE.Face3(0, 2, 3));
+	geometry.computeFaceNormals();
+	geometry.computeVertexNormals();
+	
 	var material = new THREE.MeshLambertMaterial(
 	    {color:this.color, transparent:true, opacity:0.1});
 	material.side = THREE.DoubleSide;
 	var plane = new THREE.Mesh(geometry, material);
+
 	this.placeGroup(plane);
 	var edges = new THREE.EdgesHelper(plane, this.color);
 	edges.material.linewidth = 2;
@@ -211,21 +234,6 @@ function QuadricSlice(container, scene, axis, c, cmax, a, b, drawSlice){
 }
 
 
-
-function quadricSlices(container, scene, x, xbox, y, ybox, z, zbox){
-    function addCallbacks(name, slice){
-	this.sliderElement.noUiSlider.on("start", this.updateActive);
-	this.sliderElement.noUiSlider.on("update", this.updateActive);
-	this.sliderElement.noUiSlider.on("end", this.updateFinished);
-    }
-
-
-    var xslice = new QuadricSlice(container, scene, "x", x, xbox, ybox, zbox, 0xE87722);
-    var yslice = new QuadricSlice(container, scene, "y", y, ybox, xbox, zbox, 0x606EB2);
-    var zslice = new QuadricSlice(container, scene, "z", z, zbox, xbox, ybox, 0x002058);
-    return {x:xslice, y:yslice, z:zslice};
-}
-
 /*
 
    Plotting a function f(x,y) over a domain in the plane, here either
@@ -238,18 +246,24 @@ function drawPlotOverSquare(f, opts)
     phi = function(s, t){
 	return [s, t];
     }
-    ans = new THREE.Group();
+    var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 40;
     opts.sGridlines = opts.gridlines || 6;
     opts.tGridlines = opts.gridlines || 6;
+    opts.squareSize = opts.squareSize || 1;
     opts.gridpushoff = opts.gridpushoff || 0.01;
     if (typeof opts.showgrid === 'undefined') {opts.showgrid = true;}
-    
-    ans.add(plotOverDomain(f, phi, -1, 1, -1, 1, opts));
+    if (typeof opts.showsurface === 'undefined') {opts.showsurface = true;}
+    if (typeof opts.opacity === 'undefined') {opts.opacity = 1.0;}
 
+    var a = opts.squareSize;
+    if (opts.showsurface){
+	ans.add(plotOverDomain(f, phi, -a, a, -a, a, opts));
+    }
+    
     if (opts.showgrid){
-	ans.add(plotOverDomainGrid(f, phi, -1, 1, -1, 1, opts));
+	ans.add(plotOverDomainGrid(f, phi, -a, a, -a, a, opts));
     }
     return ans;
 }
@@ -260,18 +274,23 @@ function drawPlotOverDisk(f, opts)
     phi = function(r, t){
 	return [r*Math.cos(t), r*Math.sin(t)];
     }
-    ans = new THREE.Group();
+    var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 100;
     opts.sGridlines = opts.gridlines || 6;
     opts.tGridlines = opts.gridlines || 12;
     opts.gridpushoff = opts.gridpushoff || 0.005;
     if (typeof opts.showgrid === 'undefined') {opts.showgrid = true;}
-    
-    ans.add(plotOverDomain(f, phi, 0, 1, 0, 2*Math.PI, opts));
+    if (typeof opts.showsurface === 'undefined') {opts.showsurface = true;}
+    if (typeof opts.opacity === 'undefined') {opts.opacity = 1.0;}
+
+
+    if (opts.showsurface){
+	ans.add(plotOverDomain(f, phi, 0, Math.sqrt(2), 0, 2*Math.PI, opts));
+    }
 
     if (opts.showgrid){
-	ans.add(plotOverDomainGrid(f, phi, 0, 1, 0, 2*Math.PI, opts));
+	ans.add(plotOverDomainGrid(f, phi, 0, Math.sqrt(2), 0, 2*Math.PI, opts));
     }
     return ans;
 }
@@ -312,7 +331,17 @@ function plotOverDomain(f, phi, s0, s1, t0, t1, opts){
     
     geometry.computeFaceNormals();
     geometry.computeVertexNormals();
-    var material = new THREE.MeshLambertMaterial({color: 0xEEEEEE, side: THREE.DoubleSide});
+
+    
+    var transparent = true;
+    if(opts.opacity == 1.0){
+	transparent = false;
+    }
+    var material = new THREE.MeshLambertMaterial({color: 0xEEEEEE,
+						  side: THREE.DoubleSide,
+						  transparent: transparent,
+						  opacity: opts.opacity
+    });
     return new THREE.Mesh(geometry, material);
 }
 

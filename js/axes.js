@@ -1,10 +1,10 @@
-function axes(xmax, xticks, ymax, yticks, zmax, zticks, opts)
+function axes(xmax, xticks, ymax, yticks, zmin, zmax, zticks, opts)
 {
     /*
        Draw 3-d axes on three sides of a rectangular box centered about
        the origin, namely:
 
-           [-xmax, xmax] x [-ymax, ymax] x [-zmax, zmax]
+           [-xmax, xmax] x [-ymax, ymax] x [zmin, zmax]
 
        with the given ticks.
      */
@@ -19,20 +19,20 @@ function axes(xmax, xticks, ymax, yticks, zmax, zticks, opts)
     
     var ans = new THREE.Group();
 
-    var xaxis = oneAxis(xmax, "x", xticks, opts);
+    var xaxis = oneAxis(-xmax, xmax, "x", xticks, opts);
     xaxis.rotateX(5*Math.PI/4);
     xaxis.position.y += -ymax;
-    xaxis.position.z += -zmax;
+    xaxis.position.z += zmin;
     ans.add(xaxis);
 
-    var yaxis = oneAxis(ymax, "y", yticks, opts);
+    var yaxis = oneAxis(-ymax, ymax, "y", yticks, opts);
     yaxis.rotateZ(Math.PI/2);
     yaxis.rotateX(Math.PI/4);
     yaxis.position.x += -xmax;
     yaxis.position.z += zmax;
     ans.add(yaxis);
 
-    var zaxis = oneAxis(zmax, "z", zticks, opts);
+    var zaxis = oneAxis(zmin, zmax, "z", zticks, opts);
     zaxis.rotateY(-Math.PI/2);
     zaxis.rotateX(3*Math.PI/4);
     zaxis.position.x += -xmax;
@@ -42,13 +42,13 @@ function axes(xmax, xticks, ymax, yticks, zmax, zticks, opts)
     return ans;
 }
 
-function oneAxis(axisMax, axisName, ticks, opts)
+function oneAxis(axisMin, axisMax, axisName, ticks, opts)
 {
     // Build this along the x-axis, caller can then move into place. 
     var ans = new THREE.Group();
     var material = new THREE.LineBasicMaterial({color: 'black', linewidth: opts.linewidth});
     var axisGeometry = new THREE.Geometry();
-    var a = new THREE.Vector3(-axisMax, 0, 0);
+    var a = new THREE.Vector3(axisMin, 0, 0);
     var b = new THREE.Vector3(axisMax, 0, 0);
     axisGeometry.vertices.push(a);
     axisGeometry.vertices.push(b);

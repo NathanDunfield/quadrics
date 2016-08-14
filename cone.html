@@ -2,24 +2,23 @@
 <html lang="en">
 
 <head>
-<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
-<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
-<title>
- IGQS: Double Cone
-</title>
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	IGQS: Double Cone
+    </title>
 
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/Detector.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" >
 </head>
 
 <body>
@@ -60,7 +59,48 @@
   square root gives you an equation for the bottom.  Be careful if
   somebody says "cone" without elaborating; they might mean "double
   cone" or "single cone," depending on the context.</p>
+</section>
 
+<section>
+    <div class="threecontainer" id="cone">
+      <canvas class="threejs" style="height: 40em"></canvas>
+	<div class="threecontrols">
+	    <!-- A slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    A = 1.0
+		</div>
+		<div class="threeslider" style="width: 25em;">
+		</div>
+	    </div>
+
+
+	    <!-- B slider -->
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    B = 1.0
+		</div>
+		<div class="threeslider" style="width: 25em;">
+		</div>
+	    </div>
+
+	    <!-- Other plot controls -->
+
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    Gridlines: <input type="checkbox">
+		</div>
+		<div class="sliderlabel">
+		    Domain:
+		    <select>
+			<option value="square">Square</option>
+			<option value="disk">Disk</option>
+		    </select>
+		</div>
+	    </div>
+	</div>
+    </div>
+    
   <p>Roughly speaking, the constants A and B determine how "steep" the
   cone is in the \(x\) and \(y\) direction, respectively.  You can get
   a feel from this in the second picture, which shows the portion of a
@@ -80,6 +120,8 @@
     \(y=0\)?  Are these hyperbolas?</li>
  <ol>
 
+ <script src="js/cone.js"></script>
+     
 </section>
 </body>
 </html>

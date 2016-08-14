@@ -28,7 +28,7 @@
 	fancyLighting(scene);
 
 	var ticks = [-2, 0, 2];
-	scene.add(axes(3, ticks, 3, ticks, 3, ticks,
+	scene.add(axes(3, ticks, 3, ticks, -3, 3, ticks,
 		       {tickLen: 0.2, tickLabelSep: 0.4, axisLabelSep: 0.8, fontsize: 24, linewidth: 1}));
 	slider.noUiSlider.set(2.0);
 	animate();

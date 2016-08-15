@@ -26,6 +26,19 @@ function getSliderValue(slider){
    
  */
 
+
+function basicMaterial(opacity){
+    if (opacity == 0){
+	return null;
+    }
+    var opts = {color:0xEEEEEE, side: THREE.DoubleSide};
+    if (opacity < 1){
+	opts.transparent = true;
+	opts.opacity = opacity;
+    }
+    return new THREE.MeshLambertMaterial(opts);
+}
+
 function BasicGUI(container, onchange, onclick){
     var checkbox = container.getElementsByTagName("input")[0];
     checkbox.checked = true;
@@ -52,12 +65,9 @@ function BasicGUI(container, onchange, onclick){
 	    case "invisible":
 		return null;
 	    case "transparent":
-		return new THREE.MeshLambertMaterial(
-		    {color:0xEEEEEE, side: THREE.DoubleSide,
-		     transparent: true, opacity:0.3});
+		return basicMaterial(0.3);
 	    case "solid":
-		return new THREE.MeshLambertMaterial(
-		    {color:0xEEEEEE,side: THREE.DoubleSide});
+		return basicMaterial(1.0);
 	}
     };
 
@@ -282,14 +292,11 @@ function QuadricSlice(container, scene, axis, c,
 
 function drawPlotOverSquare(f, opts)
 {
-    var phi = function(s, t){
-	return [s, t];
-    };
     var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 40;
-    opts.sGridlines = opts.gridlines || 6;
-    opts.tGridlines = opts.gridlines || 6;
+    opts.sGrid = opts.gridlines || 6;
+    opts.tGrid = opts.gridlines || 6;
     opts.squareSize = opts.squareSize || 1;
     opts.gridpushoff = opts.gridpushoff || 0.01;
     if (typeof opts.showgrid === 'undefined') {opts.showgrid = true;}
@@ -297,13 +304,26 @@ function drawPlotOverSquare(f, opts)
     if (typeof opts.opacity === 'undefined') {opts.opacity = 1.0;}
 
     var a = opts.squareSize;
-    if (opts.showsurface){
-	ans.add(plotOverDomain(f, phi, -a, a, -a, a, opts));
+
+    var phi = function(s, t){
+	return new THREE.Vector3(s, t, f(s,t));
+    };
+    var normal = function(s, t){
+	return new THREE.Vector3(0, 0, 1);
+    };
+
+    var material = null;
+    if(opts.showsurface){
+	material = basicMaterial(opts.opacity);
     }
     
-    if (opts.showgrid){
-	ans.add(plotOverDomainGrid(f, phi, -a, a, -a, a, opts));
-    }
+    var param = new ParametricSurface(phi, normal, -a, a, -a, a,
+				      opts.samples, opts.gridpushoff);
+
+
+    var gridmat = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
+    param.addTo(ans, material, gridmat, opts.showgrid, opts.sGrid,
+	      opts.tGrid);
     return ans;
 }
 
@@ -316,9 +336,9 @@ function drawPlotOverDisk(f, opts)
     var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 100;
-    opts.sGridlines = opts.gridlines || 6;
-    opts.tGridlines = opts.gridlines || 12;
-    opts.gridpushoff = opts.gridpushoff || 0.005;
+    opts.sGrid = opts.gridlines || 6;
+    opts.tGrid = opts.gridlines || 12;
+    opts.gridpushoff = opts.gridpushoff || 0.01;
     if (typeof opts.showgrid === 'undefined') {opts.showgrid = true;}
     if (typeof opts.showsurface === 'undefined') {opts.showsurface = true;}
     if (typeof opts.opacity === 'undefined') {opts.opacity = 1.0;}

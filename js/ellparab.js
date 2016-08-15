@@ -11,7 +11,7 @@
     init();
 
     function createPlotFunction(A, B){
-	return function(x, y){return A*x*x + B*y*y;}
+	return function(x, y){return A*x*x + B*y*y;};
     }
     
     function init()
@@ -20,20 +20,21 @@
 	container = document.getElementById("ellparab");
 	var values = setup3DScene(container);
 	scene = values.scene;
-	fancyLighting(scene);
 	camera = values.camera;
+	values.controls.target.set(0, 0, 3.0);
+	
+	fancyLighting(scene);
 	setCamera();
 
 	// Axes
 	var ticks = [-1, 0, 1];
 	var zticks = [0, 1, 2, 3, 4, 5, 6];
 	var ax = axes(1.5, ticks, 1.5, ticks, 0, 6.5, zticks);
-	ax.position.z += -3;
 	scene.add(ax);
 
 	// Setup UI, first the simple stuff.
 
-	basicGUI = setupBasicGUI(container, updatePlot, setCamera);
+	basicGUI = new BasicGUI(container, updatePlot, setCamera);
 	
 	// Now setup and connect the sliders.
 
@@ -58,7 +59,7 @@
     }
 
     function setCamera(){
-	camera.position.set(6.7, -7.9, 3.4);
+	camera.position.set(6.7, -7.9, 6.4);
 	camera.up = new THREE.Vector3(0,0,1);
     }
 	
@@ -77,7 +78,6 @@
 	    plot = drawPlotOverDisk(f, opts);
 	}
 
-	plot.position.z += -3;
 	scene.add(plot);
 	// console.log(camera.position);
 	// console.log(camera.up);

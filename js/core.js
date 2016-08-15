@@ -26,7 +26,7 @@ function getSliderValue(slider){
    
  */
 
-function setupBasicGUI(container, onchange, onclick){
+function BasicGUI(container, onchange, onclick){
     var checkbox = container.getElementsByTagName("input")[0];
     checkbox.checked = true;
     checkbox.onchange = onchange;
@@ -36,7 +36,34 @@ function setupBasicGUI(container, onchange, onclick){
 
     var button =  container.getElementsByTagName("button")[0];
     button.onclick = onclick;
-    return {checkbox:checkbox, menu:menu, button:button};
+
+    this.checkbox = checkbox;
+    this.menu = menu;
+    this.button = button;
+
+    /*
+
+       Returns surface material associated to the menu.
+
+     */
+    
+    this.material = function(){
+	switch(this.menu.value){
+	    case "invisible":
+		return null;
+	    case "transparent":
+		return new THREE.MeshLambertMaterial(
+		    {color:0xEEEEEE, side: THREE.DoubleSide,
+		     transparent: true, opacity:0.3});
+	    case "solid":
+		return new THREE.MeshLambertMaterial(
+		    {color:0xEEEEEE,side: THREE.DoubleSide});
+	}
+    };
+
+    this.checked = function(){
+	return this.checkbox.checked;
+    };
 }
 
 
@@ -59,7 +86,6 @@ function setup3DScene(container){
 
     scene.add(camera);
     camera.position.set(0, -10, 10);
-    camera.lookAt(scene.position);
 
     renderer = new THREE.WebGLRenderer( {canvas:canvas, antialias:true} );
     renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -80,7 +106,7 @@ function setup3DScene(container){
 	renderer.render( scene, camera );
     }
     
-    return {scene:scene, animate:animate, camera:camera};
+    return {scene:scene, animate:animate, camera:camera, controls:controls};
 }
 
 /*
@@ -136,7 +162,7 @@ function circleGeometry(radius, numsegs)
 	dt = 2*Math.PI/numsegs;
 	for(var k=0; k <= numsegs; k++){
 	    t = t + dt;
-	    v = new THREE.Vector3(radius*Math.cos(t), radius*Math.sin(t), 0)
+	    v = new THREE.Vector3(radius*Math.cos(t), radius*Math.sin(t), 0);
 	    geometry.vertices.push(v);
 	}
 	return geometry;
@@ -185,7 +211,7 @@ function QuadricSlice(container, scene, axis, c,
 	}
 	if(this.axis == "x"){
 	    group.rotateY(-Math.PI/2);
-	    group.rotateZ(-Math.PI/2)
+	    group.rotateZ(-Math.PI/2);
 	    group.position.x += this.c;
 	}
 	if(this.axis == "y"){
@@ -193,15 +219,15 @@ function QuadricSlice(container, scene, axis, c,
 	    group.position.y += this.c;
 	}
 	group.position.z += this.vshift;
-    }
+    };
     
     this.drawPlane = function()
     {
 	this.plane = new THREE.Group();
-	x0 = this.amin;
-	x1 = this.amax;
-	y0 = this.bmin;
-	y1 = this.bmax;
+	var x0 = this.amin;
+	var x1 = this.amax;
+	var y0 = this.bmin;
+	var y1 = this.bmax;
 	var geometry = new THREE.Geometry();
 	geometry.vertices.push(new THREE.Vector3(x0, y0, 0));
 	geometry.vertices.push(new THREE.Vector3(x1, y0, 0));
@@ -227,7 +253,7 @@ function QuadricSlice(container, scene, axis, c,
 
     this.updateValue = function(){
 	this.c = getSliderValue(this.sliderElement);
-    }
+    };
 
     this.updateActive = function()
     {
@@ -263,9 +289,9 @@ function QuadricSlice(container, scene, axis, c,
 
 function drawPlotOverSquare(f, opts)
 {
-    phi = function(s, t){
+    var phi = function(s, t){
 	return [s, t];
-    }
+    };
     var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 40;
@@ -291,9 +317,9 @@ function drawPlotOverSquare(f, opts)
 
 function drawPlotOverDisk(f, opts)
 {
-    phi = function(r, t){
+    var phi = function(r, t){
 	return [r*Math.cos(t), r*Math.sin(t)];
-    }
+    };
     var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 100;
@@ -324,13 +350,13 @@ function plotOverDomain(f, phi, s0, s1, t0, t1, opts){
     
     var geometry = new THREE.Geometry();
     var n = opts.samples;
-    var p, x, y, s, t, ds, dt;
+    var i, j, k, p, x, y, s, t, ds, dt;
 
     ds = (s1 - s0)/n;
     dt = (t1 - t0)/n;
     // Evaluate the function at the sample points to find the vertices.	
-    for(var i = 0; i <= n; i++){
-	for(var j = 0; j <= n; j++){
+    for(i = 0; i <= n; i++){
+	for(j = 0; j <= n; j++){
 	    s = s0 + i*ds;
 	    t = t0 + j*dt;
 	    p = phi(s, t);
@@ -341,8 +367,8 @@ function plotOverDomain(f, phi, s0, s1, t0, t1, opts){
     }
     
     // Now add in the triangles.
-    for(var i = 0; i < n; i++){
-	for(var j = 0; j < n; j++){
+    for(i = 0; i < n; i++){
+	for(j = 0; j < n; j++){
 	    k = (n + 1)*j + i;
 	    geometry.faces.push(new THREE.Face3(k, k+1, k + n + 2));
 	    geometry.faces.push(new THREE.Face3(k, k + n + 2, k + n + 1));
@@ -377,7 +403,7 @@ function plotOverDomainGrid(f, phi, s0, s1, t0, t1, opts){
     var topgeom, bottomgeom, material;
     var n = opts.samples;
     var eps = opts.gridpushoff;
-    var x, y, z, s, t, ds, dt, m; 
+    var i, j, p, x, y, z, s, t, ds, dt, m; 
     material = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
 
     // First, we draw the gridlines where s is constant.
@@ -425,4 +451,124 @@ function plotOverDomainGrid(f, phi, s0, s1, t0, t1, opts){
     }
     
     return ans;
+}
+
+/*
+
+   A patch of a surface defined as the image of phi(s, t) on the
+   square [s0, s1] x [t0, t1]. So that we can draw curves on it, the
+   caller must provide a function that computes a unit normal
+   vector field. Both phi and normal should return THREE.Vector3's.
+   
+ */
+
+function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
+    this.phi = phi;
+    this.normal = normal;
+    this.s0 = s0;
+    this.s1 = s1;
+    this.t0 = t0;
+    this.t1 = t1;
+    this.samples = samples || 40;
+    this.epsilon = epsilon || 0.01;
+    this.ds = (s1 - s0)/this.samples;
+    this.dt = (t1 - t0)/this.samples;
+
+    this.initGeometry =  function(){
+	var geometry = new THREE.Geometry();
+	var i, j, k, s, t, n;
+	n = this.samples;
+
+	// Evaluate the parameterization at the sample points to find
+	// the vertices.
+	for(i = 0; i <= n; i++){
+	    for(j = 0; j <= n; j++){
+		s = this.s0 + i*this.ds;
+		t = this.t0 + j*this.dt;
+		geometry.vertices.push(this.phi(s, t));
+	    }
+	}
+	
+	// Now add in the triangles.
+	for(i = 0; i < n; i++){
+	    for(j = 0; j < n; j++){
+		k = (n + 1)*j + i;
+		geometry.faces.push(new THREE.Face3(k, k+1, k + n + 2));
+		geometry.faces.push(new THREE.Face3(k, k + n + 2, k + n + 1));
+	    }
+	}
+	geometry.computeFaceNormals();
+	geometry.computeVertexNormals();
+	return geometry;
+    };
+
+    this.geometry = this.initGeometry();
+
+    this.addTo = function(scene, material, gridMaterial, showGrid, sGrid, tGrid){
+	var ans = new THREE.Group();
+	if(material !== null){
+	    var mesh = new THREE.Mesh(this.geometry, material);
+	    ans.add(mesh);
+	}
+	if(showGrid){
+	    ans.add(this.addGrid(sGrid, tGrid, gridMaterial));
+	}
+	scene.add(ans);
+	return ans;
+    };
+
+    /*
+
+       Given path c: [x0, x1] -> [s0, s1] x [t0, t1], return the
+       Geometries of two push-offs of (phi o c) by epsilon.
+       
+     */
+    
+    this.addCurve = function(scene, material, c, x0, x1){
+	var i, p0, p1, v, cval;
+	var m = this.samples;
+	var dx = (x1 - x0)/m;
+	var ans = new THREE.Group();
+	var topgeom = new THREE.Geometry();
+	var bottomgeom = new THREE.Geometry();
+	for(i = 0; i <=m; i++){
+	    cval = c(x0 + i*dx);
+	    p0 = this.phi(cval[0], cval[1]);
+	    p1 = p0.clone();
+	    v = this.normal(cval[0], cval[1]);
+	    p0.addScaledVector(v, this.epsilon);
+	    p1.addScaledVector(v, -this.epsilon);
+	    topgeom.vertices.push(p0);
+	    bottomgeom.vertices.push(p1);	    
+	}
+	ans.add(new THREE.Line(topgeom, material));
+	ans.add(new THREE.Line(bottomgeom, material));
+	scene.add(ans);
+	return ans;
+    };
+
+    this.addGrid = function(sGrid, tGrid, material){
+	var i, s, t, c, ds, dt;
+	var grid = new THREE.Group();
+	// Gridlines that move in the s-direction, so t is constant.	
+	dt = (this.t1 - this.t0)/sGrid;
+	t = this.t0;
+	for (i = 0; i <= sGrid; i++){
+	    c = function(x){return [x, t];};
+	    this.addCurve(grid, material, c, this.s0, this.s1);
+	    t += dt;
+	}
+
+	// Gridlines that move in the t-direction, so s is constant.
+	ds = (this.s1 - this.s0)/tGrid;
+	s = this.s0;
+	for (i = 0; i <= tGrid; i++){
+	    c = function(x){return [s, x];};
+	    this.addCurve(grid, material, c, this.t0, this.t1);
+	    s += ds;
+	}
+	return grid;
+    };
+
+    
 }

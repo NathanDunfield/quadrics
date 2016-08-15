@@ -2,9 +2,12 @@
 (function () {
     var container;
     var scene;
-    var sphere;
+    var paramsurface;
     var edges;
+    var surface;
     var slider;
+    var basicGUI;
+    var camera;
 
     init();
 
@@ -12,8 +15,11 @@
     {
 	container = document.getElementById("basicsphere");
 	var values = setup3DScene(container);
-	scene = values.scene;
-	var animate = values.animate;
+	scene = values.scene;	
+	camera = values.camera;
+	fancyLighting(scene);
+	setupCamera();
+	basicGUI = new BasicGUI(container, updateSphere, setupCamera);
 
 	var sliders = container.getElementsByClassName("slidergroup");
 	slider = setupSlider(sliders[0], "radius = ", {
@@ -25,39 +31,47 @@
 
 	slider.noUiSlider.on("update", updateSphere);
 
-	fancyLighting(scene);
-
 	var ticks = [-2, 0, 2];
 	scene.add(axes(3, ticks, 3, ticks, -3, 3, ticks,
 		       {tickLen: 0.2, tickLabelSep: 0.4, axisLabelSep: 0.8, fontsize: 24, linewidth: 1}));
 	slider.noUiSlider.set(2.0);
-	animate();
+	values.animate();
     }
 
-
+    function setupCamera(){
+	camera.position.set(0, -10, 10);
+	camera.up = new THREE.Vector3(0,0,1);
+    }
+    
     function updateSphere()
     {
-	scene.remove(sphere);
-	scene.remove(edges);
+	scene.remove(surface);
 	drawSphere();
     }
     
     function drawSphere()
     {
 	var radius = getSliderValue(slider);
-	// Sphere parameters: radius, segments along width, segments along height
-	var geometry = new THREE.SphereGeometry(radius, 32, 16 );
-	geometry.rotateX(Math.PI/2);
-	// use a "lambert" material rather than "basic" for realistic lighting.
-	var material = new THREE.MeshLambertMaterial({color:0xEEEEEE });
-	sphere = new THREE.Mesh(geometry, material);
-	sphere.position.set(0, 0, 0);
-	sphere.scale.multiplyScalar(0.995);
-	var othersphere = new THREE.Mesh(geometry, material);
-	edges = new THREE.EdgesHelper(othersphere, "black");
-	edges.material.linewidth=1.5;
-	scene.add(edges);
-	scene.add(sphere);
+	
+	var phi = function(s, t){
+	    var x = radius * Math.sin(s) * Math.cos(t);
+	    var y = radius * Math.sin(s) * Math.sin(t);
+	    var z = radius * Math.cos(s);
+	    return new THREE.Vector3(x, y, z);
+	};
+
+	var normal = function(s, t){
+	    var x = Math.sin(s) * Math.cos(t);
+	    var y = Math.sin(s) * Math.sin(t);
+	    var z = Math.cos(s);
+	    return new THREE.Vector3(x, y, z);
+	};
+	
+	paramsurface = new ParametricSurface(phi, normal, 0, Math.PI, 0, 2*Math.PI, 50, 0.01);
+	var material = new THREE.MeshLambertMaterial({color:0xEEEEEE});
+	var gridmat = new THREE.LineBasicMaterial({color:0x000000, linewidth: 2});
+	surface = paramsurface.addTo(scene, basicGUI.material(), gridmat, basicGUI.checked(), 10, 6);
+	
 }
 
 }()); // calling anonymous function. 

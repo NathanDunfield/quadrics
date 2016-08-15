@@ -105,7 +105,7 @@ function makeTextSprite(message, opts) {
     context.fillText(message, cx - tx, cy + ty);
 
     // canvas contents will be used for a texture
-    var texture = new THREE.Texture(canvas)
+    var texture = new THREE.Texture(canvas);
     texture.minFilter = THREE.LinearFilter;
     texture.needsUpdate = true;
 

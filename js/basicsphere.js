@@ -68,7 +68,6 @@
 	};
 	
 	paramsurface = new ParametricSurface(phi, normal, 0, Math.PI, 0, 2*Math.PI, 50, 0.01);
-	var material = new THREE.MeshLambertMaterial({color:0xEEEEEE});
 	var gridmat = new THREE.LineBasicMaterial({color:0x000000, linewidth: 2});
 	surface = paramsurface.addTo(scene, basicGUI.material(), gridmat, basicGUI.checked(), 10, 6);
 	

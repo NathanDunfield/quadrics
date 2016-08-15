@@ -1,4 +1,6 @@
 {
   "undef": true,
-  "predef": [ "THREE", "document", "noUiSlider", "requestAnimationFrame" ]
+  "predef": [ "THREE", "document", "noUiSlider", "requestAnimationFrame",
+    	    "setup3DScene", "fancyLighting", "BasicGUI", "setupSlider", "axes",
+	    "getSliderValue", "ParametricSurface", "QuadricSlice", "circleGeometry"]
 }

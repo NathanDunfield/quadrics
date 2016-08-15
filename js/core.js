@@ -168,20 +168,10 @@ function circleGeometry(radius, numsegs)
 	return geometry;
     }
 
-/*
-  A slice is the intersection of the quadric surface with a plane
-  orthogonal to a coordinate axis.  For example, 
-
-      QuadricSlice(
-
-  is the intersection with the plane z = 1.  When the plane itself is
-  drawn, it will have -2 <= x <= 2 and -3 <= y <= 3.  
-*/
 
 function QuadricSlice(container, scene, axis, c,
 		      cmin, cmax, amin, amax, bmin, bmax,
-		      vshift, 
-		      drawSlice){
+		      makeSlice){
     this.scene = scene;
     this.axis = axis;
     this.c = c;
@@ -191,9 +181,8 @@ function QuadricSlice(container, scene, axis, c,
     this.amax = amax;
     this.bmin = bmin;
     this.bmax = bmax;
-    this.vshift = vshift;
     this.color = {x:0xE87722, y:0x606EB2, z:0x002058}[axis];
-    this.drawSlice = drawSlice;
+    this.makeSlice = makeSlice;
 
     var sliderGroupElements = container.getElementsByClassName("slidergroup");
     var ourSliderGroup = sliderGroupElements[{x:0, y:1, z:2}[this.axis]];
@@ -218,8 +207,12 @@ function QuadricSlice(container, scene, axis, c,
 	    group.rotateX(Math.PI/2);
 	    group.position.y += this.c;
 	}
-	group.position.z += this.vshift;
     };
+
+    this.drawSlice = function(){
+	this.slice = this.makeSlice(this.c, this.color);
+	this.scene.add(this.slice);
+    }
     
     this.drawPlane = function()
     {
@@ -505,13 +498,18 @@ function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
     this.geometry = this.initGeometry();
 
     this.addTo = function(scene, material, gridMaterial, showGrid, sGrid, tGrid){
+	var epsilon = this.epsilon;
 	var ans = new THREE.Group();
 	if(material !== null){
 	    var mesh = new THREE.Mesh(this.geometry, material);
 	    ans.add(mesh);
 	}
+	else{
+	    epsilon = 0;
+	}
+	
 	if(showGrid){
-	    ans.add(this.addGrid(sGrid, tGrid, gridMaterial));
+	    ans.add(this.addGrid(sGrid, tGrid, gridMaterial, epsilon));
 	}
 	scene.add(ans);
 	return ans;
@@ -524,7 +522,10 @@ function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
        
      */
     
-    this.addCurve = function(scene, material, c, x0, x1){
+    this.addCurveTo = function(scene, material, c, x0, x1, epsilon){
+	if(epsilon == undefined){
+	    epsilon = 0.01;
+	}
 	var i, p0, p1, v, cval;
 	var m = this.samples;
 	var dx = (x1 - x0)/m;
@@ -536,10 +537,10 @@ function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
 	    p0 = this.phi(cval[0], cval[1]);
 	    p1 = p0.clone();
 	    v = this.normal(cval[0], cval[1]);
-	    p0.addScaledVector(v, this.epsilon);
-	    p1.addScaledVector(v, -this.epsilon);
+	    p0.addScaledVector(v, epsilon);
+	    p1.addScaledVector(v, -epsilon);
 	    topgeom.vertices.push(p0);
-	    bottomgeom.vertices.push(p1);	    
+	    bottomgeom.vertices.push(p1);
 	}
 	ans.add(new THREE.Line(topgeom, material));
 	ans.add(new THREE.Line(bottomgeom, material));
@@ -547,7 +548,7 @@ function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
 	return ans;
     };
 
-    this.addGrid = function(sGrid, tGrid, material){
+    this.addGrid = function(sGrid, tGrid, material, epsilon){
 	var i, s, t, c, ds, dt;
 	var grid = new THREE.Group();
 	// Gridlines that move in the s-direction, so t is constant.	
@@ -555,7 +556,7 @@ function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
 	t = this.t0;
 	for (i = 0; i <= sGrid; i++){
 	    c = function(x){return [x, t];};
-	    this.addCurve(grid, material, c, this.s0, this.s1);
+	    this.addCurveTo(grid, material, c, this.s0, this.s1, epsilon);
 	    t += dt;
 	}
 
@@ -564,7 +565,7 @@ function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
 	s = this.s0;
 	for (i = 0; i <= tGrid; i++){
 	    c = function(x){return [s, x];};
-	    this.addCurve(grid, material, c, this.t0, this.t1);
+	    this.addCurveTo(grid, material, c, this.t0, this.t1, epsilon);
 	    s += ds;
 	}
 	return grid;

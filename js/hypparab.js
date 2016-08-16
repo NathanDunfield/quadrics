@@ -31,7 +31,7 @@
 
 	// Setup UI, first the simple stuff.
 
-	basicGUI = setupBasicGUI(container, updatePlot, setCamera);
+	basicGUI = new BasicGUI(container, updatePlot, setCamera);
 	
 	// Now setup and connect the sliders.
 

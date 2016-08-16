@@ -1,7 +1,7 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
     
-    var scene, camera, parameters, container, values;
+    var scene, camera, container, values;
     var paramsurface, surface;
     var basicGUI;
 
@@ -43,7 +43,7 @@
     
     function graphXSlice(c, color){
 	var group = new THREE.Group();
-	var material = new THREE.LineBasicMaterial({color:color, linewidth:4});
+	var material = new THREE.LineBasicMaterial({color:color, linewidth:5});
 	var curve = function(x){
 	    return [c, x];
 	};
@@ -53,7 +53,7 @@
 
     function graphYSlice(c, color){
 	var group = new THREE.Group();
-	var material = new THREE.LineBasicMaterial({color:color, linewidth:4});
+	var material = new THREE.LineBasicMaterial({color:color, linewidth:5});
 	var curve = function(x){
 	    return [x, c];
 	};
@@ -62,7 +62,7 @@
 
     function zSlice(c, color){
 	var group = new THREE.Group();
-	var material = new THREE.LineBasicMaterial({color:color, linewidth:4});
+	var material = new THREE.LineBasicMaterial({color:color, linewidth:5});
 	var r = Math.sqrt(c);
 	var curve = function(x){
 	    return [r*Math.cos(x), r*Math.sin(x)];
@@ -94,7 +94,7 @@
     function drawSurface()
     {
 	scene.remove(surface);
-	var gridmat = new THREE.LineBasicMaterial({color:0x000000, linewidth: 2});
+	var gridmat = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
 	surface = paramsurface.addTo(scene, basicGUI.material(), gridmat, basicGUI.checked(), 6, 6);
     }
 

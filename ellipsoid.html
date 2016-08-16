@@ -2,24 +2,22 @@
 <html lang="en">
 
 <head>
-<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
-<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
-<title>
- IGQS: Ellipsoid
-</title>
-
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/Detector.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	IGQS: Ellipsoid
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" >
 </head>
 
 <body>
@@ -46,18 +44,66 @@
 
 
   <p>Just as an ellipse is a generalization of a circle, an ellipsoid is
-  a generalization of a sphere.  In fact, our planet Earth is not a true
-  sphere; it's an ellipsoid, because it's a little wider than it is
-  tall.</p>
+      a generalization of a sphere.  In fact, our planet Earth is not a true
+      sphere; it's an ellipsoid, because it's a little wider than it is
+      tall.</p>
   
   <p>As you can verify to the left, all of the cross sections of an
-  ellipsoid are ellipses.  The picture shows an ellipsoid where \(A=3\),
-  \(B=2\), and \(C=1\).  Looking at the graph, this gives you a hint
-  about how the constants affect the surface.  An ellipsoid centered at
-  the origin stretches out \(A\) units in the positive and negative
-  \(x\) direction; \(B\) units in the positive and negative \(y\)
-  direction; and \(C\) units in the positive and negative \(z\)
-  direction.</p>
+      ellipsoid are ellipses.  The picture shows an ellipsoid where \(A=1\),
+      \(B=2\), and \(C=3\).  Looking at the graph, this gives you a hint
+      about how the constants affect the surface.  An ellipsoid centered at
+      the origin stretches out \(A\) units in the positive and negative
+      \(x\) direction; \(B\) units in the positive and negative \(y\)
+      direction; and \(C\) units in the positive and negative \(z\)
+      direction.</p>
+
+  <div class="threecontainer" id="slicedellipsoid">
+      <canvas class="threejs"></canvas>
+      <div class="threecontrols">
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  x = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  y = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  z = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  Gridlines: <input type="checkbox">
+	      </div>
+	      <div class="sliderlabel">
+		  Surface:
+		  <select>
+		      <option value="invisible">Invisible</option>
+		      <option value="transparent" selected="selected">Transparent</option>
+		      <option value="solid">Solid</option>
+		  </select>
+	      </div>
+	      <div class="sliderlabel">
+		  <button>Reset view</button>
+	      </div>
+	  </div>
+      </div>
+  </div>
+  
+  
   
   <p>What this means is that an ellipsoid is probably the easiest
   quadric surface to draw accurately.  (Or, if your drawing skills are
@@ -83,5 +129,8 @@
   </ol>
 
 </section>
+
+<script src="js/slicedellipsoid.js"></script>
+<script src="js/ellipsoid.js"></script>
 </body>
 </html>

@@ -333,8 +333,8 @@ function drawPlotOverDisk(f, opts)
     var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 100;
-    opts.sGrid = opts.gridlines || 6;
-    opts.tGrid = opts.gridlines || 12;
+    opts.sGrid = opts.gridlines || 12;
+    opts.tGrid = opts.gridlines || 6;
     opts.gridpushoff = opts.gridpushoff || 0.01;
     if (typeof opts.showgrid === 'undefined') {opts.showgrid = true;}
     if (typeof opts.showsurface === 'undefined') {opts.showsurface = true;}

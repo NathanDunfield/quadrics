@@ -117,7 +117,57 @@
   yourself in the second picture.  Notice how quickly the hyperboloid
   grows, particularly in the \(z\)-direction.  When \(C=2\),
   a relatively small number, the surface already stretches from -8 to
-  +8 on the \(z-\)axis.</p>
+      +8 on the \(z-\)axis.</p>
+
+  <div class="threecontainer" id="hyper1">
+      <canvas class="threejs" ></canvas>
+      <div class="threecontrols">
+	<div class="slidergroup">
+	    <div class="sliderlabel">
+		A = 1.0
+	    </div>
+	    <div class="threeslider">
+	    </div>
+	</div>
+	
+	<div class="slidergroup">
+	    <div class="sliderlabel">
+		B = 1.0
+	    </div>
+	    <div class="threeslider">
+	    </div>
+	</div>
+	
+	<div class="slidergroup">
+	    <div class="sliderlabel">
+		B = 1.0
+	    </div>
+	    <div class="threeslider">
+	    </div>
+	</div>
+    </div>
+
+     <div class="slidergroup">
+         <div class="sliderlabel">
+             Gridlines: <input type="checkbox">
+         </div>
+         <div class="sliderlabel">
+             Surface:
+             <select>
+                 <option value="invisible">Invisible</option>
+                 <option value="transparent" selected="selected">Transparent</option>
+                 <option value="solid">Solid</option>
+             </select>
+         </div>
+         <div class="sliderlabel">
+             <button>Reset view</button>
+         </div>
+     </div>
+</div>
+
+
+  
+  
 
   <p>One caveat: the picture only shows a small portion of the
   hyperboloid, but it continues on forever.  So adjusting the value of

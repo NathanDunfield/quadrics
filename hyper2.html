@@ -47,7 +47,7 @@
   cross sections exist -- and are hyperbolas -- but there's a problem
   with the horizontal cross sections.</p>
 
-  <p>This is evident in the picture to the left, where you can see the 
+  <p>This is evident in the picture below, where you can see the 
   cross sections of
 
   $$-x^2 - y^2 + z^2 = 1$$
@@ -59,6 +59,52 @@
   side is definitely negative, but the right hand side is definitely
   positive.  There's no way to fix this, so the cross section simply
   doesn't exist!</p>
+
+  <div class="threecontainer" id="slicedhyper2">
+      <canvas class="threejs"></canvas>
+      <div class="threecontrols">
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  x = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  y = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  z = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  Gridlines: <input type="checkbox">
+	      </div>
+	      <div class="sliderlabel">
+		  Surface:
+		  <select>
+		      <option value="invisible">Invisible</option>
+		      <option value="transparent">Transparent</option>
+		      <option value="solid" selected="selected">Solid</option>
+		  </select>
+	      </div>
+	      <div class="sliderlabel">
+		  <button>Reset view</button>
+	      </div>
+	  </div>
+      </div>
+  </div>
 
   <p>Here's a hint about telling the two kinds of hyperboloids apart:
   look at the cross sections \(x=0\), \(y=0\), and
@@ -113,6 +159,9 @@
 			<option value="disk">Disk</option>
 		    </select>
 		</div>
+		<div class="sliderlabel">
+		    <button>Reset view</button>
+		</div>
 	    </div>
 	</div>
     </div>
@@ -132,6 +181,7 @@
     could they touch?</li> </ol>
 
 </section>
+<script src="js/slicedhyper2.js"></script>
 <script src="js/hyper2.js"></script>
 </body>
 </html>

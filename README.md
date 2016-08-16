@@ -3,7 +3,7 @@ Interactive Guide To Quadric Surfaces
 
 The original version of this gallery was written by Jonathan Rogness
 and first appeared in the [2005 volume] of the Journal of Online
-Mathematics, and can also be view on [Rogness's website].
+Mathematics; it can also be view on [Rogness's website].
 
 In 2016, [Nathan Dunfield] redid the the interactive 3D graphics from
 scratch using [three.js](http://threejs.org) instead of
@@ -17,14 +17,20 @@ You can view the current version at <http://dunfield.info/quadrics>.
 Installation 
 ------------
 
-Just download the tarball for the repository and view locally or
+Just download the [zipfile] for the repository and view locally or
 put on your webserver as appropriate. 
 
 License
 -------
 
+Copyright 2004-present by Jonathan Rogness and Nathan Dunfield, and
+licensed under the
+[Creative Commons Attribution-NonCommercial-ShareAlike License][CC].
 
 [2005 volume]: http://www.maa.org/node/115856
 [Rogness's website]: http://www.math.umn.edu/~rogness/quadrics/
 [LiveGraphics3D]: http://wwwvis.informatik.uni-stuttgart.de/~kraus/LiveGraphics3D/index.html
 [MathJax]: https://www.mathjax.org/
+[Nathan Dunfield]: http://dunfield.info
+[CC]: http://creativecommons.org/licenses/by-nc-sa/1.0
+[zipfile]: https://bitbucket.org/nathan_dunfield/quadrics/downloads

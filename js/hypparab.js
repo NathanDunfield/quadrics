@@ -11,7 +11,7 @@
     init();
 
     function createPlotFunction(A, B){
-	return function(x, y){return A*x*x + B*y*y;}
+	return function(x, y){return A*x*x + B*y*y;};
     }
     
     function init()

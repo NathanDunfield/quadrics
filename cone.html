@@ -40,25 +40,76 @@
 <section>
 <p><b>Equation:</b>
 
-  $$z^2=Ax^2+By^2$$
+    $$z^2=Ax^2+By^2$$
   
- The double cone is a very important quadric surface, if for no other
- reason than the fact that it's used to define the so-called conics --
- ellipses, hyperbolas, and parabolas -- all of which can be created as
- the intersection of a plane and a double cone.  See any PreCalculus
- or Calculus textbook for pictures of this.</p>
+    The double cone is a very important quadric surface, if for no other
+    reason than the fact that it's used to define the so-called conics --
+    ellipses, hyperbolas, and parabolas -- all of which can be created as
+    the intersection of a plane and a double cone.  See Calculus textbook
+    for pictures of this.</p>
 
-  <p>The vertical cross sections of a double cone are hyperbolas, while
-  the horizontal cross sections are ellipses.  The picture on the left
-  shows the cone where \(A=B=1\).</p>
+<p>The vertical cross sections of a double cone are hyperbolas, while
+    the horizontal cross sections are ellipses.  The picture below
+    shows the cone where \(A=B=1\).</p>
 
-  <p>Look back at the equation for the double cone.  Sometimes we
-  manipulate it to get a <i>single</i> cone.  If we solve for \(z\),
-  we end up with a plus/minus sign in front of a square root.  The
-  positive square root represents the top of the cone; the negative
-  square root gives you an equation for the bottom.  Be careful if
-  somebody says "cone" without elaborating; they might mean "double
-  cone" or "single cone," depending on the context.</p>
+  <div class="threecontainer" id="slicedcone">
+      <canvas class="threejs"></canvas>
+      <div class="threecontrols">
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  x = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  y = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  z = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  Gridlines: <input type="checkbox">
+	      </div>
+	      <div class="sliderlabel">
+		  Surface:
+		  <select>
+		      <option value="invisible">Invisible</option>
+		      <option value="transparent">Transparent</option>
+		      <option value="solid" selected="selected">Solid</option>
+		  </select>
+	      </div>
+	      <div class="sliderlabel">
+		  <button>Reset view</button>
+	      </div>
+	  </div>
+      </div>
+  </div>
+
+
+
+<p>Look back at the equation for the double cone:
+
+    $$z^2=Ax^2+By^2$$
+
+    Sometimes we manipulate it to get a <i>single</i> cone.  If we solve for \(z\),
+    we end up with a plus/minus sign in front of a square root.  The
+    positive square root represents the top of the cone; the negative
+    square root gives you an equation for the bottom.  Be careful if
+    somebody says "cone" without elaborating; they might mean "double
+    cone" or "single cone," depending on the context.</p>
 </section>
 
 <section>
@@ -120,7 +171,9 @@
     \(y=0\)?  Are these hyperbolas?</li>
  <ol>
 
- <script src="js/cone.js"></script>
+
+     <script src="js/slicedcone.js"></script>
+     <script src="js/cone.js"></script>
      
 </section>
 </body>

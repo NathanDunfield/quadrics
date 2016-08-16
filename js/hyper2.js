@@ -12,12 +12,12 @@
     init();
 
     function topPlotFunction(A, B, C){
-	return function(x, y){return C*Math.sqrt(1 + (x/A)*(x/A) + (y/B)*(y/B));}
+	return function(x, y){return C*Math.sqrt(1 + (x/A)*(x/A) + (y/B)*(y/B));};
     }
 
     function bottomPlotFunction(A, B, C){
 	var f = topPlotFunction(A, B, C);
-	return function(x, y){return -f(x,y);}
+	return function(x, y){return -f(x,y);};
     }
     
     function init()

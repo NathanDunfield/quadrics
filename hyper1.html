@@ -2,24 +2,23 @@
 <html lang="en">
 
 <head>
-<link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
-<link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
-<title>
- IGQS: Hyperboloid of One Sheet
-</title>
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	IGQS: Hyperboloid of One Sheet
+    </title>
 
-<script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
-<script src="js/lib/three.min.js"></script>
-<script src="js/lib/dat.gui.min.js"></script>
-<script src="js/lib/Detector.js"></script>
-<script src="js/lib/TrackballControls.js"></script>
-<script src="js/axes.js"></script>
-<script src="js/core.js"></script>
-
-<link rel="stylesheet" href="css/quadrics.css" type="text/css" > 
-<link rel="stylesheet" href="css/datguilight.css" type="text/css" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" >
 </head>
 
 <body>
@@ -56,7 +55,7 @@
   A hyperboloid of one sheet looks an awful lot like a cooling tower at
   the Springfield Nuclear Power Plant.</p>
 
-  <p>On the left you can see the cross sections of a simple
+  <p>Below you can see the cross sections of a simple
   one-sheeted hyperboloid with \(A=B=C=1\).  The horizontal cross
   sections are ellipses -- circles, even, in this case -- while the
   vertical cross sections are hyperbolas.  The reason I said they are
@@ -66,9 +65,55 @@
   do these cross sections by hand, you have to check an awful lot of
   special cases.</p>
 
+    <div class="threecontainer" id="slicedhyper1">
+      <canvas class="threejs"></canvas>
+      <div class="threecontrols">
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  x = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  y = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  z = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  Gridlines: <input type="checkbox">
+	      </div>
+	      <div class="sliderlabel">
+		  Surface:
+		  <select>
+		      <option value="invisible">Invisible</option>
+		      <option value="transparent" selected="selected">Transparent</option>
+		      <option value="solid">Solid</option>
+		  </select>
+	      </div>
+	      <div class="sliderlabel">
+		  <button>Reset view</button>
+	      </div>
+	  </div>
+      </div>
+    </div>
+
   <p>The constants \(A\), \(B\), and \(C\) once again
-  affect how much the hyperboloid stretches in the \(x-\),
-  \(y-\), and \(z\)-directions.  You can see this for
+  affect how much the hyperboloid stretches in the \(x\)-,
+  \(y\)-, and \(z\)-directions.  You can see this for
   yourself in the second picture.  Notice how quickly the hyperboloid
   grows, particularly in the \(z\)-direction.  When \(C=2\),
   a relatively small number, the surface already stretches from -8 to
@@ -104,6 +149,9 @@
   </ol>
 
 </section>
+
+<script src="js/slicedhyper1.js"></script>
+<script src="js/hyper1.js"></script>
 </div>                                                                    
 </body>
 </html>

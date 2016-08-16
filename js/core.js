@@ -28,7 +28,7 @@ function getSliderValue(slider){
 
 
 function basicMaterial(opacity){
-    if (opacity == 0){
+    if (opacity === 0){
 	return null;
     }
     var opts = {color:0xEEEEEE, side: THREE.DoubleSide};
@@ -222,7 +222,7 @@ function QuadricSlice(container, scene, axis, c,
     this.drawSlice = function(){
 	this.slice = this.makeSlice(this.c, this.color);
 	this.scene.add(this.slice);
-    }
+    };
     
     this.drawPlane = function()
     {
@@ -322,17 +322,14 @@ function drawPlotOverSquare(f, opts)
 
 
     var gridmat = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
-    param.addTo(ans, material, gridmat, opts.showgrid, opts.sGrid,
-	      opts.tGrid);
+    param.addTo(ans, material, gridmat, opts.showgrid,
+		opts.sGrid, opts.tGrid);
     return ans;
 }
 
 
 function drawPlotOverDisk(f, opts)
 {
-    var phi = function(r, t){
-	return [r*Math.cos(t), r*Math.sin(t)];
-    };
     var ans = new THREE.Group();
     if (typeof opts === 'undefined') {opts = {};}
     opts.samples = opts.samples || 100;
@@ -344,127 +341,29 @@ function drawPlotOverDisk(f, opts)
     if (typeof opts.opacity === 'undefined') {opts.opacity = 1.0;}
 
 
-    if (opts.showsurface){
-	ans.add(plotOverDomain(f, phi, 0, Math.sqrt(2), 0, 2*Math.PI, opts));
-    }
+    var phi = function(r, t){
+	var x = r*Math.cos(t);
+	var y = r*Math.sin(t);
+	return new THREE.Vector3(x, y, f(x,y));
+    };
+    var normal = function(s, t){
+	return new THREE.Vector3(0, 0, 1);
+    };
 
-    if (opts.showgrid){
-	ans.add(plotOverDomainGrid(f, phi, 0, Math.sqrt(2), 0, 2*Math.PI, opts));
+    var material = null;
+    if(opts.showsurface){
+	material = basicMaterial(opts.opacity);
     }
+    
+    var param = new ParametricSurface(phi, normal, 0, Math.sqrt(2.0), 0, 2*Math.PI,
+				      opts.samples, opts.gridpushoff);
+
+    var gridmat = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
+    param.addTo(ans, material, gridmat, opts.showgrid,
+		opts.sGrid, opts.tGrid);
     return ans;
 }
 
-
-function plotOverDomain(f, phi, s0, s1, t0, t1, opts){
-    /*
-       The function phi is a parameterization from [s0, s1] x [t0, t1]
-       to the region in the plane that we care about.
-     */
-    
-    var geometry = new THREE.Geometry();
-    var n = opts.samples;
-    var i, j, k, p, x, y, s, t, ds, dt;
-
-    ds = (s1 - s0)/n;
-    dt = (t1 - t0)/n;
-    // Evaluate the function at the sample points to find the vertices.	
-    for(i = 0; i <= n; i++){
-	for(j = 0; j <= n; j++){
-	    s = s0 + i*ds;
-	    t = t0 + j*dt;
-	    p = phi(s, t);
-	    x = p[0];
-	    y = p[1];
-	    geometry.vertices.push(new THREE.Vector3(x, y, f(x, y)));
-	}
-    }
-    
-    // Now add in the triangles.
-    for(i = 0; i < n; i++){
-	for(j = 0; j < n; j++){
-	    k = (n + 1)*j + i;
-	    geometry.faces.push(new THREE.Face3(k, k+1, k + n + 2));
-	    geometry.faces.push(new THREE.Face3(k, k + n + 2, k + n + 1));
-	}
-    }
-    
-    geometry.computeFaceNormals();
-    geometry.computeVertexNormals();
-
-    
-    var transparent = true;
-    if(opts.opacity == 1.0){
-	transparent = false;
-    }
-    var material = new THREE.MeshLambertMaterial({color: 0xEEEEEE,
-						  side: THREE.DoubleSide,
-						  transparent: transparent,
-						  opacity: opts.opacity
-    });
-    return new THREE.Mesh(geometry, material);
-}
-
-
-function plotOverDomainGrid(f, phi, s0, s1, t0, t1, opts){
-    /* 
-       The trick to drawing gridlines so they don't flicker is to push them
-       just off the surface itself.  So that things look good, we have one
-       copy of the gridline above and the other below. 
-     */
-    
-    var ans = new THREE.Group();
-    var topgeom, bottomgeom, material;
-    var n = opts.samples;
-    var eps = opts.gridpushoff;
-    var i, j, p, x, y, z, s, t, ds, dt, m; 
-    material = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
-
-    // First, we draw the gridlines where s is constant.
-
-    m = opts.sGridlines;
-    ds = (s1 - s0)/m;
-    dt = (t1 - t0)/n;
-    for(i = 0; i <=m; i++){
-	topgeom = new THREE.Geometry();
-	bottomgeom = new THREE.Geometry();
-	s = s0 + i*ds;
-	for(j = 0; j <= n; j++){
-	    t = t0 + j*dt;
-	    p = phi(s, t);
-	    x = p[0];
-	    y = p[1];
-	    z = f(x,y);
-	    topgeom.vertices.push(new THREE.Vector3(x, y, z + eps));
-	    bottomgeom.vertices.push(new THREE.Vector3(x, y, z - eps));
-	}
-	ans.add(new THREE.Line(topgeom, material));
-	ans.add(new THREE.Line(bottomgeom, material));
-    }
-
-    // Now those where t is constant.
-
-    m = opts.tGridlines;
-    ds = (s1 - s0)/n;
-    dt = (t1 - t0)/m;
-    for(i = 0; i <=m; i++){
-	topgeom = new THREE.Geometry();
-	bottomgeom = new THREE.Geometry();
-	t = t0 + i*dt;
-	for(j = 0; j <= n; j++){
-	    s = s0 + j*ds;
-	    p = phi(s, t);
-	    x = p[0];
-	    y = p[1];
-	    z = f(x,y);
-	    topgeom.vertices.push(new THREE.Vector3(x, y, z + eps));
-	    bottomgeom.vertices.push(new THREE.Vector3(x, y, z - eps));
-	}
-	ans.add(new THREE.Line(topgeom, material));
-	ans.add(new THREE.Line(bottomgeom, material));
-    }
-    
-    return ans;
-}
 
 /*
 
@@ -543,7 +442,7 @@ function ParametricSurface(phi, normal, s0, s1, t0, t1, samples, epsilon){
      */
     
     this.addCurveTo = function(scene, material, c, x0, x1, epsilon){
-	if(epsilon == undefined){
+	if(epsilon === undefined){
 	    epsilon = 0.01;
 	}
 	var i, p0, p1, v, cval;

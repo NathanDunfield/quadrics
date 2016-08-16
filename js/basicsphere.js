@@ -39,7 +39,7 @@
     }
 
     function setupCamera(){
-	camera.position.set(0, -10, 10);
+	camera.position.set(0, -11, 11);
 	camera.up = new THREE.Vector3(0,0,1);
     }
     
@@ -68,7 +68,7 @@
 	};
 	
 	paramsurface = new ParametricSurface(phi, normal, 0, Math.PI, 0, 2*Math.PI, 50, 0.01);
-	var gridmat = new THREE.LineBasicMaterial({color:0x000000, linewidth: 2});
+	var gridmat = new THREE.LineBasicMaterial({color: 0x444444, linewidth: 1.5});
 	surface = paramsurface.addTo(scene, basicGUI.material(), gridmat, basicGUI.checked(), 10, 6);
 	
 }

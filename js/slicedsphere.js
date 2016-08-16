@@ -1,13 +1,14 @@
 /* Wrapped in an anonymous function call so all variables are local to this file. */
 (function () {
     
-    var scene, camera, animate, parameters, container, paramsurface, values;
+    var scene, camera, container, paramsurface, values;
 
     container = document.getElementById("slicedsphere");
     values = setup3DScene(container);
     scene = values.scene;
     camera = values.camera;
-    animate = values.animate;
+    camera.position.set(0, -11, 11);
+    camera.up = new THREE.Vector3(0,0,1);
 
     var ticks = [-2, 0, 2];
     scene.add(axes(3, ticks, 3, ticks, -3, 3, ticks,
@@ -21,7 +22,7 @@
 				  -3, 3, -3, 3, -3, 3, slice);
 
     drawSphere();
-    animate();
+    values.animate();
 
 
     function slice(c, color)

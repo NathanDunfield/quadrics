@@ -92,7 +92,7 @@ div.threecontainer {
 canvas.threejs {
     /* border: solid #EEE 1px; */
     width: 30em;
-    height: 30em;
+    height: 40em;
     margin: 1em;
     border-radius: 0.5em;
 }
@@ -119,7 +119,12 @@ div.slidergroup {
      margin: 8px;
      display: inline-block;
      vertical-align: middle;
+     width: 23em;
  }
+
+div.threecontrols button{
+    /* Only changed at small sizes */
+}
 
 .noUi-handle{
     background: #CCC;
@@ -131,4 +136,50 @@ div.slidergroup {
 
 .noUi-connect{
     background: #606EB2
+}
+
+/* Some tweaks to make it useable, if not elegant, on smaller devices */
+
+@media screen and (max-device-width: 35em) {
+    div.threecontainer{
+	width: 27em;
+    }
+    canvas.threejs {
+	width: 25em;
+	height: 33.3334em;
+    }
+
+    div.threeslider {
+        width: 19em;
+    }
+
+}
+
+@media screen and (max-device-width: 30em) {
+    div.threecontainer{
+	width: 22em;
+    }
+    canvas.threejs {
+	width: 20em;
+	height: 26.6667em;
+    }
+
+    div.threeslider {
+        width: 14em;
+    }
+
+}
+
+@media screen and (max-device-width: 25em) {
+    div.threecontainer{
+	width: 17em;
+    }
+    canvas.threejs {
+	width: 15em;
+	height: 20em;
+    }
+
+    div.threeslider {
+        width: 9em;
+    }
 }

@@ -70,7 +70,7 @@ function oneAxis(axisMin, axisMax, axisName, ticks, opts)
     }
 
     var name = makeTextSprite(axisName, {fontsize:opts.fontsize, fontstyle:"italic"});
-    name.position.set(0, opts.axisLabelSep, 0);
+    name.position.set((axisMin + axisMax)/2, opts.axisLabelSep, 0);
     ans.add(name);
     return ans;
 }

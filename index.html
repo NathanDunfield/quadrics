@@ -36,104 +36,131 @@
     </nav>
 
     <section>
-
-	<img src="static_images/hyp1sh.gif" title="" alt="Hyperboloid"
-	     style="float: right; min-width: 25%; margin: 1em;">
+	
+	<img src="static_images/hyp1sh.jpg" title="" alt="Hyperboloid"
+	     style="float: right; min-width: 20%; max-width: 15em; margin: 1em;">
   
 	<p>Quadric surfaces are important objects in
 	    Multivariable Calculus and Vector Analysis classes. We like them
 	    because they are natural 3D-extensions of the so-called
-	    <span
-style="font-style: italic;">conics</span> (ellipses, parabolas, and
-	    hyperbolas), and they provide examples of fairly nice surfaces to use
+	    <span style="font-style: italic;">conics</span> (ellipses, parabolas, and
+	    hyperbolas), and they provide fairly nice surfaces to use
 	    as examples for the rest of your class.</p>
 
-<p>The basic quadric surfaces are described by the following
-  equations, where \(A\), \(B\), and \(C\) are
-  constants.</p>
+	<p>The basic quadric surfaces are described by the following
+	    five equations, where \(A\), \(B\), and \(C\) are constants.</p>
 
-  <p>
-  \begin{gather*}
-  z= Ax^2+By^2 \qquad\qquad\qquad z^2=Ax^2+By^2\\
-  \frac{x^2}{A^2}+\frac{y^2}{B^2} - \frac{z^2}{C^2} = 1 \qquad\qquad
-  -\frac{x^2}{A^2}-\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1\\
-  \frac{x^2}{A^2}+\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1 
-  \end{gather*}
-  </p>
+	<div class="eqnbox">
+	    <div class="eqn">\(\displaystyle z = A x^2 + B y^2\)</div>
+	    <div class="eqn">\(\displaystyle z^2 = A x^2+ B y^2\)</div>
+	    <div class="eqn">\(\displaystyle  \frac{x^2}{A^2}+\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1 \)</div>
+	    <div  class="eqn">\(\displaystyle \frac{x^2}{A^2}+\frac{y^2}{B^2} - \frac{z^2}{C^2} = 1 \)</div>
+	    <div class="eqn">\(\displaystyle -\frac{x^2}{A^2}-\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1\)</div>
+	</div>
+    
+	<p>
+	    Rather than memorize the equations, you should learn how
+	    to examine cross sections to figure out what surface a
+	    given equation represents, as I will describe below.
+	</p>
 
-<p>Rather than memorize the equations, you should learn how to <a
-href="cross.html">examine cross sections</a> to figure out what
-surface a given equation represents.</p>
-
-</section>
+    </section>
   
-<section>
-<h2>Using This Gallery</h2>
+    <section>
+	<h2>Using This Gallery</h2>
   
-<p>In this gallery you'll find interactive pictures of the quadric surfaces.  You can see what the cross sections look like, and also see how various coefficients can affect how they look. These pictures all include "sliders," like the following two examples.  The first picture shows a sphere with an adjustable radius; click and drag the blue sliders to change it.  You can rotate the sphere by grabbing and dragging, and also zoom the whole picture in and out. You can also rotate the pictures in 3D and zoom in or out using the scroll wheel on your mouse or equivalent touch motion.</p>
+	<p>
+	    In this gallery you&rsquo;ll find interactive pictures of
+	    the quadric surfaces. You can see what the cross sections look
+	    like, and also see how various coefficients can affect how
+	    they look. These pictures all include &ldquo;sliders&rdquo;,
+	    like the following two examples. The first picture shows a
+	    sphere with an adjustable radius; click and drag the blue
+	    slider to change it. You can rotate the sphere by grabbing
+	    and dragging. You can also zoom in or out using the scroll
+	    wheel on your mouse or equivalent touch motion.
+	</p>
 
-<div class="threecontainer" id="basicsphere">
-    <canvas class="threejs"></canvas>
-    <div class="threecontrols">
-	<div class="slidergroup">
-	    <div class="sliderlabel">
-		radius = 2.3
-	    </div>
-	    <div class="threeslider">
+	<div class="threecontainer" id="basicsphere">
+	    <canvas class="threejs"></canvas>
+	    <div class="threecontrols">
+		<div class="slidergroup">
+		    <div class="sliderlabel">
+			radius = 2.3
+		    </div>
+		    <div class="threeslider">
+		    </div>
+		</div>
+		<div class="slidergroup">
+		    <div class="sliderlabel">
+			Gridlines: <input type="checkbox">
+		    </div>
+		    <div class="sliderlabel">
+			Surface:
+			<select>
+			    <option value="invisible">Invisible</option>
+			    <option value="transparent">Transparent</option>
+			    <option value="solid" selected="selected">Solid</option>
+			</select>
+		    </div>
+		    <div class="sliderlabel">
+			<button>Reset view</button>
+		    </div>
+		</div>
 	    </div>
 	</div>
-	 <div class="slidergroup">
-              <div class="sliderlabel">
-                  Gridlines: <input type="checkbox">
-              </div>
-              <div class="sliderlabel">
-                  Surface:
-                  <select>
-                      <option value="invisible">Invisible</option>
-                      <option value="transparent">Transparent</option>
-                      <option value="solid" selected="selected">Solid</option>
-                  </select>
-              </div>
-              <div class="sliderlabel">
-                  <button>Reset view</button>
-              </div>
-          </div>
-    </div>
-</div>
+
+	<p>At the bottom of the picture there are some additional
+	    controls over how the surface is shown: you can change the
+	    material the sphere is made out of and also show or hide
+	    the gridlines. If you get &ldquo;lost&rdquo; when moving
+	    around, the &ldquo;Reset view&rdquo; button will take you
+	    back to where you started.</p>
 
 
-<p>
-The the second picture shows you the various cross sections of the sphere. Click and drag the blue sliders to adjust the chosen values for \(x\), \(y\), and \(z\).  Once you've gotten the hang of these two demos, you're ready to look at the gallery images. Use the menu at upper left portion of this page to choose which quadric surface you'd like to see.
-</p>
+	<p>
+	    The second picture belows shows you various cross
+	    sections of the sphere, that is, the intersection of the
+	    sphere with a plane parallel to one of the coordinate
+	    planes. The picture initially shows the intersection of
+	    the sphere of radius 2 with the three planes \(x = 1 \),
+	    \(y = 1.4\), and \(z = -1.2\).  
 
-<div class="threecontainer" id="slicedsphere">
-    <canvas class="threejs" ></canvas>
-    <div class="threecontrols">
-	<div class="slidergroup">
-	    <div class="sliderlabel">
-		x = 1.0
-	    </div>
-	    <div class="threeslider">
+	    Click and drag the blue sliders to adjust which plane is
+	    being used to &ldquo;slice&rdquo; the sphere to produce
+	    the cross section; while you are holding the slider, the
+	    plane in question appears.  As with the previous picture,
+	    you can (and should!) rotate and zoom to get a better view. 
+	</p>
+
+	<div class="threecontainer" id="slicedsphere">
+	    <canvas class="threejs" ></canvas>
+	    <div class="threecontrols">
+		<div class="slidergroup">
+		    <div class="sliderlabel">
+			x = 1.0
+		    </div>
+		    <div class="threeslider">
+		    </div>
+		</div>
+		
+		<div class="slidergroup">
+		    <div class="sliderlabel">
+			y = 1.0
+		    </div>
+		    <div class="threeslider">
+		    </div>
+		</div>
+		
+		<div class="slidergroup">
+		    <div class="sliderlabel">
+			z = 1.0
+		    </div>
+		    <div class="threeslider">
+		    </div>
+		</div>
 	    </div>
 	</div>
-	
-	<div class="slidergroup">
-	    <div class="sliderlabel">
-		y = 1.0
-	    </div>
-	    <div class="threeslider">
-	    </div>
-	</div>
-	
-	<div class="slidergroup">
-	    <div class="sliderlabel">
-		z = 1.0
-	    </div>
-	    <div class="threeslider">
-	    </div>
-	</div>
-    </div>
-</div>
 
 </section>
 
@@ -150,11 +177,11 @@ be useful, though, because the gridlines on the surface show you the
 cross sections \(x=c\) and \(y=c\) of the surface.</p>
 
 <center>
-<img src="static_images/parabcirc.png" alt="Paraboloid"
-style="min-width: 20%; margin: 1em">
+<img src="static_images/parabcirc.jpg" alt="Paraboloid"
+style="min-width: 20%; max-width: 15em; margin: 1em">
 
-<img src="static_images/parabsq.png" alt="Paraboloid"
-style="min-width: 20%; margin: 1em">
+<img src="static_images/parabsq.jpg" alt="Paraboloid"
+style="min-width: 20%; max-width: 15em; margin: 1em">
 </center>
 
 <p>
@@ -184,6 +211,9 @@ the quadric surfaces.  On each page you'll be able to adjust the
 coefficients of the equation.  Do this with both domains, and see if
 you can tell that it affects both graphs in the same way.  </p>
 
+Now you're ready to look at the gallery images. Use the menu at the
+top this page to choose which quadric surface you'd like to see!
+
 </section>
 
 <section>
@@ -191,20 +221,26 @@ you can tell that it affects both graphs in the same way.  </p>
 <h2>Technical and Legal Details</h2>
 
 <p>This gallery was written by Jonathan Rogness and first appeared in
-    the <a href="http://www.maa.org/node/115856">2005 volume of the Journal of
-  Online Mathematics</a>.</p>
+    the <a href="http://www.maa.org/node/115856">2005 volume of
+    the Journal of Online Mathematics</a>.</p>
 
 <p>In 2016, <a href="http://dunfield.info">Nathan Dunfield</a> redid
-    the interactive 3D graphics from scratch using <a href=http://threejs.org>three.js</a> instead of
-    <a href="http://wwwvis.informatik.uni-stuttgart.de/~kraus/LiveGraphics3D/index.html">LiveGraphics3D</a>
+    the interactive 3D graphics from scratch using <a href=http://threejs.org>three.js</a>
+    instead of <a href="http://wwwvis.informatik.uni-stuttgart.de/~kraus/LiveGraphics3D/">LiveGraphics3D</a>
     so they work on web browsers that lack Java (which in 2016 is most of them). Dunfield also updated
     the styling to better support phones and smaller tablets, and switched
     to MathJax for displaying the formulas.
 </p>
 
-<p>This material is Copyright 2004-2016 by Jonathan Rogness and Nathan Dunfield, and licensed under the <a
-  href="http://creativecommons.org/licenses/by-nc-sa/1.0">Creative
-  Commons Attribution-NonCommercial-ShareAlike License.</a> </p>
+<p>This material is Copyright 2004-present by Jonathan Rogness and
+    Nathan Dunfield, and is licensed under the
+    <a href="http://creativecommons.org/licenses/by-nc-sa/1.0">Creative
+    Commons Attribution-NonCommercial-ShareAlike License.</a> You can
+    get the full text and code for at its
+    <a href="http://bitbucket.org/nathan_dunfield/quadrics/">Bibucket repository.</a>
+</p>
+
+
 
 </section>
 

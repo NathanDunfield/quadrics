@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <link rel="shortcut icon" href="static_images/favicon.ico" type="image/x-icon" >
+    <title>
+	IGQS: Hyperboloid of One Sheet
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" async
+	    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+    </script>
+    <script src="js/lib/three.min.js"></script>
+    <script src="js/lib/TrackballControls.js"></script>
+    <script src="js/lib/nouislider.min.js"></script>
+    <script src="js/axes.js"></script>
+    <script src="js/core.js"></script>
+    <link rel="stylesheet" href="css/lib/nouislider.min.css" type="text/css" >
+    <link rel="stylesheet" href="css/quadrics.css" type="text/css" >
+</head>
+
+<body>
+ <!-- 
+    <div class="threecontainer" id="hyperfig">
+      <canvas class="threejs" style="height: 60em; width: 60em;"></canvas>
+      <div class="threecontrols">
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  x = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  y = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+	  
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  z = 1.0
+	      </div>
+	      <div class="threeslider">
+	      </div>
+	  </div>
+
+	  <div class="slidergroup">
+	      <div class="sliderlabel">
+		  Gridlines: <input type="checkbox">
+	      </div>
+	      <div class="sliderlabel">
+		  Surface:
+		  <select>
+		      <option value="invisible">Invisible</option>
+		      <option value="transparent" selected="selected">Transparent</option>
+		      <option value="solid">Solid</option>
+		  </select>
+	      </div>
+	      <div class="sliderlabel">
+		  <button>Reset view</button>
+	      </div>
+	  </div>
+      </div>
+    </div>
+    <script src="js/hyperfig.js"></script>
+    -->
+
+    
+  <div class="threecontainer" id="ellfig">
+      <canvas class="threejs"  style="height: 60em; width: 60em;"></canvas>
+	    <div class="slidergroup">
+		<div class="sliderlabel">
+		    Gridlines: <input type="checkbox">
+		</div>
+		<div class="sliderlabel">
+		    Domain:
+		    <select>
+			<option value="square" selected="selected">Square</option>
+			<option value="disk">Disk</option>
+		    </select>
+		</div>
+		<div class="sliderlabel">
+		  <button>Reset view</button>
+	      </div>
+	    </div>
+	</div>
+    </div>
+    <script src="js/parabfig.js"></script>
+
+</div>                                                                    
+</body>
+</html>

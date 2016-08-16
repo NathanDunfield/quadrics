@@ -79,6 +79,15 @@ h2 {
 }
 
 
+div.eqn{
+    margin: 1em;
+    display: inline-block;
+}
+
+div.eqnbox{
+    margin: auto;
+}
+
 /* Styling the 3D manipulation boxes */
 
 div.threecontainer {

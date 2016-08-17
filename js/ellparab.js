@@ -13,6 +13,36 @@
     function createPlotFunction(A, B){
 	return function(x, y){return A*x*x + B*y*y;};
     }
+
+    function createPlotParameterization(A, B){
+	A = Math.max(A, 0.01);
+	B = Math.max(B, 0.01);
+	var xmax, ymax;
+	var zmax = 3.0;
+	var rmax = 3.0;
+	var C = Math.min(A, B);
+	if(zmax <  C*rmax*rmax){
+	    xmax = Math.sqrt(zmax/A);
+	    ymax = Math.sqrt(zmax/B);
+	}
+	else{
+	    xmax = Math.sqrt(C/A)*rmax
+	    ymax = Math.sqrt(C/B)*rmax
+	}
+	
+	var phi = function(s, t){
+	    var x = xmax*s*Math.cos(t);
+	    var y = ymax*s*Math.sin(t);
+	    return new THREE.Vector3(x, y, A*x*x + B*y*y);
+	}
+
+	var normal = function(s, t){
+	    return new THREE.Vector3(0, 0, 1);
+	}
+
+	var param = new ParametricSurface(phi, normal, 0, 1, 0, 2*Math.PI, 60);
+	return param;
+    }
     
     function init()
     {
@@ -41,14 +71,14 @@
 	var sliders = container.getElementsByClassName("slidergroup");
 	Aslider = setupSlider(sliders[0], "A = ",  {
 	    start: 1.0,
-	    range: {"min": 0.0, "max": 3.0},
+	    range: {"min": 0, "max": 3.0},
 	    orientation: "horizontal",
 	    connect: "lower",
 	});
 
 	Bslider = setupSlider(sliders[1], "B = ", {
 	    start: 1.0,
-	    range: {"min": 0.0, "max": 3.0},
+	    range: {"min": 0, "max": 3.0},
 	    orientation: "horizontal",
 	    connect: "lower",
 	});
@@ -68,20 +98,20 @@
 	scene.remove(plot);
 	var A = getSliderValue(Aslider);
 	var B =  getSliderValue(Bslider);
-	var f = createPlotFunction(A, B);
-	var opts = {showgrid: basicGUI.checkbox.checked};
+	var opts = {showgrid: basicGUI.checked()};
 
 	if (basicGUI.menu.value == "square"){
+	    var f = createPlotFunction(A, B);
 	    plot = drawPlotOverSquare(f, opts);
 	}
 	else{
-	    plot = drawPlotOverDisk(f, opts);
+	    plot = new THREE.Group();
+	    var gridmat = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
+	    param = createPlotParameterization(A, B);
+	    param.addTo(plot, basicMaterial(1.0), gridmat, basicGUI.checked(), 6, 6);
 	}
 
 	scene.add(plot);
-	// console.log(camera.position);
-	// console.log(camera.up);
-	
     }
     
 }()); // calling anonymous function. 

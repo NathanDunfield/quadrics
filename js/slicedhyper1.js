@@ -88,7 +88,7 @@
 		return [c, t];
 	    };
 	    if(Math.abs(c) < 1.0){
-		b = Math.sqrt(1 - c*c);
+		var b = Math.sqrt(1 - c*c);
 		paramsurface1.addCurveTo(group, material, curve, -a, -b);
 		paramsurface2.addCurveTo(group, material, curve, -a, -b);
 		paramsurface1.addCurveTo(group, material, curve, b, a);
@@ -111,7 +111,7 @@
 		return [t, c];
 	    };
 	    if(Math.abs(c) < 1.0){
-		b = Math.sqrt(1 - c*c);
+		var b = Math.sqrt(1 - c*c);
 		paramsurface1.addCurveTo(group, material, curve, -a, -b);
 		paramsurface2.addCurveTo(group, material, curve, -a, -b);
 		paramsurface1.addCurveTo(group, material, curve, b, a);

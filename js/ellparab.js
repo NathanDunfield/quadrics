@@ -26,19 +26,19 @@
 	    ymax = Math.sqrt(zmax/B);
 	}
 	else{
-	    xmax = Math.sqrt(C/A)*rmax
-	    ymax = Math.sqrt(C/B)*rmax
+	    xmax = Math.sqrt(C/A)*rmax;
+	    ymax = Math.sqrt(C/B)*rmax;
 	}
 	
 	var phi = function(s, t){
 	    var x = xmax*s*Math.cos(t);
 	    var y = ymax*s*Math.sin(t);
 	    return new THREE.Vector3(x, y, A*x*x + B*y*y);
-	}
+	};
 
 	var normal = function(s, t){
 	    return new THREE.Vector3(0, 0, 1);
-	}
+	};
 
 	var param = new ParametricSurface(phi, normal, 0, 1, 0, 2*Math.PI, 60);
 	return param;
@@ -107,7 +107,7 @@
 	else{
 	    plot = new THREE.Group();
 	    var gridmat = new THREE.LineBasicMaterial({color:0x444444, linewidth: 2});
-	    param = createPlotParameterization(A, B);
+	    var param = createPlotParameterization(A, B);
 	    param.addTo(plot, basicMaterial(1.0), gridmat, basicGUI.checked(), 6, 6);
 	}
 

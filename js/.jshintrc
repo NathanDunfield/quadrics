@@ -2,6 +2,7 @@
   "undef": true,
   "predef": [ "THREE", "document", "noUiSlider", "requestAnimationFrame",
     	    "setup3DScene", "fancyLighting", "BasicGUI", "setupSlider", "axes",
-	    "getSliderValue", "ParametricSurface", "QuadricSlice", "circleGeometry",
-	    "drawPlotOverSquare", "drawPlotOverDisk"]
+	    "getSliderValue", "ParametricSurface", "QuadricSlice",
+	    "circleGeometry", "drawPlotOverSquare", "drawPlotOverDisk",
+	    "basicMaterial"]
 }

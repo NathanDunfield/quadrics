@@ -38,27 +38,28 @@
 
 <section>
   <p>
-  <b>Equation:</b>
-  $$-\frac{x^2}{A^2}-\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1$$
+      The basic <b>hyperboloid of two sheets</b> is given by the equation
 
-  The hyperboloid of two sheets looks an awful lot like two
-  (elliptic) paraboloids facing each other.  It's a complicated
-  surface, mainly because it comes in two pieces.  All of its vertical
-  cross sections exist -- and are hyperbolas -- but there's a problem
-  with the horizontal cross sections.</p>
+      $$-\frac{x^2}{A^2}-\frac{y^2}{B^2} + \frac{z^2}{C^2} = 1$$
+
+      The hyperboloid of two sheets looks an awful lot like two
+      (elliptic) paraboloids facing each other.  It&rsquo;s a complicated
+      surface, mainly because it comes in two pieces.  All of its vertical
+      cross sections exist &mdash; and are hyperbolas &mdash; but
+      there&rsquo;s a problem with the horizontal cross sections.</p>
 
   <p>This is evident in the picture below, where you can see the 
-  cross sections of
+      cross sections of
 
-  $$-x^2 - y^2 + z^2 = 1$$
+      $$-x^2 - y^2 + z^2 = 1$$
 
-  The horizontal cross sections are generally ellipses, except that
-  there <i>are</i> no horizontal cross sections when \(z\) is
-  between \(-1\) and \(1\).  To see why this happens, look
-  at the equation above.  Suppose \(z=0\).  Then the left hand
-  side is definitely negative, but the right hand side is definitely
-  positive.  There's no way to fix this, so the cross section simply
-  doesn't exist!</p>
+      The horizontal cross sections are generally circles, except that
+      there <i>are</i> no horizontal cross sections when \(z\) is
+      between \(-1\) and \(1\).  To see why this happens, look
+      at the equation above.  Suppose \(z=0\).  Then the left hand
+      side is definitely negative, but the right hand side is definitely
+      positive.  There&rsquo;s no way to fix this, so the cross section simply
+      doesn&rsquo;t exist!</p>
 
   <div class="threecontainer" id="slicedhyper2">
       <canvas class="threejs"></canvas>
@@ -106,24 +107,24 @@
       </div>
   </div>
 
-  <p>Here's a hint about telling the two kinds of hyperboloids apart:
+  <p>Here&rsquo;s a hint about telling the two kinds of hyperboloids apart:
   look at the cross sections \(x=0\), \(y=0\), and
-  \(z=0\).  If they exist, then it's a hyperboloid of one sheet.
+  \(z=0\).  If they exist, then it&rsquo;s a hyperboloid of one sheet.
   (Go back to that page and convince yourself that its cross sections
   all exist.)  If you end up with something negative equal to
-  something positive, then you've got a two-sheeter.
+  something positive, then you&rsquo;ve got a two-sheeter.
 </section>
 
 <section>
     <div class="threecontainer" id="hyper2">
-      <canvas class="threejs" style="height: 40em"></canvas>
+      <canvas class="threejs"></canvas>
 	<div class="threecontrols">
 	    <!-- A slider -->
 	    <div class="slidergroup">
 		<div class="sliderlabel">
 		    A = 1.0
 		</div>
-		<div class="threeslider" style="width: 25em;">
+		<div class="threeslider">
 		</div>
 	    </div>
 
@@ -133,7 +134,7 @@
 		<div class="sliderlabel">
 		    B = 1.0
 		</div>
-		<div class="threeslider" style="width: 25em;">
+		<div class="threeslider">
 		</div>
 	    </div>
 
@@ -142,7 +143,7 @@
 		<div class="sliderlabel">
 		    C = 1.0
 		</div>
-		<div class="threeslider" style="width: 25em;">
+		<div class="threeslider">
 		</div>
 	    </div>
 	    
@@ -167,18 +168,25 @@
     </div>
     
   <p>By now you probably expect that larger values of \(A\),
-  \(B\), and \(C\) make for a much steeper surface, right?
-  Wrong!  It's true that making \(C\) larger will have a dramatic
-  effect on the surface, but use the second picture to find out what
-  happens when you increase \(A\) and \(B\).  Surprised?
-
+      \(B\), and \(C\) make for a much steeper surface, right?
+      Wrong!  It&rsquo;s true that making \(C\) larger will have a dramatic
+      effect on the surface, but use the second picture to find out what
+      happens when you increase \(A\) and \(B\).  Surprised?</p>
+  
   <ol>
-    <li>Go back to the equation and figure out why larger values of
-    \(A\) and \(B\) make the hyperboloid flatter, not
-    steeper.</li>
-
-    <li>Does there always need to be a gap between the two sheets, or
-    could they touch?</li> </ol>
+      <li>Go back to the equation and figure out why larger values of
+	  \(A\) and \(B\) make the hyperboloid flatter, not
+	  steeper.</li>
+      
+      <li>Does there always need to be a gap between the two sheets, or
+	  could they touch?</li> 
+  
+      <li>Fix that \(A = B = C\) and suppose we make \(A\) very small.
+	  What other quadric surface is very similar to the resulting
+	  picture? Is it reasonable to say that the this family of
+	  hyperboloids &ldquo;limit&rdquo; to the other surface? Is
+	  there a way to justify this algebraically? </li>
+  </ol>
 
 </section>
 <script src="js/slicedhyper2.js"></script>

@@ -44,7 +44,7 @@
     Cslider.noUiSlider.on("update", drawSurface);
     
     // Axes
-    var ticks = [-4, -2, -1, 0, 2, 4];
+    var ticks = [-4, -2, 0, 2, 4];
     var ax = axes(4.5, ticks, 4.5, ticks, -4.5, 4.5, ticks,
 		  {tickLen: 0.2, tickLabelSep: 0.4, axisLabelSep: 0.8,
 		   fontsize: 24, linewidth: 1});
@@ -79,7 +79,7 @@
     values.animate();
 
     function setCamera(){
-	var s = 0.9;
+	var s = 1.3;
 	camera.position.set(s*9.4, -s*14.1, s*10.8);
 	camera.up = new THREE.Vector3(0,0,1);
     }

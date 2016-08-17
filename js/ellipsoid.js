@@ -78,7 +78,7 @@
     values.animate();
 
     function setCamera(){
-	var s = 0.9;
+	var s = 0.83;
 	camera.position.set(s*9.4, -s*14.1, s*10.8);
 	camera.up = new THREE.Vector3(0,0,1);
     }

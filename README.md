@@ -33,4 +33,4 @@ licensed under the
 [MathJax]: https://www.mathjax.org/
 [Nathan Dunfield]: http://dunfield.info
 [CC]: http://creativecommons.org/licenses/by-nc-sa/1.0
-[zipfile]: https://bitbucket.org/nathan_dunfield/quadrics/downloads
+[zipfile]: https://github.com/NathanDunfield/quadrics/archive/master.zip

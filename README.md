@@ -12,7 +12,8 @@ that lack Java (which in 2016 is most of them). Dunfield also updated
 the styling to better support phones and smaller tablets, and switched
 to [MathJax] for displaying the formulas.
 
-You can view the current version at <http://dunfield.info/quadrics>.
+You can view the current version at
+<https://nathandunfield.github.io/quadrics/>.
 
 Installation 
 ------------
